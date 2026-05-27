@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@gsap/react": "latest",
-    "@next/swc-win32-x64-msvc": "latest",
     "@radix-ui/react-slot": "latest",
     "class-variance-authority": "latest",
     "clsx": "latest",
