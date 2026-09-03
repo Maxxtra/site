@@ -8,7 +8,7 @@ import { getPhoto } from '@/lib/photos';
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'About Costin-Alexandru Deonise — background, education, and contact details, with a downloadable CV.',
+    'About Costin-Alexandru Deonise: background, education, and contact details, with a downloadable CV.',
 };
 
 const links = [
@@ -22,6 +22,7 @@ const links = [
 export default function AboutPage() {
   const portrait = getPhoto('costin-portrait');
   const graduation = getPhoto('graduation-diploma');
+  const capri = getPhoto('costin-capri');
 
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
@@ -49,6 +50,17 @@ export default function AboutPage() {
                 />
               </div>
             )}
+            {capri && (
+              <div className="mt-4 aspect-square w-full max-w-[7.5rem] overflow-hidden border border-border opacity-90">
+                <Image
+                  src={capri.src}
+                  alt={capri.alt}
+                  width={300}
+                  height={300}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            )}
           </div>
 
           <div className="space-y-6 text-base leading-8 text-foreground/85 md:text-lg">
@@ -60,9 +72,9 @@ export default function AboutPage() {
             </p>
             <p>
               My research spans scalable automatic differentiation, privacy-preserving machine learning, and LLM
-              systems for structured language understanding — work built across roles at the Research Institute
-              and Bitdefender, and published across six peer-reviewed papers. In 2025 I attended the
-              Oxford Machine Learning School at the University of Oxford.
+              systems for structured language understanding. That work spans roles at the Research Institute and
+              Bitdefender, and is published across six peer-reviewed papers. In 2025 I attended the Oxford
+              Machine Learning School at the University of Oxford.
             </p>
 
             {graduation && (
@@ -84,8 +96,8 @@ export default function AboutPage() {
 
             <p>
               In 2026 I served as national team coach for Romania&rsquo;s delegation to the International
-              Olympiad in Artificial Intelligence, which placed 4th worldwide with 8/8 medals — the country&rsquo;s
-              best result in the competition&rsquo;s history. I also mentor Team AlphaZ, a rookie FIRST Robotics
+              Olympiad in Artificial Intelligence, which placed 4th worldwide with 8/8 medals, the
+              country&rsquo;s best result in the competition&rsquo;s history. I also mentor Team AlphaZ, a rookie FIRST Robotics
               Competition team that became the first Romanian team to win an award at a FIRST World Championship
               event.
             </p>

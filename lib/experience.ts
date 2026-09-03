@@ -54,7 +54,7 @@ export const experience: ExperienceEntry[] = [
     start: 'Jul 2023',
     end: 'Sep 2024',
     bullets: [
-      'Processed 49k+ sales calls and increased review throughput 3× (40 to 120 calls/day) with a production pipeline for speaker diarization, STT, and automated sentiment/speaker tagging — cutting manual QA effort from 120h/month to 5h/month.',
+      'Processed 49k+ sales calls and increased review throughput 3× (40 to 120 calls/day) with a production pipeline for speaker diarization, STT, and automated sentiment/speaker tagging, cutting manual QA effort from 120h/month to 5h/month.',
       'Built a Reddit scraper and LLM-driven pipeline (embeddings, K-means, summarization) that clustered 7k product feedback snippets, improving classification precision from 70% to 97%.',
     ],
   },

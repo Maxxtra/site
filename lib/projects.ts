@@ -48,7 +48,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'atlasrag',
-    title: 'AtlasRAG — Multimodal Retrieval-Augmented Reasoning System',
+    title: 'AtlasRAG · Multimodal Retrieval-Augmented Reasoning System',
     period: 'Aug 2025',
     summary:
       'A multimodal RAG framework fusing LLaMA 3.2-70B and Mistral-v0.3 with knowledge-graph grounding and hybrid retrieval, built to cut hallucination and latency.',
@@ -61,15 +61,15 @@ export const projects: Project[] = [
   },
   {
     slug: 'alphaz-frc',
-    title: 'AlphaZ — FIRST Robotics Competition, Team #11141',
+    title: 'AlphaZ · FIRST Robotics Competition, Team #11141',
     period: '2026',
     summary:
-      "Lead mentor for a rookie FIRST Robotics Competition team, from turret targeting software to a World Championship award — the team's first for a Romanian FRC squad.",
+      "Lead mentor for a rookie FIRST Robotics Competition team, from turret targeting software to a World Championship award, the team's first for a Romanian FRC squad.",
     bullets: [
       'Developed a ballistic targeting system for turret control using projectile-motion equations and dynamic distance estimation, achieving <5% targeting error.',
       'Implemented autonomous detection, alignment, and firing routines, removing manual intervention during match operation.',
       'Trained and deployed a YOLO-based computer vision model for real-time object detection at 90% precision.',
-      'Won Rookie All-Star (Ankara Regional), Quality Award (Başkent Regional), and Rookie All-Star at the 2026 FIRST Championship (Daly Division, Houston) — the first Romanian team to win an award at a FIRST World Championship event.',
+      'Won Rookie All-Star (Ankara Regional), Quality Award (Başkent Regional), and Rookie All-Star at the 2026 FIRST Championship (Daly Division, Houston), the first Romanian team to win an award at a FIRST World Championship event.',
     ],
     stack: ['Java/WPILib', 'Computer Vision (YOLO)', 'Embedded Systems'],
     photoId: 'alphaz-trophy',

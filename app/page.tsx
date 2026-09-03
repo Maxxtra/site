@@ -104,7 +104,7 @@ const directionPages = [
 const principles = [
   {
     title: 'Rigor before scale',
-    body: 'Correctness and reproducibility come first — scaling a wrong result just gets there faster.',
+    body: 'Correctness and reproducibility come first. Scaling a wrong result just gets there faster.',
   },
   {
     title: 'Publish, then apply',
@@ -119,6 +119,7 @@ const principles = [
 export default function Home() {
   const featuredPublications = publications.filter((p) => p.highlight);
   const trajectoryPhoto = getPhoto('ioai-astana-2026-team');
+  const portrait = getPhoto('costin-portrait');
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -131,7 +132,7 @@ export default function Home() {
         className="bg-black px-6 pt-36 pb-24 text-white md:px-10 lg:px-16"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.82fr_1fr] lg:items-end">
+          <div className="grid gap-10 lg:grid-cols-[0.7fr_0.85fr_0.45fr] lg:items-end">
             <div>
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-white/75">
                 {siteConfig.tagline}
@@ -161,6 +162,18 @@ export default function Home() {
                 ))}
               </div>
             </div>
+            {portrait && (
+              <div className="hidden aspect-square w-full overflow-hidden border border-white/15 lg:block">
+                <Image
+                  src={portrait.src}
+                  alt={portrait.alt}
+                  width={800}
+                  height={800}
+                  className="h-full w-full object-cover"
+                  priority
+                />
+              </div>
+            )}
           </div>
 
           <div className="mt-16 grid grid-cols-1 divide-x divide-y divide-dashed divide-white/15 border border-dashed border-white/20 bg-white/[0.03] sm:grid-cols-2 lg:grid-cols-3">
@@ -312,7 +325,7 @@ export default function Home() {
             <hr className="my-[2vw] border-none border-t border-white/25" />
             <p className="mt-auto max-w-[58ch] text-[clamp(1rem,2.2vw,1.8rem)] leading-relaxed text-white/75">
               From distributed high-order differentiation on multi-GPU clusters to privacy-preserving
-              inference — published, peer-reviewed research, not slideware.
+              inference: published, peer-reviewed research, not slideware.
             </p>
           </FlowSection>
 
@@ -338,7 +351,7 @@ export default function Home() {
                 Built production RAG, knowledge-graph extraction, and speech pipelines at the Research Institute and Bitdefender.
               </p>
               <p className="leading-7 text-white/70">
-                Built AlgoTrack end to end — a tutoring platform deployed and in daily use.
+                Built AlgoTrack end to end, a tutoring platform deployed and in daily use.
               </p>
             </div>
           </FlowSection>

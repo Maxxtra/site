@@ -23,8 +23,8 @@ export default function ResearchPage() {
         </h1>
         <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
           Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering at
-          the Research Institute, and production ML at Bitdefender — four directions, spanning
-          published results and ongoing work.
+          the Research Institute, and production ML at Bitdefender. Four directions, spanning published
+          results and ongoing work.
         </p>
 
         <div className="mt-16 space-y-20">

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
 import { teaching } from '@/lib/teaching';
 import { getPhoto } from '@/lib/photos';
@@ -27,7 +28,7 @@ export default function TeachingPage() {
         </h1>
         <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
           1000+ students taught at POLITEHNICA Bucharest, and national-level mentorship through Romania&rsquo;s
-          AI Olympiad program — from coaching the IOAI delegation to designing competition tasks.
+          AI Olympiad program, from coaching the IOAI delegation to designing competition tasks.
         </p>
 
         {heroPhoto && (
@@ -64,6 +65,17 @@ export default function TeachingPage() {
                       <h2 className="mt-3 text-xl font-black uppercase leading-tight tracking-normal">{role.role}</h2>
                       <p className="mt-1 text-sm font-medium text-muted-foreground">{role.org}</p>
                       <p className="mt-4 text-sm leading-7 text-foreground/80">{role.description}</p>
+                      {role.certificateImage && (
+                        <a
+                          href={role.certificateImage}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-primary hover:underline"
+                        >
+                          View certificate
+                          <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                        </a>
+                      )}
                     </div>
                   </article>
                 );
@@ -98,7 +110,34 @@ export default function TeachingPage() {
                   <p className="text-xs text-muted-foreground">{role.org}</p>
                 </div>
                 <div className="flex items-start justify-between gap-4">
-                  <p className="text-sm leading-6 text-foreground/75">{role.description}</p>
+                  <div>
+                    <p className="text-sm leading-6 text-foreground/75">{role.description}</p>
+                    <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+                      {role.certificateImage && (
+                        <a
+                          href={role.certificateImage}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-primary hover:underline"
+                        >
+                          View certificate
+                          <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                        </a>
+                      )}
+                      {role.links?.map((link) => (
+                        <a
+                          key={link.href}
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.1em] text-foreground/70 hover:text-primary hover:underline"
+                        >
+                          {link.label}
+                          <ExternalLink className="h-3 w-3" aria-hidden="true" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                   <span className="shrink-0 text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground">
                     {role.period}
                   </span>

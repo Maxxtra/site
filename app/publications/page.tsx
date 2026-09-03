@@ -24,7 +24,7 @@ export default function PublicationsPage() {
         </h1>
         <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
           Six publications spanning scalable automatic differentiation, privacy-preserving machine learning,
-          LLM-based language systems, and speech processing — listed newest first.
+          LLM-based language systems, and speech processing, listed newest first.
         </p>
 
         <ol className="mt-16 divide-y divide-dashed divide-border border-y border-dashed border-border">

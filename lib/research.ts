@@ -36,7 +36,7 @@ export const researchDirections: ResearchDirection[] = [
     problem:
       'Running ML inference on sensitive data (health, finance, government) typically requires exposing plaintext data to the model host, creating a privacy and compliance liability.',
     approach:
-      'Studied homomorphic encryption schemes for ML inference — encrypting inputs so a model can compute on them without ever decrypting the underlying data.',
+      'Studied homomorphic encryption schemes for ML inference, encrypting inputs so a model can compute on them without ever decrypting the underlying data.',
     result:
       'Published findings on the accuracy/latency trade-offs of homomorphic-encryption-based inference in the Annals of the Academy of Romanian Scientists (2025).',
     relatedPublications: ['homomorphic-encryption-privacy-preserving-ml'],
@@ -47,7 +47,7 @@ export const researchDirections: ResearchDirection[] = [
     status: 'ongoing',
     period: '2024 – Present',
     problem:
-      'Turning unstructured or spoken language — meeting audio, documents, natural-language queries — into structured, queryable, trustworthy information is still brittle, especially under constrained (non-frontier) open-weight models.',
+      'Turning unstructured or spoken language (meeting audio, documents, natural-language queries) into structured, queryable, trustworthy information is still brittle, especially under constrained (non-frontier) open-weight models.',
     approach:
       'At the Research Institute, built LLM-based knowledge-graph extraction pipelines (NER, relation extraction, structured prompting), RAG pipelines for domain-specific QA, and natural-language-to-structured-query systems. Separately, built a speaker-attributed meeting-transcription refinement pipeline combining diarization, ASR, and constrained open-weight LLMs.',
     result:

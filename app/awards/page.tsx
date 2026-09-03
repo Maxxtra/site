@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import { FileText } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { VideoPlayer } from '@/components/ui/video-player';
 import {
   featuredAwards,
   scssPlacements,
@@ -15,12 +17,27 @@ export const metadata: Metadata = {
     'Scholarships, research paper awards, and competition results for Costin-Alexandru Deonise, including the Adobe Systems Romania Scholarship and Best Scientific Paper Award at POLITEHNICA Bucharest.',
 };
 
+function CertificateLink({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-foreground/70 transition-colors hover:text-primary"
+    >
+      <FileText className="h-3.5 w-3.5" aria-hidden="true" />
+      View certificate
+    </a>
+  );
+}
+
 function AwardRow({ award }: { award: Award }) {
   return (
     <div className="flex items-start justify-between gap-6 py-4">
       <div>
         <p className="text-sm font-semibold leading-6 text-foreground/90">{award.title}</p>
         {award.org && <p className="text-xs text-muted-foreground">{award.org}</p>}
+        {award.certificateImage && <CertificateLink href={award.certificateImage} />}
       </div>
       <span className="shrink-0 text-xs font-bold uppercase tracking-[0.1em] text-muted-foreground">
         {award.year}
@@ -50,8 +67,29 @@ export default function AwardsPage() {
               {award.description && (
                 <p className="mt-3 text-sm leading-6 text-foreground/75">{award.description}</p>
               )}
+              {award.certificateImage && <CertificateLink href={award.certificateImage} />}
             </article>
           ))}
+        </div>
+
+        <div data-toc data-toc-depth="2" data-toc-title="Award announcement" className="mt-16">
+          <h2 className="text-2xl font-black uppercase tracking-normal">Award announcement</h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+            Footage from the on-stage announcement of the Best Scientific Paper and Most Impactful Paper awards
+            at the POLITEHNICA Bucharest Students&rsquo; Scientific Communications Session, 2025.
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <VideoPlayer
+              src="/media/video/scss-2025-award-announcement-1.mp4"
+              poster="/media/video/scss-2025-award-announcement-1-poster.jpg"
+              caption="Award announcement, SCSS 2025, POLITEHNICA Bucharest"
+            />
+            <VideoPlayer
+              src="/media/video/scss-2025-award-announcement-2.mp4"
+              poster="/media/video/scss-2025-award-announcement-2-poster.jpg"
+              caption="Award announcement, SCSS 2025, POLITEHNICA Bucharest"
+            />
+          </div>
         </div>
 
         <div data-toc data-toc-depth="2" data-toc-title="Robotics" className="mt-16">
@@ -64,6 +102,7 @@ export default function AwardsPage() {
                 {award.description && (
                   <p className="mt-2 text-xs leading-5 text-muted-foreground">{award.description}</p>
                 )}
+                {award.certificateImage && <CertificateLink href={award.certificateImage} />}
               </article>
             ))}
           </div>

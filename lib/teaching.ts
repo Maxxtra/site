@@ -7,6 +7,10 @@ export type TeachingEntry = {
   highlight?: boolean;
   /** Optional id into lib/photos.ts for an editorial image on this role. */
   photoId?: string;
+  /** Optional path under /media/... to a certificate/diploma image. */
+  certificateImage?: string;
+  /** Optional additional evidence links (e.g. an authored problem on a platform). */
+  links?: { label: string; href: string }[];
 };
 
 export const teaching: TeachingEntry[] = [
@@ -16,9 +20,10 @@ export const teaching: TeachingEntry[] = [
     org: 'International Olympiad in Artificial Intelligence (IOAI)',
     period: '2026',
     description:
-      "Trained and prepared Romania's national team through technical workshops and competition-focused sessions on LLMs, NLP, embeddings, model evaluation, and adversarial ML. The delegation achieved 8/8 medals (3 Gold, 2 Silver, 3 Bronze) and placed 4th worldwide at IOAI 2026 in Astana — the country's best result in the competition's history.",
+      "Trained and prepared Romania's national team through technical workshops and competition-focused sessions on LLMs, NLP, embeddings, model evaluation, and adversarial ML. The delegation achieved 8/8 medals (3 Gold, 2 Silver, 3 Bronze) and placed 4th worldwide at IOAI 2026 in Astana, the country's best result in the competition's history. Official IOAI accreditation lists the role as Observer.",
     highlight: true,
     photoId: 'onia-national-camp-timisoara-1',
+    certificateImage: '/media/olympiads/ioai-2026-observer-certificate.jpg',
   },
   {
     slug: 'upb-associate-lecturer',
@@ -44,24 +49,50 @@ export const teaching: TeachingEntry[] = [
     org: 'FIRST Robotics Competition',
     period: '2026',
     description:
-      "Mentored Team AlphaZ through its rookie FIRST Robotics Competition season — software, robot strategy, outreach, and public relations. The team won the Rookie All-Star Award at the Ankara Regional, the Quality Award at the Başkent Regional, and the Rookie All-Star Award at the 2026 FIRST Championship (Daly Division, Houston) — the first Romanian team to win an award at a FIRST World Championship event.",
+      "Mentored Team AlphaZ through its rookie FIRST Robotics Competition season: software, robot strategy, outreach, and public relations. The team won the Rookie All-Star Award at the Ankara Regional, the Quality Award at the Başkent Regional, and the Rookie All-Star Award at the 2026 FIRST Championship (Daly Division, Houston), the first Romanian team to win an award at a FIRST World Championship event.",
     highlight: true,
     photoId: 'alphaz-trophy',
   },
   {
     slug: 'onia-scientific-committee',
-    role: 'Scientific Committee Member',
-    org: 'National Artificial Intelligence Olympiad (ONIA)',
-    period: '2025, 2026',
-    description: 'Developed AI tasks and judging criteria for national-level competition rounds.',
+    role: 'Central Committee Member',
+    org: 'National Artificial Intelligence Olympiad (ONIA), national stage',
+    period: '17–20 Apr 2026',
+    description:
+      'Developed AI tasks and judging criteria for the national round.',
+    certificateImage: '/media/olympiads/onia-2026-committee-diploma.jpg',
   },
   {
     slug: 'ioai-selection-committee',
-    role: 'Organizing Committee Member',
+    role: 'Committee Member, Extended Team Selection & Training Camp',
     org: 'National Team Selection for the International Artificial Intelligence Olympiad',
-    period: '2025, 2026',
+    period: '21–25 May 2026, Timișoara',
     description:
-      'Tested 5+ qualification problems, ensuring correctness and appropriate difficulty calibration for international-level selection rounds.',
+      'Authored "Arhiva contradicțiilor" ("Archive of Contradictions"), one of six official tasks for Romania\'s IOAI selection rounds. Also helped run the national team training camp in Timișoara, presenting "Contemporary Methods in Artificial Intelligence Systems," and tested qualification problems for correctness and difficulty calibration.',
+    certificateImage: '/media/olympiads/onia-timisoara-camp-diploma.jpg',
+    links: [
+      { label: 'View authored problem', href: 'https://platform.olimpiada-ai.ro/ro/problems/276' },
+      { label: 'View training materials', href: 'https://platform.olimpiada-ai.ro/ro/roadmap/practical-exercises' },
+    ],
+  },
+  {
+    slug: 'ioai-restricted-team-training',
+    role: 'Trainer, Restricted Team Training',
+    org: 'International Artificial Intelligence Olympiad, Romanian Delegation',
+    period: '5–7 Jun 2026',
+    description:
+      'Presented "IOAI Survival Kit," a session on approaching unfamiliar ML tasks (baselines, feature engineering, embeddings, pretrained models, rapid validation), and co-ran an NLP pipeline engineering workshop for the restricted team.',
+    links: [
+      { label: 'View training materials', href: 'https://platform.olimpiada-ai.ro/ro/roadmap/practical-exercises2' },
+    ],
+  },
+  {
+    slug: 'infoed-digital-innovation-committee',
+    role: 'Central Committee Member',
+    org: 'National Olympiad of Digital Innovation and Creation (InfoEd), national stage',
+    period: '28–31 Jul 2026, Focșani',
+    description: 'Served on the Central Committee for the national stage of the competition.',
+    certificateImage: '/media/olympiads/infoed-2026-committee-diploma.jpg',
   },
   {
     slug: 'cybersecurity-olympiad-committee',

@@ -1,4 +1,4 @@
-export type PhotoCategory = 'olympiads' | 'robotics' | 'university' | 'research' | 'portraits';
+export type PhotoCategory = 'olympiads' | 'robotics' | 'university' | 'research' | 'portraits' | 'awards';
 
 export type Photo = {
   id: string;
@@ -13,14 +13,14 @@ export type Photo = {
   verified: boolean;
 };
 
-// Real, supplied photographs only — no stock imagery. Captions are read directly
+// Real, supplied photographs only · no stock imagery. Captions are read directly
 // off visible banners/slides where possible; otherwise kept neutral until confirmed.
 export const photos: Photo[] = [
   {
     id: 'ioai-astana-2026-team',
     src: '/media/olympiads/ioai-astana-2026-team.jpg',
     alt: "Team Romania at IOAI Astana 2026, holding the Romanian flag, wearing medals",
-    caption: 'Team Romania, International Olympiad in AI — Astana, 2026',
+    caption: 'Team Romania, International Olympiad in AI · Astana, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'landscape',
@@ -31,7 +31,7 @@ export const photos: Photo[] = [
     id: 'onia-national-camp-timisoara-1',
     src: '/media/olympiads/onia-national-camp-timisoara-1.jpg',
     alt: 'Presenting "Contemporary Methods in Artificial Intelligence Systems" at the National Team Camp',
-    caption: 'National Team Camp, Timișoara — 2026',
+    caption: 'National Team Camp, Timișoara · 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'portrait',
@@ -42,7 +42,7 @@ export const photos: Photo[] = [
     id: 'onia-national-camp-timisoara-2',
     src: '/media/olympiads/onia-national-camp-timisoara-2.jpg',
     alt: 'Presenting "NLP Fundamentals" at the National Team Camp',
-    caption: 'National Team Camp, Timișoara — 2026',
+    caption: 'National Team Camp, Timișoara · 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'portrait',
@@ -54,7 +54,7 @@ export const photos: Photo[] = [
     // Ankara Regional per the account holder; award independently verified via the
     // official FIRST Inspires results page (frc-events.firstinspires.org/2026/tuak/awards).
     alt: 'Holding the Rookie All-Star award and trophy behind Team AlphaZ robot #11141, draped in the Romanian flag',
-    caption: 'Team AlphaZ — Ankara Regional, FIRST Robotics Competition, 2026 (Rookie All-Star Award)',
+    caption: 'Team AlphaZ · Ankara Regional, FIRST Robotics Competition, 2026 (Rookie All-Star Award)',
     date: '2026',
     category: 'robotics',
     orientation: 'portrait',
@@ -65,7 +65,7 @@ export const photos: Photo[] = [
     id: 'graduation-diploma',
     src: '/media/university/graduation-diploma.jpg',
     alt: 'Receiving a diploma on stage, wearing a Faculty of Automatic Control and Computers graduation sash',
-    caption: 'Graduation, Faculty of Automatic Control and Computers — Class of 2024',
+    caption: 'Graduation, Faculty of Automatic Control and Computers · Class of 2024',
     date: '2024',
     category: 'university',
     orientation: 'landscape',
@@ -85,7 +85,7 @@ export const photos: Photo[] = [
   {
     id: 'conference-session',
     src: '/media/research/conference-session.jpg',
-    // Specific event/venue not confirmed by the account holder — kept intentionally
+    // Specific event/venue not confirmed by the account holder · kept intentionally
     // neutral. Update this one field once the event is identified; nothing else
     // needs to change.
     alt: 'Speaking with a microphone during a technical session',
@@ -101,6 +101,74 @@ export const photos: Photo[] = [
     caption: 'Costin-Alexandru Deonise',
     category: 'portraits',
     orientation: 'square',
+    verified: true,
+  },
+  {
+    id: 'costin-capri',
+    src: '/media/portraits/costin-capri.jpg',
+    alt: 'Walking along the harbor in Capri, Italy',
+    caption: 'Capri, Italy',
+    category: 'portraits',
+    orientation: 'square',
+    verified: true,
+  },
+  {
+    id: 'ioai-2026-observer-certificate',
+    src: '/media/olympiads/ioai-2026-observer-certificate.jpg',
+    alt: 'IOAI Astana 2026 Certificate of Participation, listing Costin-Alexandru Deonise as an Observer for Romania',
+    caption: 'Certificate of Participation · IOAI 2026, Astana, Kazakhstan',
+    date: '2026',
+    category: 'olympiads',
+    orientation: 'landscape',
+    verified: true,
+  },
+  {
+    id: 'onia-2026-committee-diploma',
+    src: '/media/olympiads/onia-2026-committee-diploma.jpg',
+    alt: 'ONIA diploma recognizing committee contribution to the national stage, 17–20 April 2026',
+    caption: 'National AI Olympiad (ONIA) · Central Committee, national stage, 17–20 April 2026',
+    date: '2026',
+    category: 'olympiads',
+    orientation: 'landscape',
+    verified: true,
+  },
+  {
+    id: 'onia-timisoara-camp-diploma',
+    src: '/media/olympiads/onia-timisoara-camp-diploma.jpg',
+    alt: 'ONIA diploma recognizing committee contribution to the extended national-team camp in Timișoara, 21–25 May 2026',
+    caption: 'National AI Olympiad (ONIA) · extended team selection & training camp, Timișoara, 21–25 May 2026',
+    date: '2026',
+    category: 'olympiads',
+    orientation: 'landscape',
+    verified: true,
+  },
+  {
+    id: 'infoed-2026-committee-diploma',
+    src: '/media/olympiads/infoed-2026-committee-diploma.jpg',
+    alt: 'Diploma recognizing Central Committee membership at the Digital Innovation and Creation Olympiad national stage, Focșani, 28–31 July 2026',
+    caption: 'Digital Innovation and Creation Olympiad (InfoEd) · Central Committee, national stage, Focșani, 28–31 July 2026',
+    date: '2026',
+    category: 'olympiads',
+    orientation: 'landscape',
+    verified: true,
+  },
+  {
+    id: 'onia-problem-276',
+    src: '/media/olympiads/onia-problem-276-arhiva-contradictiilor.jpg',
+    alt: 'ONIA competition platform page for problem 276, "Arhiva contradicțiilor," authored by Costin-Alexandru Deonise',
+    caption: 'Authored competition problem · National AI Olympiad platform',
+    category: 'olympiads',
+    orientation: 'landscape',
+    verified: true,
+  },
+  {
+    id: 'neurips-2023-certificate',
+    src: '/media/research/neurips-2023-certificate.jpg',
+    alt: 'NeurIPS 2023 Certificate of Attendance for Costin-Alexandru Deonise, New Orleans',
+    caption: 'Certificate of Attendance · NeurIPS 2023, New Orleans',
+    date: '2023',
+    category: 'research',
+    orientation: 'landscape',
     verified: true,
   },
 ];
