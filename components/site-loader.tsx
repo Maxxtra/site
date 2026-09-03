@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
 
 const stickers = [
   '#ffffff',
@@ -25,22 +24,20 @@ const faces = [
 ];
 
 export function SiteLoader() {
-  const pathname = usePathname();
   const [visible, setVisible] = useState(true);
   const [leaving, setLeaving] = useState(false);
 
+  // Runs once on initial load only — not on every client-side navigation,
+  // so browsing the site after the first paint stays instant.
   useEffect(() => {
-    setVisible(true);
-    setLeaving(false);
-
-    const leaveTimer = window.setTimeout(() => setLeaving(true), 1300);
-    const removeTimer = window.setTimeout(() => setVisible(false), 1600);
+    const leaveTimer = window.setTimeout(() => setLeaving(true), 500);
+    const removeTimer = window.setTimeout(() => setVisible(false), 750);
 
     return () => {
       window.clearTimeout(leaveTimer);
       window.clearTimeout(removeTimer);
     };
-  }, [pathname]);
+  }, []);
 
   if (!visible) {
     return null;

@@ -12,7 +12,7 @@ type FeatureCardPorps = React.ComponentProps<'div'> & {
 };
 
 export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) {
-  const p = genRandomPattern();
+  const p = genPattern(feature.title);
 
   return (
     <div className={cn('relative overflow-hidden p-6', className)} {...props}>
@@ -79,10 +79,18 @@ function GridPattern({
   );
 }
 
-function genRandomPattern(length?: number): number[][] {
-  length = length ?? 5;
-  return Array.from({ length }, () => [
-    Math.floor(Math.random() * 4) + 7,
-    Math.floor(Math.random() * 6) + 1,
-  ]);
+// Deterministic (seeded from the card's title) so server and client render
+// identical markup — Math.random() here would cause a hydration mismatch.
+function genPattern(seed: string, length = 5): number[][] {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i += 1) {
+    hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+  }
+  return Array.from({ length }, (_, i) => {
+    hash = (hash * 1103515245 + 12345 + i) >>> 0;
+    const a = 7 + (hash % 4);
+    hash = (hash * 1103515245 + 12345) >>> 0;
+    const b = 1 + (hash % 6);
+    return [a, b];
+  });
 }
