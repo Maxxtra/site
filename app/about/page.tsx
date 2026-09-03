@@ -60,8 +60,8 @@ export default function AboutPage() {
             </p>
             <p>
               My research spans scalable automatic differentiation, privacy-preserving machine learning, and LLM
-              systems for structured language understanding — work built across roles at the Advanced Technology
-              Institute and Bitdefender, and published across six peer-reviewed papers. In 2025 I attended the
+              systems for structured language understanding — work built across roles at the Research Institute
+              and Bitdefender, and published across six peer-reviewed papers. In 2025 I attended the
               Oxford Machine Learning School at the University of Oxford.
             </p>
 

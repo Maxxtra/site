@@ -335,7 +335,7 @@ export default function Home() {
                 CTO at Qflex Technologies, leading AI system architecture and delivery for enterprise clients.
               </p>
               <p className="leading-7 text-white/70">
-                Built production RAG, knowledge-graph extraction, and speech pipelines at ATI and Bitdefender.
+                Built production RAG, knowledge-graph extraction, and speech pipelines at the Research Institute and Bitdefender.
               </p>
               <p className="leading-7 text-white/70">
                 Built AlgoTrack end to end — a tutoring platform deployed and in daily use.

@@ -49,9 +49,9 @@ export const researchDirections: ResearchDirection[] = [
     problem:
       'Turning unstructured or spoken language — meeting audio, documents, natural-language queries — into structured, queryable, trustworthy information is still brittle, especially under constrained (non-frontier) open-weight models.',
     approach:
-      'At the Advanced Technology Institute, built LLM-based knowledge-graph extraction pipelines (NER, relation extraction, structured prompting), RAG pipelines for domain-specific QA, and natural-language-to-structured-query systems. Separately, built a speaker-attributed meeting-transcription refinement pipeline combining diarization, ASR, and constrained open-weight LLMs.',
+      'At the Research Institute, built LLM-based knowledge-graph extraction pipelines (NER, relation extraction, structured prompting), RAG pipelines for domain-specific QA, and natural-language-to-structured-query systems. Separately, built a speaker-attributed meeting-transcription refinement pipeline combining diarization, ASR, and constrained open-weight LLMs.',
     result:
-      'The meeting-transcription refinement work was published in Future Generation Computer Systems (Elsevier, 2026), evaluated on the AMI Meeting Corpus. The knowledge-graph and RAG systems are in active use in applied AI research systems at ATI.',
+      'The meeting-transcription refinement work was published in Future Generation Computer Systems (Elsevier, 2026), evaluated on the AMI Meeting Corpus. The knowledge-graph and RAG systems are in active use in applied AI research systems at the Research Institute.',
     relatedPublications: ['speaker-attributed-transcription-refinement'],
   },
   {

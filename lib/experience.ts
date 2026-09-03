@@ -35,7 +35,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     slug: 'ati-ai-engineer',
-    org: 'Advanced Technology Institute',
+    org: 'Research Institute',
     role: 'Artificial Intelligence Engineer',
     location: 'Bucharest, RO',
     start: 'Sep 2024',
@@ -60,7 +60,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     slug: 'ati-ai-engineer-intern-2023',
-    org: 'Advanced Technology Institute',
+    org: 'Research Institute',
     role: 'Artificial Intelligence Engineer Intern',
     location: 'Bucharest, RO',
     start: 'Jun 2023',
@@ -72,7 +72,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     slug: 'ati-ai-engineer-intern-2022',
-    org: 'Advanced Technology Institute',
+    org: 'Research Institute',
     role: 'Artificial Intelligence Engineer Intern',
     location: 'Bucharest, RO',
     start: 'Jun 2022',
