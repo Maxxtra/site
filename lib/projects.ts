@@ -73,7 +73,6 @@ export const projects: Project[] = [
     ],
     stack: ['Java/WPILib', 'Computer Vision (YOLO)', 'Embedded Systems'],
     photoId: 'alphaz-trophy',
-    secondaryPhotoIds: ['alphaz-istanbul-regional'],
   },
   {
     slug: 'aml-detection',

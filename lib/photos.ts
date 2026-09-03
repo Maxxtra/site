@@ -51,25 +51,15 @@ export const photos: Photo[] = [
   {
     id: 'alphaz-trophy',
     src: '/media/robotics/alphaz-trophy.jpg',
-    alt: 'Holding the "Uncover the Future" award and trophy behind Team AlphaZ robot #11141, draped in the Romanian flag',
-    caption: 'Team AlphaZ, FIRST Robotics Competition — 2026',
+    // Ankara Regional per the account holder; award independently verified via the
+    // official FIRST Inspires results page (frc-events.firstinspires.org/2026/tuak/awards).
+    alt: 'Holding the Rookie All-Star award and trophy behind Team AlphaZ robot #11141, draped in the Romanian flag',
+    caption: 'Team AlphaZ — Ankara Regional, FIRST Robotics Competition, 2026 (Rookie All-Star Award)',
     date: '2026',
     category: 'robotics',
     orientation: 'portrait',
     featured: true,
     verified: true,
-  },
-  {
-    id: 'alphaz-istanbul-regional',
-    src: '/media/robotics/alphaz-istanbul-regional.jpg',
-    // Event name/date read directly off the event banner in the photo — not independently
-    // confirmed against the CV's listed Ankara/Başkent/Houston events. Flagged for the user.
-    alt: 'Team AlphaZ group photo at the İstanbul Bosphorus regional event, with Romanian and Ukrainian flags',
-    caption: 'Team AlphaZ — İstanbul Bosphorus Regional, FIRST Robotics Competition, 2026',
-    date: '2026',
-    category: 'robotics',
-    orientation: 'landscape',
-    verified: false,
   },
   {
     id: 'graduation-diploma',
@@ -95,9 +85,11 @@ export const photos: Photo[] = [
   {
     id: 'conference-session',
     src: '/media/research/conference-session.jpg',
-    // Specific event/venue not confirmed — kept intentionally neutral.
-    alt: 'Speaking with a microphone during a conference session',
-    caption: 'Speaking at a conference session',
+    // Specific event/venue not confirmed by the account holder — kept intentionally
+    // neutral. Update this one field once the event is identified; nothing else
+    // needs to change.
+    alt: 'Speaking with a microphone during a technical session',
+    caption: 'Speaking at a technical session',
     category: 'research',
     orientation: 'landscape',
     verified: false,
