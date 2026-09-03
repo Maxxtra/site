@@ -8,7 +8,7 @@ import { getPhoto } from '@/lib/photos';
 export const metadata: Metadata = {
   title: 'Teaching & Olympiads',
   description:
-    "Costin-Alexandru Deonise's teaching and mentorship work: Associate Lecturer at POLITEHNICA Bucharest, national coach for Romania's IOAI delegation, and Olympiad committee service.",
+    "Costin-Alexandru Deonise's teaching and mentorship work: Associate Lecturer at POLITEHNICA Bucharest, Deputy Leader and National Team Coach for Romania's IOAI delegation, and Olympiad committee service.",
 };
 
 const highlighted = teaching.filter((t) => t.highlight);
@@ -27,8 +27,8 @@ export default function TeachingPage() {
           Education, mentorship, and technical leadership.
         </h1>
         <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
-          1000+ students taught at POLITEHNICA Bucharest, and national-level mentorship through Romania&rsquo;s
-          AI Olympiad program, from coaching the IOAI delegation to designing competition tasks.
+          1000+ students taught at POLITEHNICA Bucharest, and national-level leadership through Romania&rsquo;s
+          AI Olympiad program, from leading and coaching the IOAI delegation to designing competition tasks.
         </p>
 
         {heroPhoto && (

@@ -95,8 +95,8 @@ export default function AboutPage() {
             )}
 
             <p>
-              In 2026 I served as national team coach for Romania&rsquo;s delegation to the International
-              Olympiad in Artificial Intelligence, which placed 4th worldwide with 8/8 medals, the
+              In 2026 I served as Deputy Leader and National Team Coach for Romania&rsquo;s delegation to the
+              International Olympiad in Artificial Intelligence, which placed 4th worldwide with 8/8 medals, the
               country&rsquo;s best result in the competition&rsquo;s history. I also mentor Team AlphaZ, a rookie FIRST Robotics
               Competition team that became the first Romanian team to win an award at a FIRST World Championship
               event.

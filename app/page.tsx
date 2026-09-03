@@ -41,9 +41,9 @@ const highlights = [
     description: 'Parallel & Distributed Computer Systems, POLITEHNICA Bucharest.',
   },
   {
-    title: 'National Team Coach, IOAI',
+    title: 'Deputy Leader & Coach, IOAI',
     icon: Trophy,
-    description: "Coached Romania's AI Olympiad delegation to a 4th-place worldwide finish in 2026.",
+    description: "Led Romania's AI Olympiad delegation to a 4th-place worldwide finish in 2026.",
   },
   {
     title: '6 Publications',
@@ -132,7 +132,7 @@ export default function Home() {
         className="bg-black px-6 pt-36 pb-24 text-white md:px-10 lg:px-16"
       >
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_0.85fr_0.45fr] lg:items-end">
+          <div className="grid gap-10 lg:grid-cols-[0.6fr_0.46fr_0.86fr] lg:items-end">
             <div>
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-white/75">
                 {siteConfig.tagline}
@@ -145,6 +145,22 @@ export default function Home() {
                 Deonise
               </h1>
             </div>
+            {portrait && (
+              <div className="hidden lg:block">
+                <div className="mx-auto aspect-[4/5] w-full max-w-[300px] overflow-hidden border border-white/20 bg-white/[0.03] p-2">
+                  <div className="relative h-full w-full overflow-hidden">
+                    <Image
+                      src={portrait.src}
+                      alt={portrait.alt}
+                      fill
+                      sizes="300px"
+                      className="object-cover grayscale contrast-110"
+                      priority
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="border border-white/15 bg-white/[0.04] p-6 backdrop-blur">
               <p className="text-xl leading-9 text-white/90">{siteConfig.positioning}</p>
               <div className="mt-6 flex flex-wrap gap-3">
@@ -162,18 +178,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            {portrait && (
-              <div className="hidden aspect-square w-full overflow-hidden border border-white/15 lg:block">
-                <Image
-                  src={portrait.src}
-                  alt={portrait.alt}
-                  width={800}
-                  height={800}
-                  className="h-full w-full object-cover"
-                  priority
-                />
-              </div>
-            )}
           </div>
 
           <div className="mt-16 grid grid-cols-1 divide-x divide-y divide-dashed divide-white/15 border border-dashed border-white/20 bg-white/[0.03] sm:grid-cols-2 lg:grid-cols-3">

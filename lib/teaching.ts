@@ -16,11 +16,11 @@ export type TeachingEntry = {
 export const teaching: TeachingEntry[] = [
   {
     slug: 'ioai-national-coach',
-    role: 'National Team Coach, Romanian Delegation',
+    role: 'Deputy Leader & National Team Coach, Romanian Delegation',
     org: 'International Olympiad in Artificial Intelligence (IOAI)',
     period: '2026',
     description:
-      "Trained and prepared Romania's national team through technical workshops and competition-focused sessions on LLMs, NLP, embeddings, model evaluation, and adversarial ML. The delegation achieved 8/8 medals (3 Gold, 2 Silver, 3 Bronze) and placed 4th worldwide at IOAI 2026 in Astana, the country's best result in the competition's history. Official IOAI accreditation lists the role as Observer.",
+      "Led preparation of Romania's national team as Deputy Leader and Coach, running technical workshops and competition-focused sessions on LLMs, NLP, embeddings, model evaluation, and adversarial ML. The delegation achieved 8/8 medals (3 Gold, 2 Silver, 3 Bronze) and placed 4th worldwide at IOAI 2026 in Astana, the country's best result in the competition's history.",
     highlight: true,
     photoId: 'onia-national-camp-timisoara-1',
     certificateImage: '/media/olympiads/ioai-2026-observer-certificate.jpg',

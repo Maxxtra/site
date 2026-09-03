@@ -3,7 +3,7 @@ export const siteConfig = {
   shortName: 'Alex Deonise',
   tagline: 'AI & Distributed Systems Researcher / Engineer',
   positioning:
-    'PhD-track researcher at POLITEHNICA Bucharest, CTO building production AI systems, and national coach for Romania’s AI Olympiad team.',
+    'PhD-track researcher at POLITEHNICA Bucharest, CTO building production AI systems, and Deputy Leader & National Team Coach for Romania’s AI Olympiad (IOAI) delegation.',
   url: 'https://costinalexandru.deonise.ro',
   email: 'deonisealex@gmail.com',
   github: 'https://github.com/Maxxtra',
