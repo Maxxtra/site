@@ -88,9 +88,16 @@ void main() {
   float n1 = fbm(uv * 3.4 + uTime * 0.20);
   float n2 = fbm(uv * 7.5 - uTime * 0.15);
 
-  // Radius grows with presence and stretches slightly with pointer speed.
-  float radius = uHover * (0.30 + uSpeed * 0.28);
-  float boundary = dist - radius + (n1 - 0.5) * 0.20 + (n2 - 0.5) * 0.08;
+  // The wave sweeps out from the pointer and consumes the WHOLE portrait.
+  // Corner distance in this aspect-corrected space is ~0.64 for a 4:5 frame,
+  // so the radius has to clear that with margin even when the pointer enters
+  // at an edge — otherwise the reveal reads as a localised patch.
+  float radius = uHover * (1.18 + uSpeed * 0.18);
+
+  // Edge turbulence keeps the travelling boundary organic, then fades out as
+  // the sweep completes so full coverage is genuinely full: no residual holes.
+  float turbulence = 1.0 - smoothstep(0.55, 1.0, uHover);
+  float boundary = dist - radius + ((n1 - 0.5) * 0.22 + (n2 - 0.5) * 0.09) * turbulence;
 
   float mask = 1.0 - smoothstep(-0.05, 0.07, boundary);
   mask = clamp(mask, 0.0, 1.0);
@@ -102,10 +109,11 @@ void main() {
   vec4 b = texture2D(uTexB, tUv + disp);
   vec3 col = mix(a.rgb, b.rgb, mask);
 
-  // Accent rim exactly on the transition band, tying the effect to the
-  // site's orange without washing the whole portrait.
+  // Accent only on the travelling edge. It rides the wave and disappears once
+  // coverage completes (mask == 1 everywhere), so the settled state is the
+  // cyborg portrait itself rather than an orange outline over the photo.
   float rim = smoothstep(0.0, 0.45, mask) * (1.0 - smoothstep(0.45, 0.95, mask));
-  col += uAccent * rim * 0.55 * uHover;
+  col += uAccent * rim * 0.32 * uHover;
 
   gl_FragColor = vec4(col, 1.0);
 }`;
