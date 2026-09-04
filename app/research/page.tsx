@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { ArrowUpRight } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
-import { ScrollReveal } from '@/components/ui/scroll-reveal';
+import { StorySlides, StorySlide } from '@/components/ui/story-slides';
 import { researchDirections } from '@/lib/research';
 import { publications } from '@/lib/publications';
 
@@ -13,38 +13,48 @@ export const metadata: Metadata = {
 
 export default function ResearchPage() {
   return (
-    <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
+    <main className="min-h-screen bg-background text-foreground">
       <DynamicIslandTOC selector="[data-toc]" />
-      <ScrollReveal className="mx-auto max-w-5xl">
-        <p data-reveal data-toc data-toc-depth="1" data-toc-title="Research" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
-          Research
-        </p>
-        <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
-          Scalable differentiation, private inference, and structured language.
-        </h1>
-        <p data-reveal className="mt-6 max-w-2xl leading-8 text-muted-foreground">
-          Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering at
-          the Research Institute, and production ML at Bitdefender. Four directions, spanning published
-          results and ongoing work.
-        </p>
+      <StorySlides>
+        <StorySlide index={0} className="px-6 md:px-10 lg:px-16">
+          <p
+            data-toc
+            data-toc-depth="1"
+            data-toc-title="Research"
+            className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary"
+          >
+            Research
+          </p>
+          <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
+            Scalable differentiation, private inference, and structured language.
+          </h1>
+          <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
+            Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering
+            at the Research Institute, and production ML at Bitdefender. Four directions, spanning published
+            results and ongoing work.
+          </p>
+          <p className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+            {researchDirections.length} directions &middot; scroll
+          </p>
+        </StorySlide>
 
-        <div className="mt-16 space-y-20">
-          {researchDirections.map((dir) => {
-            const related = dir.relatedPublications
-              .map((slug) => publications.find((p) => p.slug === slug))
-              .filter(Boolean);
+        {researchDirections.map((dir, i) => {
+          const related = dir.relatedPublications
+            .map((slug) => publications.find((p) => p.slug === slug))
+            .filter(Boolean);
 
-            return (
-              <article
-                key={dir.slug}
-                id={dir.slug}
-                data-reveal
-                data-toc
-                data-toc-depth="2"
-                data-toc-title={dir.title}
-                className="border-t border-dashed border-border pt-10"
-              >
+          return (
+            <StorySlide
+              key={dir.slug}
+              id={dir.slug}
+              index={i + 1}
+              className="px-6 md:px-10 lg:px-16"
+            >
+              <article data-toc data-toc-depth="2" data-toc-title={dir.title}>
                 <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-sm font-bold tabular-nums text-primary">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
                   <span
                     className={
                       dir.status === 'published'
@@ -59,11 +69,11 @@ export default function ResearchPage() {
                   </span>
                 </div>
 
-                <h2 className="mt-4 text-3xl font-black uppercase leading-tight tracking-normal md:text-4xl">
+                <h2 className="mt-4 max-w-4xl text-3xl font-black uppercase leading-tight tracking-normal md:text-5xl">
                   {dir.title}
                 </h2>
 
-                <div className="mt-8 grid gap-8 md:grid-cols-3">
+                <div className="mt-10 grid gap-8 border-t border-dashed border-border pt-8 md:grid-cols-3">
                   <div>
                     <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Problem</p>
                     <p className="mt-2 text-sm leading-7 text-foreground/80">{dir.problem}</p>
@@ -79,7 +89,7 @@ export default function ResearchPage() {
                 </div>
 
                 {related.length > 0 && (
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-8 flex flex-wrap gap-3">
                     {related.map(
                       (pub) =>
                         pub && (
@@ -96,10 +106,10 @@ export default function ResearchPage() {
                   </div>
                 )}
               </article>
-            );
-          })}
-        </div>
-      </ScrollReveal>
+            </StorySlide>
+          );
+        })}
+      </StorySlides>
     </main>
   );
 }

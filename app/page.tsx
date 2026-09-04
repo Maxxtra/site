@@ -16,7 +16,7 @@ import {
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
 import FlowArt, { FlowSection } from '@/components/ui/story-scroll';
 import { FeatureCard } from '@/components/ui/grid-feature-cards';
-import { PortraitReveal } from '@/components/ui/portrait-reveal';
+import { PortraitFluidReveal } from '@/components/ui/portrait-fluid-reveal';
 import { siteConfig } from '@/lib/site-config';
 import { publications } from '@/lib/publications';
 import { featuredAwards } from '@/lib/awards';
@@ -148,12 +148,11 @@ export default function Home() {
             </div>
             {portrait && (
               <div className="hidden lg:block">
-                <PortraitReveal
+                <PortraitFluidReveal
                   src={portrait.src}
+                  revealSrc="/media/portraits/costin-cyborg-portrait.placeholder.jpg"
                   alt={portrait.alt}
-                  readout="AI · SYSTEMS"
-                  className="mx-auto w-full max-w-[320px]"
-                  priority
+                  className="mx-auto w-full max-w-[360px]"
                 />
               </div>
             )}

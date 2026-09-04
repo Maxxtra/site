@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
-import { ScrollReveal } from '@/components/ui/scroll-reveal';
+import { StorySlides, StorySlide } from '@/components/ui/story-slides';
 import { mediaItems } from '@/lib/media';
 import { getPhoto } from '@/lib/photos';
 
@@ -18,9 +18,10 @@ export default function MediaPage() {
   const heroPhoto = hero?.photoId ? getPhoto(hero.photoId) : undefined;
 
   return (
-    <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
+    <main className="min-h-screen bg-background text-foreground">
       <DynamicIslandTOC selector="[data-toc]" />
-      <ScrollReveal className="mx-auto max-w-5xl">
+      <StorySlides>
+        <StorySlide index={0} className="px-6 md:px-10 lg:px-16">
         <p data-reveal data-toc data-toc-depth="1" data-toc-title="Media &amp; Public Activity" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Media &amp; Public Activity
         </p>
@@ -33,6 +34,9 @@ export default function MediaPage() {
           run in descending order of press-outlet prominence.
         </p>
 
+        </StorySlide>
+
+        <StorySlide index={1} className="px-6 md:px-10 lg:px-16">
         {hero && (
           <a
             href={hero.url}
@@ -42,7 +46,7 @@ export default function MediaPage() {
             data-toc
             data-toc-depth="2"
             data-toc-title="Featured"
-            className="group mt-16 grid gap-0 overflow-hidden border border-border bg-card text-card-foreground transition-colors hover:border-primary md:grid-cols-2"
+            className="group grid gap-0 overflow-hidden border border-border bg-card text-card-foreground transition-colors hover:border-primary md:grid-cols-2"
           >
             {heroPhoto && (
               <div className="relative aspect-[16/10] w-full overflow-hidden md:aspect-auto">
@@ -64,7 +68,10 @@ export default function MediaPage() {
           </a>
         )}
 
-        <div data-reveal data-toc data-toc-depth="2" data-toc-title="More coverage" className="mt-16">
+        </StorySlide>
+
+        <StorySlide index={2} className="px-6 md:px-10 lg:px-16">
+        <div data-toc data-toc-depth="2" data-toc-title="More coverage">
           <div className="divide-y divide-dashed divide-border border-y border-dashed border-border">
             {rest.map((item) => (
               <a
@@ -89,7 +96,8 @@ export default function MediaPage() {
             ))}
           </div>
         </div>
-      </ScrollReveal>
+        </StorySlide>
+      </StorySlides>
     </main>
   );
 }

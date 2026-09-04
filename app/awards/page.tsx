@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { FileText } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
-import { ScrollReveal } from '@/components/ui/scroll-reveal';
+import { StorySlides, StorySlide } from '@/components/ui/story-slides';
 import { VideoPlayer } from '@/components/ui/video-player';
 import {
   featuredAwards,
@@ -49,17 +49,20 @@ function AwardRow({ award }: { award: Award }) {
 
 export default function AwardsPage() {
   return (
-    <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
+    <main className="min-h-screen bg-background text-foreground">
       <DynamicIslandTOC selector="[data-toc]" />
-      <ScrollReveal className="mx-auto max-w-5xl">
+      <StorySlides>
+        <StorySlide index={0} className="px-6 md:px-10 lg:px-16">
         <p data-reveal data-toc data-toc-depth="1" data-toc-title="Awards" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Awards
         </p>
         <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
           Scholarships, paper awards, and competition results.
         </h1>
+        </StorySlide>
 
-        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Scholarships & paper awards" className="mt-16 grid gap-4 sm:grid-cols-2">
+        <StorySlide index={1} className="px-6 md:px-10 lg:px-16">
+        <div data-toc data-toc-depth="2" data-toc-title="Scholarships & paper awards" className="grid gap-4 sm:grid-cols-2">
           {featuredAwards.map((award) => (
             <article key={award.title} className="border border-border bg-card p-6 text-card-foreground">
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">{award.year}</p>
@@ -73,7 +76,10 @@ export default function AwardsPage() {
           ))}
         </div>
 
-        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Award announcement" className="mt-16">
+        </StorySlide>
+
+        <StorySlide index={2} className="px-6 md:px-10 lg:px-16">
+        <div data-toc data-toc-depth="2" data-toc-title="Award announcement">
           <h2 className="text-2xl font-black uppercase tracking-normal">Award announcement</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
             Footage from the on-stage announcement of the Best Scientific Paper and Most Impactful Paper awards
@@ -93,7 +99,10 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Robotics" className="mt-16">
+        </StorySlide>
+
+        <StorySlide index={3} className="px-6 md:px-10 lg:px-16">
+        <div data-toc data-toc-depth="2" data-toc-title="Robotics">
           <h2 className="text-2xl font-black uppercase tracking-normal">FIRST Robotics Competition</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             {roboticsAwards.map((award) => (
@@ -109,7 +118,10 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Student Scientific Communication Session" className="mt-16">
+        </StorySlide>
+
+        <StorySlide index={4} className="px-6 md:px-10 lg:px-16">
+        <div data-toc data-toc-depth="2" data-toc-title="Student Scientific Communication Session">
           <h2 className="text-2xl font-black uppercase tracking-normal">Student Scientific Communication Session</h2>
           <div className="mt-2 divide-y divide-dashed divide-border border-y border-dashed border-border">
             {scssPlacements.map((a) => (
@@ -118,7 +130,10 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Selected international programs" className="mt-16">
+        </StorySlide>
+
+        <StorySlide index={5} className="px-6 md:px-10 lg:px-16">
+        <div data-toc data-toc-depth="2" data-toc-title="Selected international programs">
           <h2 className="text-2xl font-black uppercase tracking-normal">Selected international programs</h2>
           <div className="mt-2 divide-y divide-dashed divide-border border-y border-dashed border-border">
             {internationalPrograms.map((a) => (
@@ -127,7 +142,10 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <details data-reveal data-toc data-toc-depth="2" data-toc-title="Earlier competition results" className="mt-16 group">
+        </StorySlide>
+
+        <StorySlide index={6} className="px-6 md:px-10 lg:px-16">
+        <details data-toc data-toc-depth="2" data-toc-title="Earlier competition results" className="group">
           <summary className="cursor-pointer text-2xl font-black uppercase tracking-normal transition-colors hover:text-primary">
             Earlier competition results
           </summary>
@@ -137,7 +155,8 @@ export default function AwardsPage() {
             ))}
           </div>
         </details>
-      </ScrollReveal>
+        </StorySlide>
+      </StorySlides>
     </main>
   );
 }
