@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { experience } from '@/lib/experience';
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export default function ExperiencePage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
+      <ScrollReveal className="mx-auto max-w-5xl">
         <p data-toc data-toc-depth="1" data-toc-title="Experience" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Experience
         </p>
@@ -22,7 +23,7 @@ export default function ExperiencePage() {
 
         <div className="mt-16 grid gap-0 divide-y divide-dashed divide-border border-y border-dashed border-border">
           {experience.map((role) => (
-            <article key={role.slug} className="grid gap-3 py-8 md:grid-cols-[1fr_2fr] md:gap-10">
+            <article key={role.slug} data-reveal className="grid gap-3 py-8 md:grid-cols-[1fr_2fr] md:gap-10">
               <div>
                 <p className="text-sm font-bold uppercase tracking-[0.14em] text-primary">
                   {role.start} — {role.end}
@@ -43,7 +44,7 @@ export default function ExperiencePage() {
             </article>
           ))}
         </div>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

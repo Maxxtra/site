@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { teaching } from '@/lib/teaching';
 import { getPhoto } from '@/lib/photos';
 
@@ -19,7 +20,7 @@ export default function TeachingPage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
+      <ScrollReveal className="mx-auto max-w-5xl">
         <p data-toc data-toc-depth="1" data-toc-title="Teaching & Olympiads" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Teaching &amp; Olympiads
         </p>
@@ -32,7 +33,7 @@ export default function TeachingPage() {
         </p>
 
         {heroPhoto && (
-          <figure className="relative -mx-6 mt-12 aspect-[16/9] overflow-hidden md:-mx-10 lg:-mx-16">
+          <figure data-reveal className="relative -mx-6 mt-12 aspect-[16/9] overflow-hidden md:-mx-10 lg:-mx-16">
             <Image
               src={heroPhoto.src}
               alt={heroPhoto.alt}
@@ -47,7 +48,7 @@ export default function TeachingPage() {
           </figure>
         )}
 
-        <div data-toc data-toc-depth="2" data-toc-title="Roles" className="mt-16 space-y-4">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Roles" className="mt-16 space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             {highlighted
               .filter((role) => role.photoId)
@@ -96,6 +97,7 @@ export default function TeachingPage() {
         </div>
 
         <div
+          data-reveal
           data-toc
           data-toc-depth="2"
           data-toc-title="Committee &amp; review service"
@@ -146,7 +148,7 @@ export default function TeachingPage() {
             ))}
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

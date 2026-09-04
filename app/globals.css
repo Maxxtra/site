@@ -61,6 +61,33 @@ body {
   color: #ffffff;
 }
 
+/* Section reveal: sections rise into place, echoing the homepage FlowArt
+   "slides moving upward" language. Applied by components/ui/scroll-reveal.tsx,
+   which only adds .reveal once JS is running, so content is never hidden
+   without a way to reveal it. */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .no-scrollbar {
   scrollbar-width: none;
 }

@@ -19,8 +19,12 @@ const links = [
   { href: '/about', label: 'About' },
 ];
 
+/** `trailingSlash: true` makes usePathname() return "/awards/", so compare
+ *  against a slash-normalised form or the active state never matches. */
+const normalise = (p: string) => (p !== '/' && p.endsWith('/') ? p.slice(0, -1) : p);
+
 export function SiteNav() {
-  const pathname = usePathname();
+  const pathname = normalise(usePathname());
   const [open, setOpen] = useState(false);
   const currentLabel = links.find((l) => l.href === pathname)?.label ?? 'Menu';
 
@@ -36,7 +40,9 @@ export function SiteNav() {
               href={link.href}
               className={cn(
                 'px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] transition-colors',
-                active ? 'bg-white text-black' : 'text-white/70 hover:bg-white/10 hover:text-white',
+                active
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-white/70 hover:bg-white/10 hover:text-primary',
               )}
             >
               {link.label}
@@ -68,7 +74,9 @@ export function SiteNav() {
                   onClick={() => setOpen(false)}
                   className={cn(
                     'px-3 py-2.5 text-center text-xs font-bold uppercase tracking-[0.14em] transition-colors',
-                    active ? 'bg-white text-black' : 'text-white/70 hover:bg-white/10 hover:text-white',
+                    active
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-white/70 hover:bg-white/10 hover:text-primary',
                   )}
                 >
                   {link.label}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { mediaItems } from '@/lib/media';
 import { getPhoto } from '@/lib/photos';
 
@@ -19,7 +20,7 @@ export default function MediaPage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
+      <ScrollReveal className="mx-auto max-w-5xl">
         <p data-toc data-toc-depth="1" data-toc-title="Media &amp; Public Activity" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Media &amp; Public Activity
         </p>
@@ -37,6 +38,7 @@ export default function MediaPage() {
             href={hero.url}
             target="_blank"
             rel="noreferrer"
+            data-reveal
             data-toc
             data-toc-depth="2"
             data-toc-title="Featured"
@@ -62,7 +64,7 @@ export default function MediaPage() {
           </a>
         )}
 
-        <div data-toc data-toc-depth="2" data-toc-title="More coverage" className="mt-16">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="More coverage" className="mt-16">
           <div className="divide-y divide-dashed divide-border border-y border-dashed border-border">
             {rest.map((item) => (
               <a
@@ -87,7 +89,7 @@ export default function MediaPage() {
             ))}
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

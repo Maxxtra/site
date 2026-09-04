@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ExternalLink } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { publications } from '@/lib/publications';
 
 export const metadata: Metadata = {
@@ -15,7 +16,7 @@ export default function PublicationsPage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
+      <ScrollReveal className="mx-auto max-w-5xl">
         <p data-toc data-toc-depth="1" data-toc-title="Publications" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Publications
         </p>
@@ -29,7 +30,7 @@ export default function PublicationsPage() {
 
         <ol className="mt-16 divide-y divide-dashed divide-border border-y border-dashed border-border">
           {sorted.map((pub) => (
-            <li key={pub.slug} id={pub.slug} className="py-8">
+            <li key={pub.slug} id={pub.slug} data-reveal className="py-8">
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-8">
                 <div className="flex-1">
                   {pub.awards && pub.awards.length > 0 && (
@@ -77,7 +78,7 @@ export default function PublicationsPage() {
             </li>
           ))}
         </ol>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ArrowUpRight } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { researchDirections } from '@/lib/research';
 import { publications } from '@/lib/publications';
 
@@ -14,7 +15,7 @@ export default function ResearchPage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
+      <ScrollReveal className="mx-auto max-w-5xl">
         <p data-toc data-toc-depth="1" data-toc-title="Research" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Research
         </p>
@@ -37,6 +38,7 @@ export default function ResearchPage() {
               <article
                 key={dir.slug}
                 id={dir.slug}
+                data-reveal
                 data-toc
                 data-toc-depth="2"
                 data-toc-title={dir.title}
@@ -97,7 +99,7 @@ export default function ResearchPage() {
             );
           })}
         </div>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

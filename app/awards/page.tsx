@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { FileText } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { VideoPlayer } from '@/components/ui/video-player';
 import {
   featuredAwards,
@@ -50,7 +51,7 @@ export default function AwardsPage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
+      <ScrollReveal className="mx-auto max-w-5xl">
         <p data-toc data-toc-depth="1" data-toc-title="Awards" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Awards
         </p>
@@ -58,7 +59,7 @@ export default function AwardsPage() {
           Scholarships, paper awards, and competition results.
         </h1>
 
-        <div data-toc data-toc-depth="2" data-toc-title="Scholarships & paper awards" className="mt-16 grid gap-4 sm:grid-cols-2">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Scholarships & paper awards" className="mt-16 grid gap-4 sm:grid-cols-2">
           {featuredAwards.map((award) => (
             <article key={award.title} className="border border-border bg-card p-6 text-card-foreground">
               <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">{award.year}</p>
@@ -72,7 +73,7 @@ export default function AwardsPage() {
           ))}
         </div>
 
-        <div data-toc data-toc-depth="2" data-toc-title="Award announcement" className="mt-16">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Award announcement" className="mt-16">
           <h2 className="text-2xl font-black uppercase tracking-normal">Award announcement</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
             Footage from the on-stage announcement of the Best Scientific Paper and Most Impactful Paper awards
@@ -92,7 +93,7 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <div data-toc data-toc-depth="2" data-toc-title="Robotics" className="mt-16">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Robotics" className="mt-16">
           <h2 className="text-2xl font-black uppercase tracking-normal">FIRST Robotics Competition</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-3">
             {roboticsAwards.map((award) => (
@@ -108,7 +109,7 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <div data-toc data-toc-depth="2" data-toc-title="Student Scientific Communication Session" className="mt-16">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Student Scientific Communication Session" className="mt-16">
           <h2 className="text-2xl font-black uppercase tracking-normal">Student Scientific Communication Session</h2>
           <div className="mt-2 divide-y divide-dashed divide-border border-y border-dashed border-border">
             {scssPlacements.map((a) => (
@@ -117,7 +118,7 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <div data-toc data-toc-depth="2" data-toc-title="Selected international programs" className="mt-16">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="Selected international programs" className="mt-16">
           <h2 className="text-2xl font-black uppercase tracking-normal">Selected international programs</h2>
           <div className="mt-2 divide-y divide-dashed divide-border border-y border-dashed border-border">
             {internationalPrograms.map((a) => (
@@ -126,7 +127,7 @@ export default function AwardsPage() {
           </div>
         </div>
 
-        <details data-toc data-toc-depth="2" data-toc-title="Earlier competition results" className="mt-16 group">
+        <details data-reveal data-toc data-toc-depth="2" data-toc-title="Earlier competition results" className="mt-16 group">
           <summary className="cursor-pointer text-2xl font-black uppercase tracking-normal transition-colors hover:text-primary">
             Earlier competition results
           </summary>
@@ -136,7 +137,7 @@ export default function AwardsPage() {
             ))}
           </div>
         </details>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

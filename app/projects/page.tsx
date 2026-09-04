@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { projects } from '@/lib/projects';
 import { getPhoto } from '@/lib/photos';
 
@@ -82,7 +83,7 @@ export default function ProjectsPage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
+      <ScrollReveal className="mx-auto max-w-5xl">
         <p data-toc data-toc-depth="1" data-toc-title="Projects" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Projects
         </p>
@@ -99,6 +100,7 @@ export default function ProjectsPage() {
                 <article
                   key={project.slug}
                   id={project.slug}
+                  data-reveal
                   className="grid border border-border bg-card text-card-foreground sm:grid-cols-[0.85fr_1.15fr] md:col-span-2"
                 >
                   <div className="relative min-h-[280px]">
@@ -113,6 +115,7 @@ export default function ProjectsPage() {
               <article
                 key={project.slug}
                 id={project.slug}
+                data-reveal
                 className="flex flex-col border border-border bg-card text-card-foreground"
               >
                 <ProjectBody project={project} />
@@ -120,7 +123,7 @@ export default function ProjectsPage() {
             );
           })}
         </div>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }

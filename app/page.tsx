@@ -134,7 +134,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[0.6fr_0.46fr_0.86fr] lg:items-end">
             <div>
-              <p className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-white/75">
+              <p className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
                 {siteConfig.tagline}
               </p>
               <h1 className="text-[clamp(3rem,8vw,7.5rem)] font-black uppercase leading-[0.9] tracking-normal">
@@ -147,30 +147,34 @@ export default function Home() {
             </div>
             {portrait && (
               <div className="hidden lg:block">
-                <div className="mx-auto aspect-[4/5] w-full max-w-[300px] overflow-hidden border border-white/20 bg-white/[0.03] p-2">
+                <div className="mx-auto aspect-[4/5] w-full max-w-[300px] overflow-hidden border border-primary/30 bg-white/[0.03] p-2">
                   <div className="relative h-full w-full overflow-hidden">
                     <Image
                       src={portrait.src}
                       alt={portrait.alt}
                       fill
                       sizes="300px"
-                      className="object-cover grayscale contrast-110"
+                      className="object-cover"
                       priority
                     />
                   </div>
                 </div>
               </div>
             )}
-            <div className="border border-white/15 bg-white/[0.04] p-6 backdrop-blur">
+            <div className="border border-white/15 border-l-2 border-l-primary bg-white/[0.04] p-6 backdrop-blur">
               <p className="text-xl leading-9 text-white/90">{siteConfig.positioning}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                {primaryLinks.map((link) => (
+                {primaryLinks.map((link, i) => (
                   <a
                     key={link.label}
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-                    className="inline-flex items-center gap-1.5 border border-white/25 px-3.5 py-2 text-xs font-bold uppercase tracking-[0.12em] text-white/85 transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                    className={
+                      i === 0
+                        ? 'inline-flex items-center gap-1.5 border border-primary bg-primary px-3.5 py-2 text-xs font-bold uppercase tracking-[0.12em] text-primary-foreground transition-opacity hover:opacity-90'
+                        : 'inline-flex items-center gap-1.5 border border-white/25 px-3.5 py-2 text-xs font-bold uppercase tracking-[0.12em] text-white/85 transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground'
+                    }
                   >
                     {link.label}
                     <ExternalLink className="h-3 w-3" aria-hidden="true" />

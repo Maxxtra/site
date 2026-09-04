@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ArrowUpRight, Download } from 'lucide-react';
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
+import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { siteConfig } from '@/lib/site-config';
 import { getPhoto } from '@/lib/photos';
 
@@ -27,8 +28,8 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
-      <div className="mx-auto max-w-5xl">
-        <div className="grid gap-10 md:grid-cols-[1fr_1.6fr] md:items-start">
+      <ScrollReveal className="mx-auto max-w-5xl">
+        <div data-reveal className="grid gap-10 md:grid-cols-[1fr_1.6fr] md:items-start">
           <div>
             <p data-toc data-toc-depth="1" data-toc-title="About" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
               About
@@ -110,7 +111,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div data-toc data-toc-depth="2" data-toc-title="CV &amp; contact" className="mt-16 border-t border-dashed border-border pt-10">
+        <div data-reveal data-toc data-toc-depth="2" data-toc-title="CV &amp; contact" className="mt-16 border-t border-dashed border-border pt-10">
           <h2 className="text-2xl font-black uppercase tracking-normal">CV &amp; contact</h2>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
@@ -134,7 +135,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </main>
   );
 }
