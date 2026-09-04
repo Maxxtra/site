@@ -44,11 +44,18 @@ export function ScrollReveal({ children, selector = '[data-reveal]', className }
 
     const io = new IntersectionObserver(
       (entries) => {
+        // Stagger everything revealing in the same batch so a group of cards
+        // cascades upward instead of snapping in as one block.
+        let staggerIndex = 0;
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal-visible');
-            io.unobserve(entry.target);
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          if (staggerIndex > 0) {
+            el.style.transitionDelay = `${Math.min(staggerIndex, 5) * 70}ms`;
           }
+          staggerIndex += 1;
+          el.classList.add('reveal-visible');
+          io.unobserve(el);
         });
       },
       { rootMargin: '0px 0px -8% 0px', threshold: 0.01 },
@@ -70,7 +77,10 @@ export function ScrollReveal({ children, selector = '[data-reveal]', className }
       window.clearTimeout(failsafe);
       io.disconnect();
       // Leave nothing hidden if this unmounts mid-transition.
-      targets.forEach((el) => el.classList.remove('reveal', 'reveal-visible'));
+      targets.forEach((el) => {
+        el.classList.remove('reveal', 'reveal-visible');
+        el.style.transitionDelay = '';
+      });
     };
   }, [selector]);
 

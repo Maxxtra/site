@@ -52,10 +52,10 @@ export default function AwardsPage() {
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
       <ScrollReveal className="mx-auto max-w-5xl">
-        <p data-toc data-toc-depth="1" data-toc-title="Awards" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
+        <p data-reveal data-toc data-toc-depth="1" data-toc-title="Awards" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Awards
         </p>
-        <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
+        <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
           Scholarships, paper awards, and competition results.
         </h1>
 

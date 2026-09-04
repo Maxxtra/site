@@ -61,6 +61,208 @@ body {
   color: #ffffff;
 }
 
+/* ---------------------------------------------------------------------------
+   Hero portrait: cybernetic hover reveal.
+   The alternate layer is the same real photograph under a duotone/contrast
+   treatment plus a scanline, grid and HUD overlay — no second asset, no
+   fabricated likeness. Revealed with an upward wipe to match the site's
+   slide-up motion. All hover behaviour is gated behind a fine pointer so
+   touch devices show the plain portrait and can never get stuck mid-reveal.
+--------------------------------------------------------------------------- */
+.portrait-frame {
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.5rem;
+}
+
+.portrait-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  background: #0a0a0a;
+}
+
+.portrait-base,
+.portrait-cyber-img {
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.portrait-cyber {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  clip-path: inset(100% 0 0 0);
+  transition:
+    clip-path 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease;
+}
+
+/* Dark machine-vision duotone: drop luminance first so the white studio
+   background reads as deep amber rather than a flat bright yellow, then
+   colourise. Hair and shirt fall to near-black, which is what gives it the
+   HUD/targeting-feed character instead of a tinted snapshot. */
+.portrait-cyber-img {
+  filter: grayscale(1) contrast(1.15) brightness(0.42) sepia(1) hue-rotate(-18deg) saturate(5.5);
+}
+
+/* Scanlines + technical grid. */
+.portrait-grid {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.42) 0 1px,
+      transparent 1px 3px
+    ),
+    repeating-linear-gradient(to right, color-mix(in srgb, var(--primary) 26%, transparent) 0 1px, transparent 1px 22px),
+    repeating-linear-gradient(to bottom, color-mix(in srgb, var(--primary) 26%, transparent) 0 1px, transparent 1px 22px);
+}
+
+/* Inner rim so the panel edge glows like an instrument readout. */
+.portrait-cyber::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 26px 2px color-mix(in srgb, var(--primary) 30%, transparent);
+  pointer-events: none;
+}
+
+/* Leading-edge sweep that travels with the reveal. */
+.portrait-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  top: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 14px 2px color-mix(in srgb, var(--primary) 70%, transparent);
+  opacity: 0;
+}
+
+.portrait-reticle {
+  position: absolute;
+  top: 41%;
+  left: 50%;
+  width: 44%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) scale(0.9);
+  border: 1px solid color-mix(in srgb, var(--primary) 55%, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transition:
+    opacity 0.4s ease 0.15s,
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.portrait-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--primary);
+  opacity: 0;
+  transition: opacity 0.35s ease 0.2s;
+}
+
+.portrait-corner--tl {
+  top: 8px;
+  left: 8px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.portrait-corner--tr {
+  top: 8px;
+  right: 8px;
+  border-left: 0;
+  border-bottom: 0;
+}
+.portrait-corner--bl {
+  bottom: 8px;
+  left: 8px;
+  border-right: 0;
+  border-top: 0;
+}
+.portrait-corner--br {
+  bottom: 8px;
+  right: 8px;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* Single-line readout on its own bar so it never runs across the face. */
+.portrait-readout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5px 10px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--primary);
+  opacity: 0;
+  transition: opacity 0.35s ease 0.25s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .portrait-frame:hover {
+    border-color: color-mix(in srgb, var(--primary) 70%, transparent);
+  }
+
+  .portrait-frame:hover .portrait-cyber {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+
+  .portrait-frame:hover .portrait-scan {
+    animation: portrait-sweep 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .portrait-frame:hover .portrait-reticle {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .portrait-frame:hover .portrait-corner,
+  .portrait-frame:hover .portrait-readout {
+    opacity: 1;
+  }
+}
+
+@keyframes portrait-sweep {
+  0% {
+    top: 100%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 0%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait-cyber,
+  .portrait-reticle,
+  .portrait-corner,
+  .portrait-readout {
+    transition: none;
+  }
+  .portrait-scan {
+    display: none;
+  }
+  .portrait-frame:hover .portrait-scan {
+    animation: none;
+  }
+}
+
 /* Section reveal: sections rise into place, echoing the homepage FlowArt
    "slides moving upward" language. Applied by components/ui/scroll-reveal.tsx,
    which only adds .reveal once JS is running, so content is never hidden

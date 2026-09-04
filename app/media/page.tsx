@@ -21,13 +21,13 @@ export default function MediaPage() {
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
       <ScrollReveal className="mx-auto max-w-5xl">
-        <p data-toc data-toc-depth="1" data-toc-title="Media &amp; Public Activity" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
+        <p data-reveal data-toc data-toc-depth="1" data-toc-title="Media &amp; Public Activity" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Media &amp; Public Activity
         </p>
-        <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
+        <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
           Independent coverage, from a county student council to Team Romania.
         </h1>
-        <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
+        <p data-reveal className="mt-6 max-w-2xl leading-8 text-muted-foreground">
           Every entry here is corroborated by an independently published source: national and local Romanian
           press, official competition results, or a publisher record. None of it is self-reported. The rest
           run in descending order of press-outlet prominence.

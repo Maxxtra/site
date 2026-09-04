@@ -16,6 +16,7 @@ import {
 import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
 import FlowArt, { FlowSection } from '@/components/ui/story-scroll';
 import { FeatureCard } from '@/components/ui/grid-feature-cards';
+import { PortraitReveal } from '@/components/ui/portrait-reveal';
 import { siteConfig } from '@/lib/site-config';
 import { publications } from '@/lib/publications';
 import { featuredAwards } from '@/lib/awards';
@@ -147,18 +148,13 @@ export default function Home() {
             </div>
             {portrait && (
               <div className="hidden lg:block">
-                <div className="mx-auto aspect-[4/5] w-full max-w-[300px] overflow-hidden border border-primary/30 bg-white/[0.03] p-2">
-                  <div className="relative h-full w-full overflow-hidden">
-                    <Image
-                      src={portrait.src}
-                      alt={portrait.alt}
-                      fill
-                      sizes="300px"
-                      className="object-cover"
-                      priority
-                    />
-                  </div>
-                </div>
+                <PortraitReveal
+                  src={portrait.src}
+                  alt={portrait.alt}
+                  readout="AI · SYSTEMS"
+                  className="mx-auto w-full max-w-[320px]"
+                  priority
+                />
               </div>
             )}
             <div className="border border-white/15 border-l-2 border-l-primary bg-white/[0.04] p-6 backdrop-blur">

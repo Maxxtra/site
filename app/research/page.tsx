@@ -16,13 +16,13 @@ export default function ResearchPage() {
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
       <ScrollReveal className="mx-auto max-w-5xl">
-        <p data-toc data-toc-depth="1" data-toc-title="Research" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
+        <p data-reveal data-toc data-toc-depth="1" data-toc-title="Research" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Research
         </p>
-        <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
+        <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
           Scalable differentiation, private inference, and structured language.
         </h1>
-        <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
+        <p data-reveal className="mt-6 max-w-2xl leading-8 text-muted-foreground">
           Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering at
           the Research Institute, and production ML at Bitdefender. Four directions, spanning published
           results and ongoing work.

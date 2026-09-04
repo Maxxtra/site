@@ -17,13 +17,13 @@ export default function PublicationsPage() {
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
       <ScrollReveal className="mx-auto max-w-5xl">
-        <p data-toc data-toc-depth="1" data-toc-title="Publications" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
+        <p data-reveal data-toc data-toc-depth="1" data-toc-title="Publications" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Publications
         </p>
-        <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
+        <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
           Peer-reviewed work on differentiation, privacy, and language systems.
         </h1>
-        <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
+        <p data-reveal className="mt-6 max-w-2xl leading-8 text-muted-foreground">
           Six publications spanning scalable automatic differentiation, privacy-preserving machine learning,
           LLM-based language systems, and speech processing, listed newest first.
         </p>

@@ -21,13 +21,13 @@ export default function TeachingPage() {
     <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
       <DynamicIslandTOC selector="[data-toc]" />
       <ScrollReveal className="mx-auto max-w-5xl">
-        <p data-toc data-toc-depth="1" data-toc-title="Teaching & Olympiads" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
+        <p data-reveal data-toc data-toc-depth="1" data-toc-title="Teaching & Olympiads" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
           Teaching &amp; Olympiads
         </p>
-        <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
+        <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
           Education, mentorship, and technical leadership.
         </h1>
-        <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
+        <p data-reveal className="mt-6 max-w-2xl leading-8 text-muted-foreground">
           1000+ students taught at POLITEHNICA Bucharest, and national-level leadership through Romania&rsquo;s
           AI Olympiad program, from leading and coaching the IOAI delegation to designing competition tasks.
         </p>
