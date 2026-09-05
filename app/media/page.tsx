@@ -7,6 +7,7 @@ import { mediaItems } from '@/lib/media';
 import { getPhoto } from '@/lib/photos';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/media/' },
   title: 'Media & Public Activity',
   description:
     "Press coverage and public activity involving Costin-Alexandru Deonise: Romania's 2026 International Olympiad in AI delegation, the AlphaZ FIRST Robotics team, and earlier student leadership in Argeș county.",

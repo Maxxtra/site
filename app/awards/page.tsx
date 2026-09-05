@@ -13,6 +13,7 @@ import {
 } from '@/lib/awards';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/awards/' },
   title: 'Awards',
   description:
     'Scholarships, research paper awards, and competition results for Costin-Alexandru Deonise, including the Adobe Systems Romania Scholarship and Best Scientific Paper Award at POLITEHNICA Bucharest.',

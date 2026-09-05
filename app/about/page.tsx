@@ -7,6 +7,7 @@ import { siteConfig } from '@/lib/site-config';
 import { getPhoto } from '@/lib/photos';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/about/' },
   title: 'About',
   description:
     'About Costin-Alexandru Deonise: background, education, and contact details, with a downloadable CV.',
@@ -36,9 +37,8 @@ export default function AboutPage() {
               About
             </p>
             <h1 className="text-[clamp(2.2rem,5vw,3.5rem)] font-black uppercase leading-[0.95] tracking-normal">
-              Costin-Alexandru
-              <br />
-              Deonise
+              <span className="block">Costin-Alexandru</span>{' '}
+              <span className="block">Deonise</span>
             </h1>
             {portrait && (
               <div className="mt-8 aspect-square w-full max-w-xs overflow-hidden border border-border">
@@ -67,7 +67,8 @@ export default function AboutPage() {
 
           <div className="space-y-6 text-base leading-8 text-foreground/85 md:text-lg">
             <p>
-              I&rsquo;m Chief Technology Officer at Qflex Technologies, where I lead the technical strategy and
+              I&rsquo;m Costin-Alexandru Deonise, usually just Alex Deonise in day-to-day work. I&rsquo;m
+              Chief Technology Officer at Qflex Technologies, where I lead the technical strategy and
               delivery of custom AI systems for enterprise clients. I&rsquo;m also a Parallel and Distributed
               Computer Systems Master&rsquo;s student and Associate Lecturer at the University POLITEHNICA of
               Bucharest, where I&rsquo;ve taught 1000+ students since 2022.

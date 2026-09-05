@@ -4,6 +4,7 @@ import { StorySlides, StorySlide } from '@/components/ui/story-slides';
 import { experience } from '@/lib/experience';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/experience/' },
   title: 'Experience',
   description:
     "Costin-Alexandru Deonise's work history: Chief Technology Officer at Qflex Technologies, AI engineering at the Research Institute and Bitdefender, and teaching at POLITEHNICA Bucharest.",

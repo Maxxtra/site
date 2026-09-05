@@ -7,6 +7,7 @@ import { projects } from '@/lib/projects';
 import { getPhoto } from '@/lib/photos';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/projects/' },
   title: 'Projects',
   description:
     'Selected projects by Costin-Alexandru Deonise: AlgoTrack, AtlasRAG, a multi-GPU JAX implementation of STDE, AlphaZ FRC robotics, and anti-money-laundering detection.',

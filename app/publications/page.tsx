@@ -5,6 +5,7 @@ import { ScrollReveal } from '@/components/ui/scroll-reveal';
 import { publications } from '@/lib/publications';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/publications/' },
   title: 'Publications',
   description:
     'Peer-reviewed publications by Costin-Alexandru Deonise on scalable automatic differentiation, privacy-preserving machine learning, LLM systems, and speech processing.',

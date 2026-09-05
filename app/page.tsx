@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -21,6 +22,10 @@ import { siteConfig } from '@/lib/site-config';
 import { publications } from '@/lib/publications';
 import { featuredAwards } from '@/lib/awards';
 import { getPhoto } from '@/lib/photos';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 const primaryLinks = [
   { label: 'Research', href: '/research' },
@@ -138,12 +143,14 @@ export default function Home() {
               <p className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
                 {siteConfig.tagline}
               </p>
+              {/* Block spans instead of <br> so the heading's text content reads as
+                  the single canonical string "Costin-Alexandru Deonise", while the
+                  visual stays three lines. The explicit {' '} supplies the one word
+                  space. */}
               <h1 className="text-[clamp(3rem,8vw,7.5rem)] font-black uppercase leading-[0.9] tracking-normal">
-                Costin
-                <br />
-                Alexandru
-                <br />
-                Deonise
+                <span className="block">Costin-</span>
+                <span className="block">Alexandru</span>{' '}
+                <span className="block">Deonise</span>
               </h1>
             </div>
             {portrait && (

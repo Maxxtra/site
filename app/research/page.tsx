@@ -6,6 +6,7 @@ import { researchDirections } from '@/lib/research';
 import { publications } from '@/lib/publications';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/research/' },
   title: 'Research',
   description:
     'Research directions pursued by Costin-Alexandru Deonise: scalable high-order automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding.',
