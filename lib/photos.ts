@@ -8,6 +8,11 @@ export type Photo = {
   date?: string;
   category: PhotoCategory;
   orientation: 'landscape' | 'portrait' | 'square';
+  /** Intrinsic pixel size of the file. Lets layouts reserve space (no layout shift). */
+  width?: number;
+  height?: number;
+  /** Transparent-background version, built by scripts/make-portrait-cutout.py. */
+  cutoutSrc?: string;
   featured?: boolean;
   /** false = context is not independently confirmed; caption is intentionally neutral. */
   verified: boolean;
@@ -19,6 +24,8 @@ export const photos: Photo[] = [
   {
     id: 'ioai-astana-2026-team',
     src: '/media/olympiads/ioai-astana-2026-team.jpg',
+    width: 1900,
+    height: 1425,
     alt: "Team Romania at IOAI Astana 2026, holding the Romanian flag, wearing medals",
     caption: 'Team Romania, International Olympiad in AI · Astana, 2026',
     date: '2026',
@@ -30,6 +37,8 @@ export const photos: Photo[] = [
   {
     id: 'onia-national-camp-timisoara-1',
     src: '/media/olympiads/onia-national-camp-timisoara-1.jpg',
+    width: 1900,
+    height: 1425,
     alt: 'Presenting "Contemporary Methods in Artificial Intelligence Systems" at the National Team Camp',
     caption: 'National Team Camp, Timișoara · 2026',
     date: '2026',
@@ -51,6 +60,8 @@ export const photos: Photo[] = [
   {
     id: 'alphaz-trophy',
     src: '/media/robotics/alphaz-trophy.jpg',
+    width: 1068,
+    height: 1900,
     // Ankara Regional per the account holder; award independently verified via the
     // official FIRST Inspires results page (frc-events.firstinspires.org/2026/tuak/awards).
     alt: 'Holding the Rookie All-Star award and trophy behind Team AlphaZ robot #11141, draped in the Romanian flag',
@@ -64,6 +75,8 @@ export const photos: Photo[] = [
   {
     id: 'graduation-diploma',
     src: '/media/university/graduation-diploma.jpg',
+    width: 1800,
+    height: 1199,
     alt: 'Receiving a diploma on stage, wearing a Faculty of Automatic Control and Computers graduation sash',
     caption: 'Graduation, Faculty of Automatic Control and Computers · Class of 2024',
     date: '2024',
@@ -85,6 +98,8 @@ export const photos: Photo[] = [
   {
     id: 'conference-session',
     src: '/media/research/conference-session.jpg',
+    width: 1600,
+    height: 868,
     // Specific event/venue not confirmed by the account holder · kept intentionally
     // neutral. Update this one field once the event is identified; nothing else
     // needs to change.
@@ -97,6 +112,9 @@ export const photos: Photo[] = [
   {
     id: 'costin-portrait',
     src: '/media/portraits/costin-portrait.jpg',
+    width: 1200,
+    height: 1200,
+    cutoutSrc: '/media/portraits/costin-portrait-cutout.webp',
     alt: 'Portrait of Costin-Alexandru Deonise',
     caption: 'Costin-Alexandru Deonise',
     category: 'portraits',
