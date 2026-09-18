@@ -404,7 +404,7 @@ body {
   display: inline-block;
   padding-block: 0.3rem;
   font-family: var(--ff-mono), ui-monospace, monospace;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: inherit;
@@ -514,10 +514,10 @@ body {
 
 .footer-text {
   margin: 2.5rem 0 0;
-  max-width: 30rem;
-  font-size: 1rem;
-  line-height: 1.6;
-  opacity: 0.66;
+  max-width: 32rem;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  opacity: 0.76;
 }
 
 .footer-cta {

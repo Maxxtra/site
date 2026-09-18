@@ -54,6 +54,24 @@ const index = [
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
+/** Editorial copy: a hyphenated compound ("open-weight", "multi-GPU") never
+ *  breaks across lines, which is where most ragged, messy wraps come from. */
+function Copy({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(\S+-\S+)/).map((part, i) =>
+        /\S-\S/.test(part) ? (
+          <span key={i} className="nowrap">
+            {part}
+          </span>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 function Plate({
   photo,
   className,
@@ -78,7 +96,8 @@ function Plate({
         loading="lazy"
         decoding="async"
       />
-      <figcaption>{photo.caption}</figcaption>
+      {/* A separator never starts a line: the space before "·" is non-breaking. */}
+      <figcaption>{photo.caption.replace(/ · /g, '\u00a0· ')}</figcaption>
     </figure>
   );
 }
@@ -193,7 +212,7 @@ export default function Home() {
               Researcher, engineer, · Researcher, engineer, · Researcher, engineer, · Researcher, engineer,
             </span>
             <span className="marquee-row" data-marquee="1">
-              teacher, coach. — teacher, coach. — teacher, coach. — teacher, coach. — teacher, coach.
+              teacher, coach. · teacher, coach. · teacher, coach. · teacher, coach. · teacher, coach.
             </span>
           </div>
 
@@ -202,7 +221,7 @@ export default function Home() {
               Positioning
             </h2>
             <p className="statement-lede" data-rise>
-              {siteConfig.positioning}
+              <Copy text={siteConfig.positioning} />
             </p>
 
             <dl className="ledger">
@@ -210,7 +229,9 @@ export default function Home() {
                 <div key={item.title} className="ledger-row" data-rise>
                   <span className="ledger-index">{pad(i + 1)}</span>
                   <dt>{item.title}</dt>
-                  <dd>{item.description}</dd>
+                  <dd>
+                    <Copy text={item.description} />
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -236,7 +257,9 @@ export default function Home() {
                   <span className="work-index">{pad(i + 1)}</span>
                   <div className="work-title">
                     {pub.awards && pub.awards.length > 0 && <p className="work-awards">{pub.awards.join(' · ')}</p>}
-                    <h3>{pub.title}</h3>
+                    <h3>
+                      <Copy text={pub.title} />
+                    </h3>
                   </div>
                   <span className="work-venue">
                     {pub.venue}, {pub.date ?? pub.year}
@@ -253,7 +276,7 @@ export default function Home() {
             {featuredAwards.slice(0, 4).map((award) => (
               <li key={award.title} data-rise>
                 <span className="honours-year">{award.year}</span>
-                {award.title}
+                <Copy text={award.title} />
               </li>
             ))}
           </ul>
@@ -277,8 +300,7 @@ export default function Home() {
               Systems <em>that</em> scale
             </h3>
             <p className="chapter-text" data-rise>
-              From distributed high-order differentiation on multi-GPU clusters to privacy-preserving inference:
-              published, peer-reviewed research, not slideware.
+              <Copy text="From distributed high-order differentiation on multi-GPU clusters to privacy-preserving inference: published, peer-reviewed research, not slideware." />
             </p>
             <Plate photo={getPhoto('conference-session')} className="plate--a" drift={6} sizes="(min-width: 900px) 34vw, 80vw" />
           </article>
@@ -291,8 +313,7 @@ export default function Home() {
             <div className="chapter-columns">
               <p data-rise>CTO at Qflex Technologies, leading AI system architecture and delivery for enterprise clients.</p>
               <p data-rise>
-                Built production RAG, knowledge-graph extraction, and speech pipelines at the Research Institute and
-                Bitdefender.
+                <Copy text="Built production RAG, knowledge-graph extraction, and speech pipelines at the Research Institute and Bitdefender." />
               </p>
               <p data-rise>Built AlgoTrack end to end, a tutoring platform deployed and in daily use.</p>
             </div>
@@ -333,7 +354,9 @@ export default function Home() {
               <article key={principle.title} data-rise>
                 <span className="ledger-index">{pad(i + 1)}</span>
                 <h3>{principle.title}</h3>
-                <p>{principle.body}</p>
+                <p>
+                  <Copy text={principle.body} />
+                </p>
               </article>
             ))}
           </div>
@@ -357,7 +380,7 @@ export default function Home() {
                   <span className="index-number">{pad(i + 1)}</span>
                   <span className={i % 2 ? 'index-label index-label--serif' : 'index-label'}>{page.label}</span>
                   <span className="index-meta">
-                    {page.description}
+                    <Copy text={page.description} />
                     {page.count !== undefined && <span className="index-count">{pad(page.count)}</span>}
                   </span>
                 </Link>

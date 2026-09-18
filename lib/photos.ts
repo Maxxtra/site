@@ -27,7 +27,7 @@ export const photos: Photo[] = [
     width: 1900,
     height: 1425,
     alt: "Team Romania at IOAI Astana 2026, holding the Romanian flag, wearing medals",
-    caption: 'Team Romania, International Olympiad in AI · Astana, 2026',
+    caption: 'Team Romania, 8/8 medals · International Olympiad in AI, Astana, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'landscape',
@@ -40,7 +40,7 @@ export const photos: Photo[] = [
     width: 1900,
     height: 1425,
     alt: 'Presenting "Contemporary Methods in Artificial Intelligence Systems" at the National Team Camp',
-    caption: 'National Team Camp, Timișoara · 2026',
+    caption: 'Presenting “Contemporary Methods in AI Systems” · National Team Camp, Timișoara, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'portrait',
@@ -51,7 +51,7 @@ export const photos: Photo[] = [
     id: 'onia-national-camp-timisoara-2',
     src: '/media/olympiads/onia-national-camp-timisoara-2.jpg',
     alt: 'Presenting "NLP Fundamentals" at the National Team Camp',
-    caption: 'National Team Camp, Timișoara · 2026',
+    caption: 'Presenting “NLP Fundamentals” · National Team Camp, Timișoara, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'portrait',
@@ -78,7 +78,7 @@ export const photos: Photo[] = [
     width: 1800,
     height: 1199,
     alt: 'Receiving a diploma on stage, wearing a Faculty of Automatic Control and Computers graduation sash',
-    caption: 'Graduation, Faculty of Automatic Control and Computers · Class of 2024',
+    caption: 'Receiving the diploma · Faculty of Automatic Control and Computers, POLITEHNICA Bucharest, 2024',
     date: '2024',
     category: 'university',
     orientation: 'landscape',
@@ -100,14 +100,14 @@ export const photos: Photo[] = [
     src: '/media/research/conference-session.jpg',
     width: 1600,
     height: 868,
-    // Specific event/venue not confirmed by the account holder · kept intentionally
-    // neutral. Update this one field once the event is identified; nothing else
-    // needs to change.
-    alt: 'Speaking with a microphone during a technical session',
-    caption: 'Speaking at a technical session',
+    // Event identified by the account holder (Sept 2026): the Oxford Machine
+    // Learning Summer School. Attended 2024 and 2025 (lib/awards.ts); the year of
+    // this frame was not specified, so no date is claimed.
+    alt: 'Speaking with a microphone from the audience at the Oxford Machine Learning Summer School',
+    caption: 'Oxford Machine Learning Summer School · University of Oxford',
     category: 'research',
     orientation: 'landscape',
-    verified: false,
+    verified: true,
   },
   {
     id: 'costin-portrait',
