@@ -4,7 +4,10 @@ export type Photo = {
   id: string;
   src: string;
   alt: string;
+  /** What is happening. One line. */
   caption: string;
+  /** Where / when, shown as a second caption line where the layout has room. */
+  detail?: string;
   date?: string;
   category: PhotoCategory;
   orientation: 'landscape' | 'portrait' | 'square';
@@ -27,7 +30,8 @@ export const photos: Photo[] = [
     width: 1900,
     height: 1425,
     alt: "Team Romania at IOAI Astana 2026, holding the Romanian flag, wearing medals",
-    caption: 'Team Romania, 8/8 medals · International Olympiad in AI, Astana, 2026',
+    caption: 'Team Romania, 8/8 medals',
+    detail: 'International Olympiad in AI, Astana, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'landscape',
@@ -40,7 +44,8 @@ export const photos: Photo[] = [
     width: 1900,
     height: 1425,
     alt: 'Presenting "Contemporary Methods in Artificial Intelligence Systems" at the National Team Camp',
-    caption: 'Presenting “Contemporary Methods in AI Systems” · National Team Camp, Timișoara, 2026',
+    caption: 'Presenting “Contemporary Methods in AI Systems”',
+    detail: 'National Team Camp, Timișoara, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'portrait',
@@ -51,7 +56,8 @@ export const photos: Photo[] = [
     id: 'onia-national-camp-timisoara-2',
     src: '/media/olympiads/onia-national-camp-timisoara-2.jpg',
     alt: 'Presenting "NLP Fundamentals" at the National Team Camp',
-    caption: 'Presenting “NLP Fundamentals” · National Team Camp, Timișoara, 2026',
+    caption: 'Presenting “NLP Fundamentals”',
+    detail: 'National Team Camp, Timișoara, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'portrait',
@@ -78,7 +84,8 @@ export const photos: Photo[] = [
     width: 1800,
     height: 1199,
     alt: 'Receiving a diploma on stage, wearing a Faculty of Automatic Control and Computers graduation sash',
-    caption: 'Receiving the diploma · Faculty of Automatic Control and Computers, POLITEHNICA Bucharest, 2024',
+    caption: 'Receiving the diploma',
+    detail: 'Faculty of Automatic Control and Computers, POLITEHNICA Bucharest, 2024',
     date: '2024',
     category: 'university',
     orientation: 'landscape',
@@ -100,11 +107,11 @@ export const photos: Photo[] = [
     src: '/media/research/conference-session.jpg',
     width: 1600,
     height: 868,
-    // Event identified by the account holder (Sept 2026): the Oxford Machine
-    // Learning Summer School. Attended 2024 and 2025 (lib/awards.ts); the year of
-    // this frame was not specified, so no date is claimed.
-    alt: 'Speaking with a microphone from the audience at the Oxford Machine Learning Summer School',
-    caption: 'Oxford Machine Learning Summer School · University of Oxford',
+    // Event and year confirmed by the account holder (Sept 2026).
+    alt: 'Speaking with a microphone from the audience at the Oxford Machine Learning Summer School, 2025',
+    caption: 'Oxford Machine Learning Summer School',
+    detail: 'University of Oxford, 2025',
+    date: '2025',
     category: 'research',
     orientation: 'landscape',
     verified: true,

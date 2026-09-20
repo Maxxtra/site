@@ -152,7 +152,7 @@
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  opacity: 0.16;
+  opacity: 0.12;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
@@ -200,7 +200,9 @@
   height: min(84svh, 60vw);
   width: auto;
   max-width: none;
-  filter: grayscale(1) contrast(1.06);
+  /* Colour, graded rather than stylised: a touch of contrast, saturation held
+     just under neutral so skin stays natural against the paper ground. */
+  filter: saturate(0.92) contrast(1.05);
   /* The source is a square crop that cuts the shoulders; dissolve the sides
      instead of showing the cut. A wider portrait can drop this mask. */
   -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 19%, #000 81%, transparent 98%);
@@ -225,9 +227,9 @@
 .module {
   position: absolute;
   margin: 0;
-  max-width: 15.5rem;
+  max-width: 17rem;
   font-family: var(--mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1.55;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -283,13 +285,13 @@
 .module--current {
   left: var(--gutter);
   top: 47svh;
-  width: 13rem;
+  width: 14.5rem;
 }
 
 .module--research {
   right: var(--gutter);
   top: 39svh;
-  width: 15.5rem;
+  width: 17rem;
 }
 
 .module--research li + li {
@@ -299,7 +301,7 @@
 .module--ioai {
   left: var(--gutter);
   bottom: var(--gutter);
-  width: 13rem;
+  width: 14.5rem;
 }
 
 .module-figure {
@@ -319,18 +321,29 @@
   letter-spacing: 0;
 }
 
+.module-figure-label {
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  vertical-align: 0.25em;
+}
+
 .module--latest {
   right: var(--gutter);
   bottom: var(--gutter);
-  width: 15.5rem;
+  width: 17rem;
   display: block;
 }
 
 .module-title {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
   font-family: var(--grotesk);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.3;
   letter-spacing: -0.005em;
@@ -433,7 +446,7 @@
   column-gap: var(--gutter);
   row-gap: 2rem;
   padding-inline: var(--gutter);
-  margin-top: clamp(4rem, 11vw, 11rem);
+  margin-top: clamp(3rem, 8vw, 8rem);
 }
 
 .statement-body .eyebrow {
@@ -445,16 +458,16 @@
   grid-column: 4 / span 8;
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(1.9rem, 3.75vw, 4rem);
+  font-size: clamp(2.05rem, 4.1vw, 4.4rem);
   font-variation-settings: 'opsz' 14;
-  line-height: 1.1;
+  line-height: 1.08;
   letter-spacing: -0.02em;
   text-wrap: pretty;
 }
 
 .ledger {
   grid-column: 4 / -1;
-  margin: clamp(3rem, 7vw, 7rem) 0 0;
+  margin: clamp(2.5rem, 5.5vw, 5.5rem) 0 0;
 }
 
 .ledger-row {
@@ -487,7 +500,7 @@
 
 .ledger dd {
   margin: 0;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   line-height: 1.55;
   opacity: 0.72;
 }
@@ -496,7 +509,7 @@
 
 .work {
   position: relative;
-  padding-block: clamp(6rem, 13vw, 14rem) clamp(5rem, 10vw, 10rem);
+  padding-block: clamp(5rem, 10vw, 10rem) clamp(4rem, 8vw, 8rem);
   overflow: clip;
 }
 
@@ -512,7 +525,7 @@
 .work-list {
   position: relative;
   list-style: none;
-  margin: clamp(3.5rem, 8vw, 8rem) 0 0;
+  margin: clamp(2.5rem, 5.5vw, 5.5rem) 0 0;
   padding: 0 var(--gutter);
 }
 
@@ -552,9 +565,11 @@
 }
 
 .work-awards {
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.8rem;
+  display: grid;
+  gap: 0.15rem;
   font-family: var(--mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
@@ -563,7 +578,7 @@
 .work-venue {
   padding-top: 0.6rem;
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   line-height: 1.6;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -597,9 +612,18 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--gutter);
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.4;
+}
+
+.honours li span {
+  display: block;
+}
+
+.honours-qualifier {
+  font-weight: 400;
+  opacity: 0.66;
 }
 
 .honours-year {
@@ -617,7 +641,7 @@
   position: relative;
   background: var(--ink);
   color: var(--bone);
-  padding-block: clamp(6rem, 13vw, 14rem) clamp(4rem, 8vw, 8rem);
+  padding-block: clamp(5rem, 10vw, 10rem) 0;
   overflow: clip;
 }
 
@@ -626,10 +650,10 @@
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: var(--gutter);
-  row-gap: clamp(1.5rem, 3vw, 3rem);
+  row-gap: clamp(1.25rem, 2.6vw, 2.75rem);
   align-items: start;
   padding-inline: var(--gutter);
-  margin-top: clamp(7rem, 16vw, 18rem);
+  margin-top: clamp(5rem, 10vw, 11rem);
 }
 
 .chapter-key {
@@ -654,9 +678,9 @@
 
 .chapter-text {
   margin: 0;
-  font-size: clamp(1.125rem, 1.6vw, 1.55rem);
-  line-height: 1.45;
-  opacity: 0.82;
+  font-size: clamp(1.25rem, 1.85vw, 1.8rem);
+  line-height: 1.42;
+  opacity: 0.86;
   text-wrap: pretty;
 }
 
@@ -668,6 +692,7 @@
   display: block;
   width: 100%;
   height: auto;
+  object-fit: cover;
   /* Colour, with a restrained print-like grade: a little less saturation and
      a touch more contrast so mixed-source photos sit together. */
   filter: saturate(0.86) contrast(1.05);
@@ -679,19 +704,27 @@
 }
 
 .plate figcaption {
-  margin-top: 0.8rem;
+  margin-top: 0.9rem;
   font-family: var(--mono);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1.5;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  opacity: 0.78;
 }
 
-/* Each chapter is its own asymmetric spread, not a repeated template. */
-.chapter--research .chapter-title { grid-column: 1 / span 8; }
-.chapter--research .chapter-text { grid-column: 2 / span 4; }
-.chapter--research .plate--a { grid-column: 8 / span 5; grid-row: 2 / span 2; margin-top: clamp(2rem, 9vw, 10rem); }
+.plate-detail {
+  display: block;
+  opacity: 0.6;
+}
+
+/* Each chapter is its own asymmetric spread, not a repeated template.
+   Photos are cropped to a set proportion and bleed to the frame edge so they
+   share the composition with the type instead of floating inside it. */
+.chapter--research .chapter-title { grid-column: 1 / span 9; }
+.chapter--research .chapter-text { grid-column: 2 / span 4; align-self: end; padding-bottom: 0.4rem; }
+.chapter--research .plate--a { grid-column: 7 / -1; margin-right: calc(-1 * var(--gutter)); }
+.chapter--research .plate--a img { aspect-ratio: 5 / 4; object-position: 32% 50%; }
+.chapter--research .plate--a figcaption { padding-right: var(--gutter); }
 
 .chapter--engineering .chapter-title { grid-column: 4 / -1; text-align: right; }
 .chapter-columns {
@@ -704,18 +737,24 @@
   margin: 0;
   padding-top: 1.1rem;
   border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
-  font-size: 1.0625rem;
-  line-height: 1.55;
-  opacity: 0.82;
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  opacity: 0.86;
 }
 
-.chapter--teaching .plate--b { grid-column: 1 / span 5; grid-row: 2 / span 3; }
+.chapter--teaching .plate--b { grid-column: 1 / span 6; grid-row: 2 / span 3; margin-left: calc(-1 * var(--gutter)); }
+.chapter--teaching .plate--b img { aspect-ratio: 4 / 5; object-position: 50% 40%; }
+.chapter--teaching .plate--b figcaption { padding-left: var(--gutter); }
 .chapter--teaching .chapter-title { grid-column: 7 / -1; }
-.chapter--teaching .chapter-text { grid-column: 7 / span 4; }
-.chapter--teaching .plate--c { grid-column: 10 / span 3; margin-top: clamp(1rem, 4vw, 5rem); }
+.chapter--teaching .chapter-text { grid-column: 7 / span 5; }
+.chapter--teaching .plate--c { grid-column: 8 / -1; margin-right: calc(-1 * var(--gutter)); }
+.chapter--teaching .plate--c img { aspect-ratio: 3 / 2; }
+.chapter--teaching .plate--c figcaption { padding-right: var(--gutter); }
 
 .chapter--olympiad .chapter-title { grid-column: 1 / -1; }
-.chapter--olympiad .plate--wide { grid-column: 3 / -1; }
+.chapter--olympiad .plate--wide { grid-column: 1 / -1; margin-inline: calc(-1 * var(--gutter)); }
+.chapter--olympiad .plate--wide img { aspect-ratio: 2 / 1; object-position: 50% 42%; }
+.chapter--olympiad .plate--wide figcaption { padding-inline: var(--gutter); padding-bottom: clamp(2rem, 4vw, 4rem); }
 
 /* ------------------------------------------------------------ PRINCIPLES */
 
@@ -758,7 +797,7 @@
 
 .principles-list p {
   margin: 1rem 0 0;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   line-height: 1.55;
   opacity: 0.76;
 }
@@ -830,7 +869,7 @@
   display: flex;
   justify-content: space-between;
   gap: 1.5rem;
-  font-size: 1rem;
+  font-size: 1.0625rem;
   line-height: 1.5;
   opacity: 0.72;
 }
@@ -895,7 +934,7 @@
 
   .module {
     z-index: 1;
-    font-size: 0.625rem;
+    font-size: 0.6875rem;
   }
 
   .module--tagline {
@@ -978,9 +1017,12 @@
     grid-template-columns: 1fr;
   }
 
-  .chapter--research .plate--a { grid-column: 3 / -1 !important; margin-top: 1rem; }
-  .chapter--teaching .plate--b { grid-column: 1 / span 10 !important; }
-  .chapter--teaching .plate--c { grid-column: 6 / -1 !important; margin-top: 0; }
+  .chapter--research .chapter-text { padding-bottom: 0; }
+  .chapter--research .plate--a { grid-column: 2 / -1 !important; }
+  .chapter--research .plate--a img { aspect-ratio: 4 / 5; }
+  .chapter--teaching .plate--b { grid-column: 1 / span 11 !important; }
+  .chapter--teaching .plate--c { grid-column: 4 / -1 !important; }
+  .chapter--olympiad .plate--wide img { aspect-ratio: 4 / 5; object-position: 50% 45%; }
 
   .principles-list article,
   .principles-list article:first-child {

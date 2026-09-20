@@ -96,8 +96,10 @@ function Plate({
         loading="lazy"
         decoding="async"
       />
-      {/* A separator never starts a line: the space before "·" is non-breaking. */}
-      <figcaption>{photo.caption.replace(/ · /g, '\u00a0· ')}</figcaption>
+      <figcaption>
+        {photo.caption}
+        {photo.detail && <span className="plate-detail">{photo.detail}</span>}
+      </figcaption>
     </figure>
   );
 }
@@ -175,13 +177,14 @@ export default function Home() {
 
             <div className="module module--ioai">
               <span className="module-key">
-                <i>03</i> IOAI 2026 · Astana
+                <i>03</i> IOAI 2026
               </span>
               <p className="module-figure">
                 4<sup>th</sup>
+                <span className="module-figure-label">worldwide</span>
               </p>
               <p>
-                worldwide · 8/8 medals
+                8/8 medals, Astana
                 <br />
                 <span className="module-dim">Deputy Leader &amp; National Team Coach</span>
               </p>
@@ -189,10 +192,14 @@ export default function Home() {
 
             <Link href={`/publications#${latest.slug}`} className="module module--latest">
               <span className="module-key">
-                <i>04</i> Latest · {latest.date ?? latest.year}
+                <i>04</i> Latest
               </span>
               <span className="module-title">{latest.title}</span>
-              <span className="module-dim">{latest.venue} ↗</span>
+              <span className="module-dim">
+                {latest.venue}
+                <br />
+                {latest.date ?? latest.year} ↗
+              </span>
             </Link>
 
             <span className="hero-cue" aria-hidden="true">
@@ -209,10 +216,10 @@ export default function Home() {
           {/* Decorative: the same words are the real <h2> of the Trajectory section. */}
           <div className="marquee" aria-hidden="true">
             <span className="marquee-row marquee-row--serif" data-marquee="-1">
-              Researcher, engineer, · Researcher, engineer, · Researcher, engineer, · Researcher, engineer,
+              Researcher, engineer, Researcher, engineer, Researcher, engineer, Researcher, engineer,
             </span>
             <span className="marquee-row" data-marquee="1">
-              teacher, coach. · teacher, coach. · teacher, coach. · teacher, coach. · teacher, coach.
+              teacher, coach. teacher, coach. teacher, coach. teacher, coach. teacher, coach.
             </span>
           </div>
 
@@ -256,7 +263,13 @@ export default function Home() {
                 <Link href={`/publications#${pub.slug}`} className="work-row">
                   <span className="work-index">{pad(i + 1)}</span>
                   <div className="work-title">
-                    {pub.awards && pub.awards.length > 0 && <p className="work-awards">{pub.awards.join(' · ')}</p>}
+                    {pub.awards && pub.awards.length > 0 && (
+                      <p className="work-awards">
+                        {pub.awards.map((award) => (
+                          <span key={award}>{award}</span>
+                        ))}
+                      </p>
+                    )}
                     <h3>
                       <Copy text={pub.title} />
                     </h3>
@@ -276,7 +289,12 @@ export default function Home() {
             {featuredAwards.slice(0, 4).map((award) => (
               <li key={award.title} data-rise>
                 <span className="honours-year">{award.year}</span>
-                <Copy text={award.title} />
+                {/* "Title · Qualifier" in the data becomes two lines here. */}
+                {award.title.split(' · ').map((part, j) => (
+                  <span key={part} className={j ? 'honours-qualifier' : undefined}>
+                    <Copy text={part} />
+                  </span>
+                ))}
               </li>
             ))}
           </ul>
