@@ -280,7 +280,10 @@ export function Lattice({ portraitSelector, matteSrc, progressSelector, classNam
     function draw(now: number) {
       const t = reduced ? 40 : (now - start) / 1000;
       const hp = Number(progressEl?.style.getPropertyValue('--hp') || 0);
-      const ease = hp * hp * (3 - 2 * hp);
+      // The hero stays pinned for the whole time the statement covers it, so
+      // the ring's own exit only uses the first part of that range.
+      const lp = Math.min(1, hp / 0.5);
+      const ease = lp * lp * (3 - 2 * lp);
 
       const cr = canvas!.getBoundingClientRect();
       const pr = portrait!.getBoundingClientRect();
@@ -294,20 +297,23 @@ export function Lattice({ portraitSelector, matteSrc, progressSelector, classNam
       gl!.uniform2f(loc.canvasF, cssW, cssH);
       gl!.uniform4f(loc.rect, ...box);
       gl!.uniform4f(loc.rectF, ...box);
-      gl!.uniform2f(loc.center, 0.5, small ? 0.6 : 0.57);
+      // Anchored to the person, not the frame: the far arc passes behind the
+      // head at temple height and the near arc crosses at the collar line, so
+      // the ring sits on the shoulders like a yoke instead of circling the chest.
+      gl!.uniform2f(loc.center, 0.5, small ? 0.6 : 0.545);
       // Scrolling out: the ring turns to face the viewer and opens like an
       // aperture, so the page passes through it into the dark section.
-      gl!.uniform1f(loc.radius, (small ? 0.5 : 0.545) * (1 + ease * 2.1));
-      gl!.uniform1f(loc.tube, 0.13 - ease * 0.04);
-      gl!.uniform1f(loc.tilt, (0.92 + pointer.ny * 0.09) * (1 - ease * 0.8));
-      gl!.uniform1f(loc.roll, -0.3 + pointer.nx * 0.07 + ease * 0.5);
+      gl!.uniform1f(loc.radius, (small ? 0.5 : 0.435) * (1 + ease * 2.6));
+      gl!.uniform1f(loc.tube, 0.15 - ease * 0.05);
+      gl!.uniform1f(loc.tilt, (1.0 + pointer.ny * 0.09) * (1 - ease * 0.8));
+      gl!.uniform1f(loc.roll, -0.26 + pointer.nx * 0.07 + ease * 0.5);
       gl!.uniform1f(loc.spin, t * 0.035);
       gl!.uniform1f(loc.time, t);
       gl!.uniform2f(loc.pointer, pointer.x, pointer.y);
       gl!.uniform1f(loc.dpr, dpr);
       gl!.uniform1f(loc.intro, reduced ? 1.1 : Math.min(1.1, ((now - start) / 1500) ** 0.8 * 1.1));
-      gl!.uniform1f(loc.night, Math.min(1, Math.max(0, (hp - 0.12) / 0.3)));
-      gl!.uniform1f(loc.fade, 1 - Math.min(1, Math.max(0, (hp - 0.8) / 0.2)));
+      gl!.uniform1f(loc.night, Math.min(1, Math.max(0, (hp - 0.02) / 0.14)));
+      gl!.uniform1f(loc.fade, 1 - Math.min(1, Math.max(0, (lp - 0.7) / 0.3)));
       gl!.drawArrays(gl!.LINES, 0, geometry.length / 3);
       canvas!.dataset.active = 'true';
     }

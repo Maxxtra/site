@@ -37,7 +37,7 @@ export function HomeMotion({ children }: { children: React.ReactNode }) {
             end: 'bottom bottom',
             onUpdate: (self) => {
               hero.style.setProperty('--hp', self.progress.toFixed(4));
-              hero.dataset.navTheme = self.progress > 0.27 ? 'dark' : 'light';
+              hero.dataset.navTheme = self.progress > 0.09 ? 'dark' : 'light';
             },
           });
         }

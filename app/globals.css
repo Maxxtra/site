@@ -179,17 +179,29 @@ body {
   --nav-ground: var(--paper);
 }
 
-/* No bar, but a short wash of the section's own ground behind the controls,
-   so the wordmark never tangles with text scrolling underneath it. */
+/* No bar. Instead, a safe zone: whatever scrolls beneath the controls is
+   blurred out of legibility and washed toward the section's own ground, solid
+   through the full height of the wordmark and buttons and feathered below.
+   Page text can pass under the nav, but it can never be read through it or
+   be sliced mid-word by a button. */
 .nav::before {
   content: '';
   position: absolute;
   inset: 0 0 auto;
-  height: 7.5rem;
+  height: calc(var(--gutter) + 2.75rem + 4.25rem);
   pointer-events: none;
-  background: linear-gradient(to bottom, var(--nav-ground, var(--ink)) 18%, transparent);
-  opacity: 0.92;
-  transition: opacity 0.4s ease;
+  background: color-mix(in srgb, var(--nav-ground, var(--ink)) 72%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 calc(var(--gutter) + 2.75rem + 0.75rem), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 calc(var(--gutter) + 2.75rem + 0.75rem), transparent 100%);
+  transition: opacity 0.4s ease, background-color 0.4s ease;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nav::before {
+    background: var(--nav-ground, var(--ink));
+  }
 }
 
 .nav[data-top='true']::before,

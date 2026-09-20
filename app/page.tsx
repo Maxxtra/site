@@ -155,6 +155,11 @@ export default function Home() {
               <span className="module-key">
                 <i>01</i> Current
               </span>
+              <p>
+                PhD-track Researcher
+                <br />
+                <span className="module-dim">POLITEHNICA Bucharest</span>
+              </p>
               {current.map((role) => (
                 <p key={role.slug}>
                   {role.role.split(',')[0]}
@@ -164,20 +169,9 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="module module--research">
-              <span className="module-key">
-                <i>02</i> Research
-              </span>
-              <ul>
-                {researchDirections.map((d) => (
-                  <li key={d.slug}>{d.title}</li>
-                ))}
-              </ul>
-            </div>
-
             <div className="module module--ioai">
               <span className="module-key">
-                <i>03</i> IOAI 2026
+                <i>02</i> IOAI 2026
               </span>
               <p className="module-figure">
                 4<sup>th</sup>
@@ -189,18 +183,6 @@ export default function Home() {
                 <span className="module-dim">Deputy Leader &amp; National Team Coach</span>
               </p>
             </div>
-
-            <Link href={`/publications#${latest.slug}`} className="module module--latest">
-              <span className="module-key">
-                <i>04</i> Latest
-              </span>
-              <span className="module-title">{latest.title}</span>
-              <span className="module-dim">
-                {latest.venue}
-                <br />
-                {latest.date ?? latest.year} ↗
-              </span>
-            </Link>
 
             <span className="hero-cue" aria-hidden="true">
               Scroll
@@ -221,6 +203,14 @@ export default function Home() {
             <span className="marquee-row" data-marquee="1">
               teacher, coach. teacher, coach. teacher, coach. teacher, coach. teacher, coach.
             </span>
+            {/* Narrow screens: the whole phrase, set as a block. A scrubbed
+                marquee only ever shows a word and a half at 390px. */}
+            <p className="marquee-stack">
+              <span className="marquee-stack-serif">Researcher,</span>
+              <span>engineer,</span>
+              <span className="marquee-stack-serif">teacher,</span>
+              <span>coach.</span>
+            </p>
           </div>
 
           <div className="statement-body">
@@ -230,6 +220,28 @@ export default function Home() {
             <p className="statement-lede" data-rise>
               <Copy text={siteConfig.positioning} />
             </p>
+
+            <aside className="statement-notes" aria-label="Research directions and latest publication">
+              <div className="note" data-rise>
+                <span className="module-key">Research</span>
+                <ul>
+                  {researchDirections.map((d) => (
+                    <li key={d.slug}>
+                      <Link href={`/research#${d.slug}`}>{d.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Link href={`/publications#${latest.slug}`} className="note note--latest" data-rise>
+                <span className="module-key">Latest</span>
+                <span className="module-title">{latest.title}</span>
+                <span className="module-dim">
+                  {latest.venue}
+                  <br />
+                  {latest.date ?? latest.year} ↗
+                </span>
+              </Link>
+            </aside>
 
             <dl className="ledger">
               {highlights.map((item, i) => (
@@ -398,7 +410,9 @@ export default function Home() {
                   <span className="index-number">{pad(i + 1)}</span>
                   <span className={i % 2 ? 'index-label index-label--serif' : 'index-label'}>{page.label}</span>
                   <span className="index-meta">
-                    <Copy text={page.description} />
+                    <span className="index-desc">
+                      <Copy text={page.description} />
+                    </span>
                     {page.count !== undefined && <span className="index-count">{pad(page.count)}</span>}
                   </span>
                 </Link>

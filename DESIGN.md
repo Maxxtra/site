@@ -52,6 +52,15 @@ Three families, all self-hosted through `next/font` in `app/layout.tsx`.
 
 The signature headline is grotesk caps with **one** word set in didone italic
 lower-case (`<em>` inside `.display` / `.chapter-title`). One per headline.
+The `<em>` carries `margin-inline: 0.05em 0.16em`: the italic leans out of its
+box and the condensed grotesk has a tight word space, so without it a mid-line
+join closes up ("AI SYSTEMS" reads as one word). Do not remove it, and do not
+fix joins with extra spaces in the copy.
+
+Hyphenated compounds ("open-weight") do not break across lines on wide screens
+(`Copy` helper in `app/page.tsx`). Below 768px they may break after the hyphen:
+in a 20-character column an even rag matters more. `Copy` returns several
+nodes, so never make its parent a flex/grid container: wrap it in one element.
 
 ## Layout
 
@@ -70,13 +79,24 @@ lower-case (`<em>` inside `.display` / `.chapter-title`). One per headline.
 - Masthead: surname in didone caps behind the head. Caps on purpose: the head
   overlaps the letterforms without erasing any letter. The `<h1>` text content
   is the single string "Costin-Alexandru Deonise".
-- Modules: four mono notes pinned to the frame edges, real repo data only.
+- Modules: two only, one in each bottom corner (Current, IOAI). Real repo data.
+  Everything between them and the masthead belongs to the portrait. Secondary
+  facts (research directions, latest paper) live as margin notes in the
+  statement section, not in the hero.
 - Lattice (`components/home/lattice.tsx`): hand-written WebGL, no library. The
   fragment shader samples the cutout's alpha as a matte: the far half of the
   torus is hidden behind the subject, the near half flips from ink to paper
   where it crosses the body. Pointer tilts it and swells the tube locally.
-  Scrolling turns it face-on and opens it like an aperture while the ground
-  goes from paper to ink and the statement rises through it.
+  It is anchored to the person, not the frame: the far arc passes behind the
+  head at temple height, the near arc crosses at the collar line.
+- Exit: the statement starts at the fold and rises over the pinned stage at
+  normal scroll speed (`--exit` in `app/home.css`), so the pin costs no extra
+  scrolling and the frame is never empty. The ground turns to ink early, the
+  ring opens like an aperture, the marquee passes in front of the portrait,
+  then solid ink covers it. The portrait is never faded: it dims
+  (`brightness`) and is covered. No low-opacity frames of a face.
+- Below 768px the scrubbed marquee is replaced by the whole phrase set as a
+  four-line block; a marquee only shows a word and a half at that width.
 
 ### Replacing the portrait
 
@@ -104,7 +124,10 @@ lives in `components/home/home-motion.tsx` and is driven by data attributes
 
 ## Navigation
 
-No bar. Wordmark top-left (hidden on the homepage while the masthead is in
+No bar, but a safe zone: a band behind the controls blurs whatever scrolls
+under it and washes it toward the section's ground, solid through the height of
+the controls and feathered below. Page text can pass under the nav but can never
+be read through it or be sliced by a button. Wordmark top-left (hidden on the homepage while the masthead is in
 view), one filled control (CV), one outlined control (Menu) opening a full-screen
 index. The chrome takes its colour from the section under it: sections declare
 `data-nav-theme="light|dark"`; undeclared pages are dark.
