@@ -73,8 +73,9 @@ nodes, so never make its parent a flex/grid container: wrap it in one element.
 
 ## Hero
 
-- Portrait: a transparent cutout, anchored to the bottom edge, monochrome,
-  `min(84svh, 60vw)` tall. Mobile overfills the frame (`min(81svh, 176vw)`) so
+- Portrait: a transparent cutout in colour, `min(84svh, 60vw)` tall, set
+  6.7svh below the bottom edge on wide screens so the head overlaps only the
+  base of the masthead and the surname reads whole. Mobile overfills the frame (`min(81svh, 176vw)`) so
   the face carries the screen.
 - Masthead: surname in didone caps behind the head. Caps on purpose: the head
   overlaps the letterforms without erasing any letter. The `<h1>` text content

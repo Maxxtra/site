@@ -239,6 +239,16 @@
   -webkit-user-drag: none;
 }
 
+/* Wide screens: the portrait sits a little below the frame edge, so the head
+   overlaps only the base of the masthead and the surname reads whole at a
+   glance. The lattice and its depth matte follow the image box on their own.
+   Narrow screens keep the head meeting the masthead directly. */
+@media (min-width: 768px) {
+  .hero-portrait {
+    bottom: -6.7svh;
+  }
+}
+
 .hero-lattice {
   position: absolute;
   inset: 0;
