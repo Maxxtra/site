@@ -73,9 +73,12 @@ nodes, so never make its parent a flex/grid container: wrap it in one element.
 
 ## Hero
 
-- Portrait: a transparent cutout in colour, `min(84svh, 60vw)` tall, set
-  6.7svh below the bottom edge on wide screens so the head overlaps only the
-  base of the masthead and the surname reads whole. Mobile overfills the frame (`min(81svh, 176vw)`) so
+- Portrait: a transparent cutout in colour. Wide screens: `min(82svh, 58.6vw)`
+  tall, set 7.6svh below the bottom edge, so the hair touches only the base of
+  the masthead's "O" and "N" and the surname reads whole. Narrow screens:
+  anchored to the edge, head meeting the masthead.
+- First name: mono caps above the surname, `clamp(0.9375rem, 1.4vw, 1.5rem)`,
+  tracked 0.4em. Present, but clearly secondary to the surname. Mobile overfills the frame (`min(81svh, 176vw)`) so
   the face carries the screen.
 - Masthead: surname in didone caps behind the head. Caps on purpose: the head
   overlaps the letterforms without erasing any letter. The `<h1>` text content
@@ -90,15 +93,13 @@ nodes, so never make its parent a flex/grid container: wrap it in one element.
   where it crosses the body. Pointer tilts it and swells the tube locally.
   It is anchored to the person, not the frame: the far arc passes behind the
   head at temple height, the near arc crosses at the collar line.
-- Direct manipulation (mouse/pen): the ring can be grabbed and carried around
-  the portrait. Pointer → target → damped spring → an *offset* added to the
-  authored centre; scroll never reads or writes that offset. Hit testing is on
-  the CPU against the projected centreline, and refuses arcs hidden behind the
-  head. Soft `tanh` limits (box widths: ±0.42 x, 0.36 up, 0.19 down). Held
-  spring k=120 ζ=0.72; after release it keeps its place 650ms, then returns on
-  k=26 ζ=0.70. Hover is only a 9% firming of the tube and a slight lift in
-  line weight. Touch is passive by design; reduced motion is static. No scroll
-  cue: the object is the invitation.
+- Cursor-follow, local only: the ring is never draggable and never leaves the
+  head. While the cursor is within ~0.4 box widths of the head centre (fading
+  to nothing at 0.8) the ring biases toward it by at most 0.075 / 0.06 box
+  widths (≈55 / 45px), on a damped spring (k=34, ζ=0.8), and leans a few
+  degrees the same way. Outside the field, over the nav, or on touch it rests.
+  The bias is an offset on the authored centre and fades with the exit.
+  Under the cursor the tube firms by 8%: no zoom. No scroll cue.
 - Exit: the statement starts at the fold and rises over the pinned stage at
   normal scroll speed (`--exit` in `app/home.css`), so the pin costs no extra
   scrolling and the frame is never empty. The ground turns to ink early, the

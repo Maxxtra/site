@@ -185,7 +185,7 @@
 .hero-name {
   position: absolute;
   inset-inline: 0;
-  top: clamp(4.5rem, 9.5svh, 7rem);
+  top: clamp(3.25rem, 6.4svh, 4.75rem);
   margin: 0;
   display: grid;
   justify-items: center;
@@ -197,11 +197,11 @@
 
 .hero-name-first {
   font-family: var(--mono);
-  font-size: 0.6875rem;
+  font-size: clamp(0.9375rem, 1.4vw, 1.5rem);
   font-weight: 500;
-  letter-spacing: 0.42em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  padding-left: 0.42em;
+  padding-left: 0.4em;
 }
 
 .hero-name-last {
@@ -245,7 +245,8 @@
    Narrow screens keep the head meeting the masthead directly. */
 @media (min-width: 768px) {
   .hero-portrait {
-    bottom: -6.7svh;
+    height: min(82svh, 58.6vw);
+    bottom: -7.6svh;
   }
 }
 
@@ -376,18 +377,6 @@
 .note li a:hover,
 .note li a:focus-visible {
   color: var(--accent);
-}
-
-/* The ring can be picked up: the stage shows it, the canvas itself stays
-   pointer-events: none. Set by components/home/lattice.tsx. */
-.hero-stage[data-lattice='hover'] {
-  cursor: grab;
-}
-
-.hero-stage[data-lattice='drag'] {
-  cursor: grabbing;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 @keyframes hero-name-in {
@@ -1018,8 +1007,9 @@
   }
 
   .hero-name-first {
-    font-size: 0.625rem;
-    letter-spacing: 0.36em;
+    font-size: 0.8125rem;
+    letter-spacing: 0.34em;
+    padding-left: 0.34em;
   }
 
   .hero-name-last {
@@ -1037,8 +1027,8 @@
     content: '';
     position: absolute;
     inset: auto 0 0;
-    height: 30svh;
-    background: linear-gradient(to top, color-mix(in srgb, var(--ink) 88%, transparent), transparent);
+    height: 40svh;
+    background: linear-gradient(to top, color-mix(in srgb, var(--ink) 90%, transparent) 35%, transparent);
     pointer-events: none;
   }
 
