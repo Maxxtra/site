@@ -184,9 +184,6 @@ export default function Home() {
               </p>
             </div>
 
-            <span className="hero-cue" aria-hidden="true">
-              Scroll
-            </span>
           </div>
         </section>
 

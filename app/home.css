@@ -378,18 +378,16 @@
   color: var(--accent);
 }
 
-.hero-cue {
-  position: absolute;
-  left: 50%;
-  bottom: var(--gutter);
-  transform: translateX(-50%);
-  font-family: var(--mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--paper);
-  opacity: calc(0.75 - var(--hp) * 12);
-  mix-blend-mode: difference;
+/* The ring can be picked up: the stage shows it, the canvas itself stays
+   pointer-events: none. Set by components/home/lattice.tsx. */
+.hero-stage[data-lattice='hover'] {
+  cursor: grab;
+}
+
+.hero-stage[data-lattice='drag'] {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 @keyframes hero-name-in {
@@ -1052,10 +1050,6 @@
   .module--tagline {
     top: calc(var(--gutter) + 0.2rem);
     max-width: 11rem;
-  }
-
-  .hero-cue {
-    display: none;
   }
 
   .module--current,

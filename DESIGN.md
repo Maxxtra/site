@@ -90,6 +90,15 @@ nodes, so never make its parent a flex/grid container: wrap it in one element.
   where it crosses the body. Pointer tilts it and swells the tube locally.
   It is anchored to the person, not the frame: the far arc passes behind the
   head at temple height, the near arc crosses at the collar line.
+- Direct manipulation (mouse/pen): the ring can be grabbed and carried around
+  the portrait. Pointer → target → damped spring → an *offset* added to the
+  authored centre; scroll never reads or writes that offset. Hit testing is on
+  the CPU against the projected centreline, and refuses arcs hidden behind the
+  head. Soft `tanh` limits (box widths: ±0.42 x, 0.36 up, 0.19 down). Held
+  spring k=120 ζ=0.72; after release it keeps its place 650ms, then returns on
+  k=26 ζ=0.70. Hover is only a 9% firming of the tube and a slight lift in
+  line weight. Touch is passive by design; reduced motion is static. No scroll
+  cue: the object is the invitation.
 - Exit: the statement starts at the fold and rises over the pinned stage at
   normal scroll speed (`--exit` in `app/home.css`), so the pin costs no extra
   scrolling and the frame is never empty. The ground turns to ink early, the
