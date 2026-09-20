@@ -73,10 +73,17 @@ nodes, so never make its parent a flex/grid container: wrap it in one element.
 
 ## Hero
 
-- Portrait: a transparent cutout in colour. Wide screens: `min(82svh, 58.6vw)`
-  tall, set 7.6svh below the bottom edge, so the hair touches only the base of
-  the masthead's "O" and "N" and the surname reads whole. Narrow screens:
-  anchored to the edge, head meeting the masthead.
+- Portrait: a transparent cutout in colour. The grade is baked into a
+  derivative asset by `scripts/grade-portrait.py` (warmer white balance, gamma
+  1.10, a mid-tone S-curve, highlight roll-off, alpha-aware local contrast, a
+  low unsharp mask, rim decontamination, Lanczos upsample to 1600px). The
+  photograph and the ungraded matte are never modified; `cutoutSrc` in
+  `lib/photos.ts` chooses between them. CSS adds no colour filter, only the
+  exit dimming and a soft low drop shadow for separation from the paper.
+  The shoulders fall away under an elliptical mask, like a studio vignette.
+  Wide screens: `min(80.5svh, 57.5vw)` tall, set 9.4svh below the bottom edge,
+  so the hair only kisses the base of the masthead's "N" and the surname
+  reads whole. Narrow screens: anchored to the edge, head meeting the masthead.
 - First name: mono caps above the surname, `clamp(0.9375rem, 1.4vw, 1.5rem)`,
   tracked 0.4em. Present, but clearly secondary to the surname. Mobile overfills the frame (`min(81svh, 176vw)`) so
   the face carries the screen.
@@ -93,13 +100,17 @@ nodes, so never make its parent a flex/grid container: wrap it in one element.
   where it crosses the body. Pointer tilts it and swells the tube locally.
   It is anchored to the person, not the frame: the far arc passes behind the
   head at temple height, the near arc crosses at the collar line.
-- Cursor-follow, local only: the ring is never draggable and never leaves the
-  head. While the cursor is within ~0.4 box widths of the head centre (fading
-  to nothing at 0.8) the ring biases toward it by at most 0.075 / 0.06 box
-  widths (≈55 / 45px), on a damped spring (k=34, ζ=0.8), and leans a few
-  degrees the same way. Outside the field, over the nav, or on touch it rests.
-  The bias is an offset on the authored centre and fades with the exit.
-  Under the cursor the tube firms by 8%: no zoom. No scroll cue.
+- Cursor-follow, orbital, local: the ring is never draggable and never leaves
+  the head. Within ~0.5 box widths of the head centre (fading to nothing at
+  1.0) it travels toward the cursor in full 2D, at most 0.17 across, 0.15 up
+  and 0.095 down (box widths; ≈125 / 110 / 70px against a ≈315px ring radius),
+  on a lightly under-damped spring (k=44, ζ=0.68). Its plane tips toward the
+  cursor (tilt ±0.24 rad, roll ±0.2 rad, plus a small lean into its own
+  motion) and it swirls on its axis from its angular momentum about the head,
+  so circling the head spins it. A 0.006 drift keeps it floating at rest.
+  Outside the field, over the nav, or on touch it rests; reduced motion is
+  static. The bias is an offset on the authored centre and fades with the
+  exit. Under the cursor the tube firms by 8%: no zoom. No scroll cue.
 - Exit: the statement starts at the fold and rises over the pinned stage at
   normal scroll speed (`--exit` in `app/home.css`), so the pin costs no extra
   scrolling and the frame is never empty. The ground turns to ink early, the
@@ -114,6 +125,7 @@ nodes, so never make its parent a flex/grid container: wrap it in one element.
 Shoot against a plain light backdrop, then:
 
     python3 scripts/make-portrait-cutout.py path/to/new.jpg
+    python3 scripts/grade-portrait.py        # re-tune the constants at its top
 
 Update `width`/`height` for `costin-portrait` in `lib/photos.ts`. Nothing else
 changes; the lattice reads its geometry from the rendered image box. A source

@@ -121,7 +121,9 @@ export const photos: Photo[] = [
     src: '/media/portraits/costin-portrait.jpg',
     width: 1200,
     height: 1200,
-    cutoutSrc: '/media/portraits/costin-portrait-cutout.webp',
+    // Graded derivative (scripts/grade-portrait.py). The ungraded matte stays in
+    // the repo as costin-portrait-cutout.webp; point this back at it to revert.
+    cutoutSrc: '/media/portraits/costin-portrait-cutout-graded.webp',
     alt: 'Portrait of Costin-Alexandru Deonise',
     caption: 'Costin-Alexandru Deonise',
     category: 'portraits',

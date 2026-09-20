@@ -12,12 +12,15 @@ import { useEffect, useRef } from 'react';
  * covers it, and flips the near half from ink to paper where it crosses the
  * body, so the line stays legible over a black shirt.
  *
- * Interaction. The ring is not an object to be moved around the page. It stays
- * where it is composed, framing the head, and leans toward the cursor only
- * while the cursor is near the head: a magnetic bias of a few dozen pixels on a
- * damped spring, with a matching change of tilt and roll. Outside that field,
- * or on touch, it rests. The bias is an *offset* on the authored centre and
- * fades out with the scroll exit, so the choreography is never overwritten.
+ * Interaction. The ring is not an object to be dragged around the page. It
+ * floats around the head and answers the cursor in full 2D: toward the upper
+ * right when the cursor is there, down and left when it is there, diagonals
+ * included. It travels on a lightly under-damped spring, tips its plane toward
+ * the cursor (tilt and roll), and swirls about its own axis as the cursor
+ * circles the head. Its reach is a fraction of its own radius, so it always
+ * frames the head; beyond the field around the head, over the nav, or on
+ * touch, it eases back to rest. The bias is an *offset* on the authored centre
+ * and fades out with the scroll exit, so the choreography is never overwritten.
  *
  * Progressive enhancement. The portrait, name and modules are plain DOM and
  * never depend on this canvas. No WebGL → the canvas simply stays empty.
@@ -170,12 +173,17 @@ function compile(gl: WebGLRenderingContext, type: number, src: string) {
 // Local cursor-follow. All distances in portrait-box widths (~740px at 1440).
 const HEAD_X = 0.5; // centre of the head inside the image box
 const HEAD_Y = 0.4;
-const FIELD_INNER = 0.4; // full influence within this distance of the head…
-const FIELD_OUTER = 0.8; // …none beyond this, with a smooth falloff between
-const REACH_X = 0.075; // furthest the ring ever biases (≈55px / ≈45px)
-const REACH_Y = 0.06;
-const FOLLOW_K = 34; // soft spring, damping ratio 0.8: elastic, no wobble
-const FOLLOW_C = 2 * Math.sqrt(FOLLOW_K) * 0.8;
+const FIELD_INNER = 0.5; // full influence within this distance of the head…
+const FIELD_OUTER = 1.0; // …none beyond this, with a smooth falloff between
+const REACH_X = 0.17; // furthest the ring's centre ever travels: ≈125px across,
+const REACH_UP = 0.15; // ≈110px up, ≈70px down (less, so the near arc stays in
+const REACH_DOWN = 0.095; // frame), against a ring radius of ≈315px
+const SOFTNESS = 0.34; // cursor distance at which the ring is ~3/4 of the way out
+const FOLLOW_K = 44; // spring: damping ratio 0.68, one soft overshoot, then still
+const FOLLOW_C = 2 * Math.sqrt(FOLLOW_K) * 0.68;
+const TILT_GAIN = 0.24; // rad at full vertical reach: the plane tips toward the cursor
+const ROLL_GAIN = 0.2; // rad at full horizontal reach
+const SWIRL_GAIN = 9; // spin about its own axis, from the cursor circling the head
 
 const hex = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
 
@@ -282,7 +290,7 @@ export function Lattice({ portraitSelector, matteSrc, progressSelector, classNam
     // and not the statement once that has risen over the stage).
     const pointer = { x: -1e4, y: -1e4, over: false };
     // Spring state: (ox, oy) is the bias added to the authored centre.
-    const follow = { ox: 0, oy: 0, vx: 0, vy: 0 };
+    const follow = { ox: 0, oy: 0, vx: 0, vy: 0, swirl: 0 };
     const onMove = (e: PointerEvent) => {
       if (e.pointerType === 'touch') return;
       const r = canvas.getBoundingClientRect();
@@ -321,8 +329,8 @@ export function Lattice({ portraitSelector, matteSrc, progressSelector, classNam
         const dy = (pointer.y - (pr.top - cr.top)) / pr.width - HEAD_Y;
         const f = Math.min(1, Math.max(0, (Math.hypot(dx, dy) - FIELD_INNER) / (FIELD_OUTER - FIELD_INNER)));
         const weight = 1 - f * f * (3 - 2 * f);
-        goalX = REACH_X * Math.tanh(dx / 0.3) * weight;
-        goalY = REACH_Y * Math.tanh(dy / 0.3) * weight;
+        goalX = REACH_X * Math.tanh(dx / SOFTNESS) * weight;
+        goalY = (dy < 0 ? REACH_UP : REACH_DOWN) * Math.tanh(dy / SOFTNESS) * weight;
       }
       for (let i = 0; i < 2; i++) {
         const h = dt / 2;
@@ -331,12 +339,19 @@ export function Lattice({ portraitSelector, matteSrc, progressSelector, classNam
         follow.ox += follow.vx * h;
         follow.oy += follow.vy * h;
       }
+      // Swirl: the ring's angular momentum about the head turns it on its own
+      // axis, so circling the head with the cursor spins the lattice with it.
+      // It is an accumulated angle on a symmetric ring: it never has to unwind.
+      follow.swirl += (follow.ox * follow.vy - follow.oy * follow.vx) * SWIRL_GAIN * dt;
+      // Floating, not parked: a breath of drift at rest (static under
+      // reduced motion, where t is fixed).
+      const drift = reduced ? 0 : 0.006;
       // The bias belongs to the hero at rest; the exit is authored alone.
-      const bx = follow.ox * (1 - ease);
-      const by = follow.oy * (1 - ease);
+      const bx = (follow.ox + drift * Math.sin(t * 0.55)) * (1 - ease);
+      const by = (follow.oy + drift * Math.cos(t * 0.4)) * (1 - ease);
       // -1..1: how far toward its reach the ring currently is, per axis.
       const nx = bx / REACH_X;
-      const ny = by / REACH_Y;
+      const ny = by / REACH_UP;
 
       const small = compact.matches;
       gl!.clear(gl!.COLOR_BUFFER_BIT);
@@ -348,15 +363,18 @@ export function Lattice({ portraitSelector, matteSrc, progressSelector, classNam
       // Anchored to the person, not the frame: the far arc passes behind the
       // head at temple height and the near arc crosses at the collar line, so
       // the ring sits on the shoulders like a yoke instead of circling the chest.
-      gl!.uniform2f(loc.center, 0.5 + bx, (small ? 0.6 : 0.545) + by);
+      gl!.uniform2f(loc.center, 0.5 + bx, (small ? 0.6 : 0.53) + by);
       // Scrolling out: the ring turns to face the viewer and opens like an
       // aperture, so the page passes through it into the dark section.
       gl!.uniform1f(loc.radius, (small ? 0.5 : 0.435) * (1 + ease * 2.6));
       gl!.uniform1f(loc.tube, 0.15 - ease * 0.05);
-      // It leans the way it moves: toward the cursor, never past a few degrees.
-      gl!.uniform1f(loc.tilt, (1.0 + ny * 0.1) * (1 - ease * 0.8));
-      gl!.uniform1f(loc.roll, -0.26 + nx * 0.08 + ease * 0.5);
-      gl!.uniform1f(loc.spin, t * 0.035);
+      // The plane tips toward the cursor, and leans a little further into its
+      // own motion, so a change of direction reads as weight, not as a slide.
+      const leanTilt = Math.max(-0.1, Math.min(0.1, -follow.vy * 0.5));
+      const leanRoll = Math.max(-0.1, Math.min(0.1, follow.vx * 0.5));
+      gl!.uniform1f(loc.tilt, (1.0 + ny * TILT_GAIN + leanTilt * (1 - ease)) * (1 - ease * 0.8));
+      gl!.uniform1f(loc.roll, -0.26 + nx * ROLL_GAIN + leanRoll * (1 - ease) + ease * 0.5);
+      gl!.uniform1f(loc.spin, t * 0.035 + follow.swirl);
       gl!.uniform1f(loc.time, t);
       gl!.uniform2f(loc.pointer, pointer.over ? pointer.x : -1e4, pointer.over ? pointer.y : -1e4);
       gl!.uniform1f(loc.dpr, dpr);
