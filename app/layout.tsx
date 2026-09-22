@@ -6,6 +6,7 @@ import { siteConfig, sameAsProfiles } from '@/lib/site-config';
 import { featuredAwards } from '@/lib/awards';
 import { researchDirections } from '@/lib/research';
 import './globals.css';
+import './editorial.css';
 
 // Self-hosted at build time by next/font: no runtime request to Google, no
 // layout shift (size-adjusted fallbacks), and every family named in

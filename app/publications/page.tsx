@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { ExternalLink } from 'lucide-react';
-import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
-import { ScrollReveal } from '@/components/ui/scroll-reveal';
+import { EditorialMotion } from '@/components/editorial/motion';
+import { Copy, pad } from '@/components/editorial/copy';
 import { publications } from '@/lib/publications';
+import { siteConfig } from '@/lib/site-config';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/publications/' },
@@ -12,74 +12,112 @@ export const metadata: Metadata = {
 };
 
 const sorted = [...publications].sort((a, b) => b.year - a.year);
+const years = [...new Set(sorted.map((p) => p.year))];
+
+/** The site owner's name in an author list, set heavier. */
+function Authors({ names }: { names: string[] }) {
+  return (
+    <p className="paper-authors">
+      {names.map((name, i) => (
+        <span key={name}>
+          {name === siteConfig.name ? <b>{name}</b> : name}
+          {i < names.length - 1 ? ', ' : ''}
+        </span>
+      ))}
+    </p>
+  );
+}
+
+/*
+ * Composition: the ink page of the site. The year runs down the left margin
+ * as a didone numeral and the papers of that year sit beside it as rows,
+ * newest first. Titles in didone, authors in grotesk, venue and links in mono.
+ */
+// Running number across all years, newest first.
+const indexOf = (slug: string) => sorted.findIndex((p) => p.slug === slug) + 1;
 
 export default function PublicationsPage() {
   return (
-    <main className="min-h-screen bg-background px-6 pt-36 pb-32 text-foreground md:px-10 lg:px-16">
-      <DynamicIslandTOC selector="[data-toc]" />
-      <ScrollReveal className="mx-auto max-w-5xl">
-        <p data-reveal data-toc data-toc-depth="1" data-toc-title="Publications" className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary">
-          Publications
-        </p>
-        <h1 data-reveal className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
-          Peer-reviewed work on differentiation, privacy, and language systems.
-        </h1>
-        <p data-reveal className="mt-6 max-w-2xl leading-8 text-muted-foreground">
-          Six publications spanning scalable automatic differentiation, privacy-preserving machine learning,
-          LLM-based language systems, and speech processing, listed newest first.
-        </p>
+    <main className="editorial page publications">
+      <EditorialMotion>
+        <section className="page-section page-section--ink" data-nav-theme="dark">
+          <div className="lines" aria-hidden="true">
+            <div className="contours" />
+          </div>
+          <header className="page-head">
+            <p className="eyebrow">Publications</p>
+            <h1 className="display" data-rise>
+              Peer-reviewed work on differentiation, privacy, and <em>language</em> systems.
+            </h1>
+            <p className="page-lede" data-rise>
+              <Copy text="Six publications spanning scalable automatic differentiation, privacy-preserving machine learning, LLM-based language systems, and speech processing, listed newest first." />
+            </p>
+            <p className="page-count">
+              <b>{pad(publications.length)}</b>
+              papers
+            </p>
+          </header>
 
-        <ol className="mt-16 divide-y divide-dashed divide-border border-y border-dashed border-border">
-          {sorted.map((pub) => (
-            <li key={pub.slug} id={pub.slug} data-reveal className="py-8">
-              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-8">
-                <div className="flex-1">
-                  {pub.awards && pub.awards.length > 0 && (
-                    <div className="mb-3 flex flex-wrap gap-2">
-                      {pub.awards.map((award) => (
-                        <span
-                          key={award}
-                          className="border border-primary/40 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-primary"
-                        >
-                          {award}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  <h2 className="text-xl font-bold leading-snug md:text-2xl">{pub.title}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{pub.authors.join(', ')}</p>
-                  <p className="mt-1 text-sm font-medium italic text-foreground/80">
-                    {pub.venue}
-                    {pub.date ? `, ${pub.date}` : `, ${pub.year}`}
-                  </p>
-                </div>
-                <div className="flex shrink-0 flex-col gap-2 md:items-end">
-                  {pub.doiUrl && (
-                    <a
-                      href={pub.doiUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-foreground transition-colors hover:text-primary"
-                    >
-                      View paper <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                    </a>
-                  )}
-                  {pub.mirrorUrl && (
-                    <a
-                      href={pub.mirrorUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      Mirror <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </ScrollReveal>
+          <div style={{ paddingBottom: 'clamp(5rem, 10vw, 10rem)' }}>
+            {years.map((year) => (
+              <section key={year} className="year-group" aria-label={`Published in ${year}`}>
+                <p className="year-mark" aria-hidden="true">
+                  {year}
+                </p>
+                <ol className="year-list">
+                  {sorted
+                    .filter((p) => p.year === year)
+                    .map((pub) => {
+                      return (
+                        <li key={pub.slug} id={pub.slug}>
+                          <article className="paper" data-rise>
+                            <h2 className="paper-title">
+                              <Copy text={pub.title} />
+                            </h2>
+                            <Authors names={pub.authors} />
+                            <div className="paper-side">
+                              <p className="ledger-index">{pad(indexOf(pub.slug))}</p>
+                              {pub.awards && pub.awards.length > 0 && (
+                                <p className="work-awards">
+                                  {pub.awards.map((award) => (
+                                    <span key={award}>{award}</span>
+                                  ))}
+                                </p>
+                              )}
+                              <p className="meta">
+                                {pub.venue}
+                                <br />
+                                {pub.date ?? pub.year}
+                              </p>
+                              {(pub.doiUrl || pub.mirrorUrl) && (
+                                <ul className="paper-links">
+                                  {pub.doiUrl && (
+                                    <li>
+                                      <a href={pub.doiUrl} target="_blank" rel="noreferrer" className="mono-link">
+                                        View paper <span aria-hidden="true">↗</span>
+                                      </a>
+                                    </li>
+                                  )}
+                                  {pub.mirrorUrl && (
+                                    <li>
+                                      <a href={pub.mirrorUrl} target="_blank" rel="noreferrer" className="mono-link mono-link--quiet">
+                                        Mirror <span aria-hidden="true">↗</span>
+                                      </a>
+                                    </li>
+                                  )}
+                                </ul>
+                              )}
+                            </div>
+                          </article>
+                        </li>
+                      );
+                    })}
+                </ol>
+              </section>
+            ))}
+          </div>
+        </section>
+      </EditorialMotion>
     </main>
   );
 }

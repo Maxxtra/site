@@ -1,0 +1,1684 @@
+/* =============================================================================
+   Editorial system — shared by every page.
+   Paper / ink grounds, one accent, a didone + grotesk + mono type trio, and
+   level-set linework. The homepage established these values (DESIGN.md);
+   app/home.css holds only what is specific to the hero and its sections, and
+   the inner-page compositions follow at the bottom of this file.
+============================================================================= */
+
+.editorial {
+  --gutter: clamp(1rem, 2.1vw, 2rem);
+  --accent: var(--primary);
+  --serif: var(--ff-serif), 'Didot', 'Bodoni 72', Georgia, serif;
+  --grotesk: var(--ff-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --mono: var(--ff-mono), ui-monospace, 'SF Mono', Menlo, monospace;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--grotesk);
+  overflow-x: clip;
+}
+
+.editorial ::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+.editorial .nowrap {
+  white-space: nowrap;
+}
+
+.editorial h1,
+.editorial h2,
+.editorial h3,
+.editorial .statement-lede,
+.editorial .page-lede,
+.editorial .chapter-text {
+  hyphens: manual;
+  overflow-wrap: normal;
+}
+
+.editorial .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.editorial a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Level-set linework. The SVG is a mask, so the line takes currentColor. */
+.contours {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: currentColor;
+  opacity: 0.13;
+  -webkit-mask: url('/graphics/contours.svg') center / cover no-repeat;
+  mask: url('/graphics/contours.svg') center / cover no-repeat;
+}
+
+/* Section linework dissolves at its top and bottom edge, so a change of
+   section never shows as a cut through the lines. */
+.lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22rem, #000 calc(100% - 22rem), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 22rem, #000 calc(100% - 22rem), transparent 100%);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Display: grotesk caps with a didone italic word set against it. */
+.display {
+  margin: 0;
+  font-size: clamp(2.75rem, 7.3vw, 7.75rem);
+  font-weight: 800;
+  font-stretch: 88%;
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.display em,
+.chapter-title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  font-size: 1.12em;
+  line-height: 0.8;
+  font-variation-settings: 'opsz' 28;
+  white-space: nowrap;
+  /* The italic leans out of its advance box on the right, and the condensed
+     grotesk around it has a tight word space. Without this the join closes up
+     ("AI SYSTEMS" reads as one word). More room after than before, to match
+     the direction of the lean. */
+  margin-inline: 0.05em 0.16em;
+}
+
+.section-head {
+  position: relative;
+  display: grid;
+  gap: 1.5rem;
+  padding-inline: var(--gutter);
+}
+
+/* Mono metadata: dates, venues, sources, counts. */
+.meta {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+/* Mono link with an arrow, for sources, papers, certificates. */
+.mono-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45em;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.mono-link:hover,
+.mono-link:focus-visible {
+  color: var(--accent);
+}
+
+.mono-link--quiet {
+  font-weight: 400;
+  opacity: 0.72;
+}
+
+.mono-link--quiet:hover,
+.mono-link--quiet:focus-visible {
+  opacity: 1;
+}
+
+/* Running text on either ground. */
+.prose {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  opacity: 0.82;
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------ LEDGER */
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1.35fr);
+  align-items: baseline;
+  column-gap: var(--gutter);
+  padding-block: 1.15rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.ledger-row:last-child {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.ledger-index {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.ledger dt {
+  font-size: clamp(1.15rem, 1.7vw, 1.65rem);
+  font-weight: 700;
+  font-stretch: 90%;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.ledger dd {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  opacity: 0.72;
+}
+
+/* -------------------------------------------------------------------- ROWS */
+/* Publication-style rows: index, didone title, mono venue, arrow. */
+
+.work-row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 7fr) minmax(0, 3fr) 2rem;
+  column-gap: var(--gutter);
+  align-items: start;
+  padding-block: clamp(1.5rem, 2.6vw, 2.6rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  color: inherit;
+  text-decoration: none;
+}
+
+.work-list li:last-child .work-row {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.work-index {
+  padding-top: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+.work-title h3 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 3.1rem);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  transition: color 0.35s ease;
+}
+
+.work-awards {
+  margin: 0 0 0.8rem;
+  display: grid;
+  gap: 0.15rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.work-venue {
+  padding-top: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+.work-arrow {
+  justify-self: end;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s ease;
+}
+
+.work-row:hover h3,
+.work-row:focus-visible h3,
+.work-row:hover .work-arrow,
+.work-row:focus-visible .work-arrow {
+  color: var(--accent);
+}
+
+.work-row:hover .work-arrow,
+.work-row:focus-visible .work-arrow {
+  transform: translate3d(0.3rem, -0.3rem, 0);
+}
+
+.honours {
+  position: relative;
+  list-style: none;
+  margin: clamp(3rem, 6vw, 6rem) 0 0;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gutter);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.honours li span {
+  display: block;
+}
+
+.honours-qualifier {
+  font-weight: 400;
+  opacity: 0.66;
+}
+
+.honours-year {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+/* ---------------------------------------------------------------- CHAPTER */
+/* A 12-column spread. Each page places its own children; nothing is templated. */
+
+.chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: clamp(1.25rem, 2.6vw, 2.75rem);
+  align-items: start;
+  padding-inline: var(--gutter);
+  margin-top: clamp(5rem, 10vw, 11rem);
+}
+
+.chapter-key {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.chapter-title {
+  margin: 0;
+  font-size: clamp(3rem, 10.5vw, 11.5rem);
+  font-weight: 800;
+  font-stretch: 84%;
+  line-height: 0.84;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+.chapter-text {
+  margin: 0;
+  font-size: clamp(1.25rem, 1.85vw, 1.8rem);
+  line-height: 1.42;
+  opacity: 0.86;
+  text-wrap: pretty;
+}
+
+/* ------------------------------------------------------------------ PLATE */
+
+.plate {
+  margin: 0;
+}
+
+.plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  /* Colour, with a restrained print-like grade: a little less saturation and
+     a touch more contrast so mixed-source photos sit together. */
+  filter: saturate(0.86) contrast(1.05);
+  transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.plate:hover img {
+  filter: saturate(1) contrast(1.02);
+}
+
+.plate figcaption {
+  margin-top: 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.plate-detail {
+  display: block;
+  opacity: 0.6;
+}
+
+/* Documents (diplomas, certificates) are plates too, set flat and small. */
+.plate--document img {
+  filter: none;
+  background: #fff;
+}
+
+/* Video plate: the poster until pressed, then the native player. */
+.video-plate {
+  position: relative;
+}
+
+.video-plate video,
+.video-plate img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--ink);
+}
+
+.video-plate button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--bone);
+  cursor: pointer;
+}
+
+.video-plate button::after {
+  content: 'Play';
+  position: absolute;
+  left: 1.1rem;
+  bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid color-mix(in srgb, currentColor 70%, transparent);
+  border-radius: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.video-plate button:hover::after,
+.video-plate button:focus-visible::after {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 88%, transparent);
+}
+
+.video-plate button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* =============================================================================
+   Inner pages
+============================================================================= */
+
+.page {
+  min-height: 100svh;
+}
+
+.page-section {
+  position: relative;
+  overflow: clip;
+}
+
+.page-section--ink {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.page-section--ink .contours,
+.page-section--ink .lines {
+  opacity: 0.1;
+}
+
+/* Every inner page opens the same way: eyebrow, a display title with one
+   italic word, a didone lede, and a mono count. The composition below it is
+   the page's own. */
+.page-head {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 1.5rem;
+  padding: clamp(8.5rem, 20svh, 12rem) var(--gutter) clamp(3.5rem, 7vw, 7rem);
+}
+
+.page-head .eyebrow {
+  grid-column: 1 / -1;
+}
+
+.page-head .display {
+  grid-column: 1 / span 10;
+  max-width: 16ch;
+}
+
+.page-lede {
+  grid-column: 4 / span 7;
+  margin: clamp(1rem, 2.5vw, 2.5rem) 0 0;
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 2.35vw, 2.4rem);
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  text-wrap: pretty;
+}
+
+.page-count {
+  grid-column: 1 / span 3;
+  grid-row: 3;
+  align-self: end;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.page-count b {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 5vw, 5.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  text-transform: none;
+  color: var(--ink);
+  opacity: 1;
+}
+
+.page-section--ink .page-count b {
+  color: var(--bone);
+}
+
+/* Section label sitting in the left margin beside a list. */
+.margin-label {
+  grid-column: 1 / span 3;
+  margin: 0;
+  padding-top: 1.2rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.margin-label small {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: inherit;
+  font-weight: 400;
+  color: inherit;
+  opacity: 0.6;
+}
+
+.page-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: clamp(2rem, 4vw, 4rem);
+  padding-inline: var(--gutter);
+}
+
+/* ---------------------------------------------------------------- RESEARCH */
+/* Each direction is a spread: a numbered mono key and the title on one side,
+   the argument (problem / approach / result) stacked on the other, and the
+   sides alternate so the page reads as a sequence of pages, not a table. */
+
+.direction {
+  padding-block: clamp(3rem, 6vw, 6rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.direction-head {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.direction:nth-of-type(even) .direction-head {
+  grid-column: 8 / span 5;
+  grid-row: 1;
+}
+
+.direction-title {
+  margin: 0;
+  font-size: clamp(2.1rem, 4.4vw, 4.7rem);
+  font-weight: 800;
+  font-stretch: 86%;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.direction-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.4rem;
+  margin: 0;
+}
+
+.direction-tags .status--published {
+  color: var(--accent);
+}
+
+.direction-body {
+  grid-column: 6 / span 7;
+  display: grid;
+  gap: 0;
+}
+
+.direction:nth-of-type(even) .direction-body {
+  grid-column: 1 / span 6;
+  grid-row: 1;
+}
+
+.argument {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  column-gap: var(--gutter);
+  padding-block: 1.35rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.argument:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.argument dt {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-top: 0.3rem;
+}
+
+.argument dd {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  line-height: 1.5;
+  opacity: 0.86;
+  text-wrap: pretty;
+}
+
+.direction-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 2rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ------------------------------------------------------------ PUBLICATIONS */
+/* Ink page. The year runs down the left as a didone numeral; the papers of
+   that year sit to its right as rows. */
+
+.year-group {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  padding-inline: var(--gutter);
+}
+
+.year-group + .year-group {
+  margin-top: clamp(1rem, 2vw, 2rem);
+}
+
+.year-mark {
+  grid-column: 1 / span 2;
+  margin: 0;
+  padding-top: clamp(1.5rem, 2.6vw, 2.6rem);
+  font-family: var(--serif);
+  font-size: clamp(3rem, 6.5vw, 7.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  opacity: 0.55;
+}
+
+.year-list {
+  grid-column: 3 / -1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.paper {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+  column-gap: var(--gutter);
+  row-gap: 0.9rem;
+  padding-block: clamp(1.5rem, 2.6vw, 2.6rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.year-group:last-of-type .year-list li:last-child .paper {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.paper-title {
+  grid-column: 1;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 3.1rem);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.paper-authors {
+  grid-column: 1;
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  opacity: 0.72;
+}
+
+.paper-authors b {
+  font-weight: 600;
+  opacity: 1;
+  color: inherit;
+}
+
+.paper-side {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  display: grid;
+  align-content: start;
+  gap: 0.8rem;
+}
+
+.paper-links {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* -------------------------------------------------------------- EXPERIENCE */
+/* A ledger of roles: dates and place in the margin, the organisation as the
+   display line, the title in didone italic, the work beneath a hairline. */
+
+.role {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 1rem;
+  padding: clamp(2.5rem, 5vw, 5rem) var(--gutter);
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.role:last-of-type {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.role-when {
+  grid-column: 1 / span 3;
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+}
+
+.role-when .ledger-index {
+  margin-bottom: 0.6rem;
+}
+
+.role-org {
+  grid-column: 4 / span 9;
+  margin: 0;
+  font-size: clamp(2.2rem, 5.2vw, 5.6rem);
+  font-weight: 800;
+  font-stretch: 84%;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.role-title {
+  grid-column: 4 / span 9;
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.4vw, 2.5rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.role-bullets {
+  grid-column: 6 / span 7;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.role-bullets li {
+  padding-top: 1rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  opacity: 0.84;
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- TEACHING */
+
+.bleed {
+  position: relative;
+  margin-inline: 0;
+}
+
+.bleed img {
+  aspect-ratio: 2 / 1;
+  object-position: 50% 42%;
+}
+
+.bleed figcaption {
+  padding: 0 var(--gutter);
+}
+
+.teaching-roles {
+  padding-block: clamp(4rem, 8vw, 8rem) clamp(5rem, 10vw, 10rem);
+}
+
+.teaching-role .chapter-title {
+  font-size: clamp(2.4rem, 5.6vw, 6.2rem);
+  line-height: 0.9;
+}
+
+.teaching-role .role-title {
+  grid-column: auto;
+}
+
+.teaching-role--ioai .chapter-title { grid-column: 1 / span 7; }
+.teaching-role--ioai .teaching-body { grid-column: 2 / span 5; }
+.teaching-role--ioai .plate { grid-column: 8 / -1; grid-row: 2 / span 2; margin-right: calc(-1 * var(--gutter)); }
+.teaching-role--ioai .plate img { aspect-ratio: 4 / 5; object-position: 50% 30%; }
+.teaching-role--ioai .plate figcaption { padding-right: var(--gutter); }
+
+.teaching-role--lecturer .chapter-title { grid-column: 4 / -1; text-align: right; }
+.teaching-role--lecturer .teaching-body { grid-column: 7 / span 6; }
+
+.teaching-role--mlsp .chapter-title { grid-column: 1 / span 9; }
+.teaching-role--mlsp .teaching-body { grid-column: 1 / span 6; }
+
+.teaching-role--alphaz .plate { grid-column: 1 / span 4; grid-row: 2 / span 3; margin-left: calc(-1 * var(--gutter)); }
+.teaching-role--alphaz .plate img { aspect-ratio: 3 / 4; object-position: 50% 35%; }
+.teaching-role--alphaz .plate figcaption { padding-left: var(--gutter); }
+.teaching-role--alphaz .chapter-title { grid-column: 6 / -1; }
+.teaching-role--alphaz .teaching-body { grid-column: 6 / span 6; }
+
+.teaching-body {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.teaching-body .meta {
+  opacity: 0.86;
+}
+
+.teaching-body .chapter-text {
+  font-size: clamp(1.125rem, 1.5vw, 1.45rem);
+}
+
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 2rem;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Committee service: a dense ledger with the title bold and the org beneath. */
+.service {
+  padding-block: clamp(4rem, 8vw, 8rem) clamp(5rem, 10vw, 10rem);
+}
+
+.service .display {
+  grid-column: 1 / span 8;
+  font-size: clamp(2.2rem, 5vw, 5.25rem);
+}
+
+.service-list {
+  grid-column: 1 / -1;
+  list-style: none;
+  margin: clamp(1rem, 2vw, 2rem) 0 0;
+  padding: 0;
+}
+
+.service-row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 4fr) minmax(0, 6fr) minmax(0, 2fr);
+  column-gap: var(--gutter);
+  align-items: start;
+  padding-block: 1.4rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.service-list li:last-child .service-row {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.service-row h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  font-stretch: 90%;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+}
+
+.service-row .org {
+  margin: 0.35rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  opacity: 0.66;
+}
+
+.service-row .prose {
+  font-size: 1.0625rem;
+}
+
+.service-row .meta {
+  text-align: right;
+}
+
+/* ---------------------------------------------------------------- PROJECTS */
+/* Ink page. Each project is a spread with the title and summary on one side
+   and the work on the other; the sides alternate; AlphaZ carries its photo. */
+
+.project {
+  padding-block: clamp(3.5rem, 7vw, 7rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.project-head {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: 1.25rem;
+  align-content: start;
+}
+
+.project-work {
+  grid-column: 7 / span 6;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.project:nth-of-type(even) .project-head {
+  grid-column: 8 / span 5;
+  grid-row: 1;
+}
+
+.project:nth-of-type(even) .project-work {
+  grid-column: 1 / span 6;
+  grid-row: 1;
+}
+
+/* With a photograph: plate on the left, head and work stacked to its right.
+   Declared after the even/odd rules and with explicit rows, so the
+   alternation never places text over the plate. */
+.project.project--photo .plate {
+  grid-column: 1 / span 5;
+  grid-row: 1 / span 2;
+  margin-left: calc(-1 * var(--gutter));
+}
+
+.project.project--photo .plate img {
+  aspect-ratio: 4 / 5;
+  object-position: 50% 45%;
+}
+
+.project.project--photo .plate figcaption {
+  padding-left: var(--gutter);
+}
+
+.project.project--photo .project-head {
+  grid-column: 7 / span 6;
+  grid-row: 1;
+}
+
+.project.project--photo .project-work {
+  grid-column: 7 / span 6;
+  grid-row: 2;
+}
+
+.project-title {
+  margin: 0;
+  font-size: clamp(2.2rem, 4.6vw, 5rem);
+  font-weight: 800;
+  font-stretch: 84%;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.project-title span {
+  display: block;
+  margin-top: 0.35em;
+  font-family: var(--serif);
+  font-size: 0.5em;
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: 100%;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  opacity: 0.8;
+}
+
+.project-summary {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.project-bullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+}
+
+.project-bullets li {
+  padding-block: 0.9rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  opacity: 0.84;
+  text-wrap: pretty;
+}
+
+.project-bullets li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.project-stack {
+  margin: 0;
+}
+
+.project-stack dt {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.project-stack dd {
+  margin: 0.5rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------------ AWARDS */
+
+.featured-awards {
+  grid-column: 1 / -1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.featured-award {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 6fr) minmax(0, 4fr) minmax(0, 2fr);
+  column-gap: var(--gutter);
+  align-items: start;
+  padding-block: clamp(1.5rem, 2.6vw, 2.6rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.featured-awards li:last-child .featured-award {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.featured-award h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.9vw, 3rem);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.featured-award h2 span {
+  display: block;
+  margin-top: 0.3em;
+  font-family: var(--grotesk);
+  font-size: 0.42em;
+  font-weight: 700;
+  font-stretch: 90%;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.featured-award .aside {
+  display: grid;
+  gap: 0.9rem;
+  padding-top: 0.5rem;
+}
+
+.featured-award .year {
+  padding-top: 0.5rem;
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 2.8vw, 3rem);
+  font-style: italic;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-align: right;
+}
+
+.award-band {
+  padding-block: clamp(4rem, 8vw, 8rem);
+}
+
+.award-band .display {
+  grid-column: 1 / span 7;
+  font-size: clamp(2.2rem, 5vw, 5.25rem);
+}
+
+.award-band .prose {
+  grid-column: 8 / span 5;
+  align-self: end;
+}
+
+.video-pair {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--gutter);
+  align-items: end;
+}
+
+.video-pair .video-plate:last-child {
+  margin-bottom: clamp(2rem, 6vw, 7rem);
+}
+
+.award-band .plate--document {
+  grid-column: 9 / span 4;
+  align-self: end;
+  margin-top: calc(-1 * clamp(1rem, 4vw, 5rem));
+}
+
+.award-groups {
+  padding-block: clamp(4rem, 8vw, 8rem) clamp(5rem, 10vw, 10rem);
+  row-gap: clamp(3rem, 6vw, 6rem);
+}
+
+.award-group {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+}
+
+.award-list {
+  grid-column: 4 / -1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.award-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: var(--gutter);
+  align-items: baseline;
+  padding-block: 1.05rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.award-list li:last-child .award-row {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.award-row h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+}
+
+.award-row h3 span {
+  font-weight: 400;
+  opacity: 0.66;
+}
+
+.award-row .org {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  opacity: 0.62;
+}
+
+.award-row .links {
+  margin-top: 0.5rem;
+}
+
+.award-group--quiet .award-row h3 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------- MEDIA */
+
+.press-lead {
+  padding-block: 0 clamp(4rem, 8vw, 8rem);
+  align-items: end;
+}
+
+.press-lead .plate {
+  grid-column: 1 / span 7;
+  margin-left: calc(-1 * var(--gutter));
+}
+
+.press-lead .plate img {
+  aspect-ratio: 4 / 3;
+  object-position: 50% 45%;
+}
+
+.press-lead .plate figcaption {
+  padding-left: var(--gutter);
+}
+
+.press-lead-text {
+  grid-column: 8 / span 5;
+  display: grid;
+  gap: 1.25rem;
+  padding-bottom: 2.5rem;
+}
+
+.press-lead-text h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 3.2vw, 3.4rem);
+  font-weight: 400;
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.press-list {
+  grid-column: 1 / -1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.press-row {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 8fr) 2rem;
+  column-gap: var(--gutter);
+  align-items: start;
+  padding-block: clamp(1.4rem, 2.4vw, 2.4rem);
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+  color: inherit;
+  text-decoration: none;
+}
+
+.press-list li:last-child .press-row {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.press-source {
+  display: grid;
+  gap: 0.35rem;
+  padding-top: 0.35rem;
+}
+
+.press-source .category {
+  color: var(--accent);
+  opacity: 1;
+}
+
+.press-row h3 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  font-weight: 700;
+  font-stretch: 88%;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  transition: color 0.35s ease;
+}
+
+.press-row .prose {
+  margin-top: 0.7rem;
+  font-size: 1.0625rem;
+  opacity: 0.74;
+}
+
+.press-row:hover h3,
+.press-row:focus-visible h3,
+.press-row:hover .work-arrow,
+.press-row:focus-visible .work-arrow {
+  color: var(--accent);
+}
+
+.press-row:hover .work-arrow {
+  transform: translate3d(0.3rem, -0.3rem, 0);
+}
+
+.press-note {
+  grid-column: 4 / span 6;
+  margin: 0;
+}
+
+/* ------------------------------------------------------------------- ABOUT */
+
+.about-spread {
+  padding-block: 0 clamp(5rem, 10vw, 10rem);
+}
+
+.about-portrait {
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: var(--gutter);
+  align-content: start;
+}
+
+.about-portrait .plate--main img {
+  aspect-ratio: 4 / 5;
+  object-position: 50% 20%;
+}
+
+.about-portrait .plate--small {
+  width: 42%;
+  justify-self: end;
+  margin-top: calc(-1 * clamp(2rem, 5vw, 5rem));
+  margin-right: calc(-1 * var(--gutter));
+}
+
+.about-portrait .plate--small img {
+  aspect-ratio: 1;
+}
+
+.about-text {
+  grid-column: 7 / span 6;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.about-text p {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.25rem, 1.75vw, 1.7rem);
+  font-variation-settings: 'opsz' 14;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  text-wrap: pretty;
+}
+
+.about-text p:first-child {
+  font-size: clamp(1.55rem, 2.3vw, 2.3rem);
+  line-height: 1.18;
+}
+
+.about-figure {
+  grid-column: 3 / -1;
+  margin-top: clamp(2rem, 5vw, 5rem);
+  margin-right: calc(-1 * var(--gutter));
+}
+
+.about-figure img {
+  aspect-ratio: 2 / 1;
+  object-position: 50% 40%;
+}
+
+.about-figure figcaption {
+  padding-right: var(--gutter);
+}
+
+.contact {
+  padding-block: 0 clamp(5rem, 10vw, 10rem);
+}
+
+.contact .display {
+  grid-column: 1 / span 6;
+  font-size: clamp(2.6rem, 6vw, 6.5rem);
+}
+
+.contact-list {
+  grid-column: 7 / span 6;
+  align-self: end;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contact-list li {
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.contact-list li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.contact-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 1rem;
+  font-size: clamp(1.25rem, 1.7vw, 1.65rem);
+  font-weight: 700;
+  font-stretch: 88%;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-list a:hover,
+.contact-list a:focus-visible {
+  color: var(--accent);
+}
+
+.contact-list a span {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.contact-list a:hover span {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------- COMPACT */
+
+@media (max-width: 767px) {
+  /* Good rag beats rigid compounds in a 20-character column: hyphenated
+     words may break after their hyphen here. */
+  .editorial .nowrap {
+    white-space: normal;
+  }
+
+  .plate figcaption {
+    font-size: 0.84375rem;
+    line-height: 1.55;
+  }
+
+  .ledger-row {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+  }
+
+  .ledger dd {
+    grid-column: 2;
+    margin-top: 0.35rem;
+  }
+
+  .work-row {
+    grid-template-columns: 2.25rem minmax(0, 1fr) 1.5rem;
+  }
+
+  .work-venue {
+    grid-column: 2;
+    grid-row: 2;
+    padding-top: 0.9rem;
+  }
+
+  .honours {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 2rem;
+  }
+
+  .chapter > * {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+
+  .page-head {
+    padding-top: clamp(7rem, 16svh, 9rem);
+  }
+
+  .page-head .display,
+  .page-lede,
+  .page-count,
+  .margin-label,
+  .direction-head,
+  .direction-body,
+  .year-mark,
+  .year-list,
+  .role-when,
+  .role-org,
+  .role-title,
+  .role-bullets,
+  .project-head,
+  .project-work,
+  .award-band .display,
+  .award-band .prose,
+  .award-list,
+  .press-lead .plate,
+  .press-lead-text,
+  .press-note,
+  .about-portrait,
+  .about-text,
+  .about-figure,
+  .contact .display,
+  .contact-list {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+
+  .page-lede {
+    margin-top: 0.5rem;
+  }
+
+  .page-count {
+    order: 5;
+  }
+
+  .direction-head {
+    order: 1;
+  }
+
+  .direction-body {
+    order: 2;
+  }
+
+  .argument {
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+  }
+
+  .year-mark {
+    padding-top: 0;
+    margin-top: 1rem;
+    font-size: 3.5rem;
+  }
+
+  .paper {
+    grid-template-columns: 1fr;
+  }
+
+  .paper-side {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .role-org {
+    font-size: 2.6rem;
+  }
+
+  .teaching-role .plate,
+  .project.project--photo .plate,
+  .project.project--photo .project-head,
+  .project.project--photo .project-work {
+    grid-column: 1 / -1 !important;
+    grid-row: auto !important;
+  }
+
+  .teaching-role .plate,
+  .project.project--photo .plate {
+    margin-inline: calc(-1 * var(--gutter)) !important;
+  }
+
+  .teaching-role .plate figcaption,
+  .project--photo .plate figcaption {
+    padding-inline: var(--gutter);
+  }
+
+  .teaching-role--lecturer .chapter-title {
+    text-align: left;
+  }
+
+  .bleed img {
+    aspect-ratio: 4 / 5;
+    object-position: 50% 45%;
+  }
+
+  .service-row {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    row-gap: 0.75rem;
+  }
+
+  .service-row > div,
+  .service-row > .meta {
+    grid-column: 2;
+    text-align: left;
+  }
+
+  .featured-award {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+    row-gap: 0.9rem;
+  }
+
+  .featured-award .ledger-index { grid-column: 1; grid-row: 1; }
+  .featured-award h2 { grid-column: 2; grid-row: 2; }
+  .featured-award .aside { grid-column: 2; grid-row: 3; text-align: left; padding-top: 0; }
+  .featured-award .year { grid-column: 2; grid-row: 1; text-align: left; padding-top: 0; font-size: 1.6rem; }
+
+  .video-pair {
+    grid-template-columns: 1fr;
+  }
+
+  .award-band .plate--document {
+    grid-column: 3 / -1 !important;
+    margin-top: 0;
+  }
+
+  .video-pair .video-plate:last-child {
+    margin-bottom: 0;
+  }
+
+  .press-row {
+    grid-template-columns: minmax(0, 1fr) 1.5rem;
+  }
+
+  .press-source {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 0.8rem;
+  }
+
+  .about-portrait .plate--main {
+    margin-inline: calc(-1 * var(--gutter));
+  }
+
+  .about-portrait .plate--main img {
+    aspect-ratio: 4 / 5;
+  }
+
+  .about-figure {
+    margin-inline: calc(-1 * var(--gutter));
+  }
+
+  .about-figure img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plate img,
+  .work-arrow {
+    transition: none;
+  }
+}

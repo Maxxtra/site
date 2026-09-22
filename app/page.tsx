@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { HomeMotion } from '@/components/home/home-motion';
+import { EditorialMotion } from '@/components/editorial/motion';
+import { Plate } from '@/components/editorial/plate';
+import { Copy, pad } from '@/components/editorial/copy';
 import { Lattice } from '@/components/home/lattice';
 import { siteConfig } from '@/lib/site-config';
 import { publications } from '@/lib/publications';
@@ -16,7 +18,7 @@ import { experience } from '@/lib/experience';
 import { teaching } from '@/lib/teaching';
 import { projects } from '@/lib/projects';
 import { mediaItems } from '@/lib/media';
-import { getPhoto, type Photo } from '@/lib/photos';
+import { getPhoto } from '@/lib/photos';
 import './home.css';
 
 export const metadata: Metadata = {
@@ -52,58 +54,6 @@ const index = [
   { href: '/about', label: 'About', description: 'Background, education, and contact details, with a downloadable CV.' },
 ];
 
-const pad = (n: number) => String(n).padStart(2, '0');
-
-/** Editorial copy: a hyphenated compound ("open-weight", "multi-GPU") never
- *  breaks across lines, which is where most ragged, messy wraps come from. */
-function Copy({ text }: { text: string }) {
-  return (
-    <>
-      {text.split(/(\S+-\S+)/).map((part, i) =>
-        /\S-\S/.test(part) ? (
-          <span key={i} className="nowrap">
-            {part}
-          </span>
-        ) : (
-          part
-        ),
-      )}
-    </>
-  );
-}
-
-function Plate({
-  photo,
-  className,
-  drift,
-  sizes,
-}: {
-  photo: Photo | undefined;
-  className?: string;
-  drift?: number;
-  sizes: string;
-}) {
-  if (!photo) return null;
-  return (
-    <figure className={`plate ${className ?? ''}`} data-drift={drift}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- static export: next/image is unoptimized here, and a plain img keeps intrinsic sizing explicit */}
-      <img
-        src={photo.src}
-        alt={photo.alt}
-        width={photo.width}
-        height={photo.height}
-        sizes={sizes}
-        loading="lazy"
-        decoding="async"
-      />
-      <figcaption>
-        {photo.caption}
-        {photo.detail && <span className="plate-detail">{photo.detail}</span>}
-      </figcaption>
-    </figure>
-  );
-}
-
 export default function Home() {
   const portrait = getPhoto('costin-portrait');
   const featured = publications.filter((p) => p.highlight);
@@ -111,8 +61,8 @@ export default function Home() {
   const current = experience.filter((e) => e.end === 'Present');
 
   return (
-    <main className="home">
-      <HomeMotion>
+    <main className="editorial home">
+      <EditorialMotion>
         {/* ------------------------------------------------------------ HERO */}
         <section className="hero" data-hero data-nav-theme="light" aria-label="Introduction">
           <div className="hero-stage">
@@ -417,7 +367,7 @@ export default function Home() {
             ))}
           </ul>
         </nav>
-      </HomeMotion>
+      </EditorialMotion>
     </main>
   );
 }

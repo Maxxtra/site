@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import { ArrowUpRight } from 'lucide-react';
-import { DynamicIslandTOC } from '@/components/ui/dynamic-island-toc';
-import { StorySlides, StorySlide } from '@/components/ui/story-slides';
+import Link from 'next/link';
+import { EditorialMotion } from '@/components/editorial/motion';
+import { Copy, pad } from '@/components/editorial/copy';
 import { researchDirections } from '@/lib/research';
 import { publications } from '@/lib/publications';
+import { projects } from '@/lib/projects';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/research/' },
@@ -12,105 +13,102 @@ export const metadata: Metadata = {
     'Research directions pursued by Costin-Alexandru Deonise: scalable high-order automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding.',
 };
 
+/*
+ * Composition: an opening statement, then one spread per direction. The title
+ * and its status sit on one side, the argument (problem, approach, result)
+ * stacks on the other, and the sides alternate down the page, so four
+ * directions read as four pages of a journal rather than four rows of a table.
+ */
 export default function ResearchPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <DynamicIslandTOC selector="[data-toc]" />
-      <StorySlides>
-        <StorySlide index={0} className="px-6 md:px-10 lg:px-16">
-          <p
-            data-toc
-            data-toc-depth="1"
-            data-toc-title="Research"
-            className="mb-5 text-sm font-bold uppercase tracking-[0.24em] text-primary"
-          >
-            Research
-          </p>
-          <h1 className="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)] font-black uppercase leading-[0.95] tracking-normal">
-            Scalable differentiation, private inference, and structured language.
-          </h1>
-          <p className="mt-6 max-w-2xl leading-8 text-muted-foreground">
-            Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering
-            at the Research Institute, and production ML at Bitdefender. Four directions, spanning published
-            results and ongoing work.
-          </p>
-          <p className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-            {researchDirections.length} directions &middot; scroll
-          </p>
-        </StorySlide>
+    <main className="editorial page research">
+      <EditorialMotion>
+        <section className="page-section" data-nav-theme="light">
+          <div className="lines" aria-hidden="true">
+            <div className="contours" />
+          </div>
+          <header className="page-head">
+            <p className="eyebrow">Research</p>
+            <h1 className="display" data-rise>
+              Scalable differentiation, <em>private</em> inference, and structured language.
+            </h1>
+            <p className="page-lede" data-rise>
+              <Copy text="Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering at the Research Institute, and production ML at Bitdefender. Four directions, spanning published results and ongoing work." />
+            </p>
+            <p className="page-count">
+              <b>{pad(researchDirections.length)}</b>
+              directions
+            </p>
+          </header>
 
-        {researchDirections.map((dir, i) => {
-          const related = dir.relatedPublications
-            .map((slug) => publications.find((p) => p.slug === slug))
-            .filter(Boolean);
+          {researchDirections.map((dir, i) => {
+            const related = dir.relatedPublications
+              .map((slug) => publications.find((p) => p.slug === slug))
+              .filter((p): p is (typeof publications)[number] => Boolean(p));
+            const relatedProjects = (dir.relatedProjects ?? [])
+              .map((slug) => projects.find((p) => p.slug === slug))
+              .filter((p): p is (typeof projects)[number] => Boolean(p));
 
-          return (
-            <StorySlide
-              key={dir.slug}
-              id={dir.slug}
-              index={i + 1}
-              className="px-6 md:px-10 lg:px-16"
-            >
-              <article data-toc data-toc-depth="2" data-toc-title={dir.title}>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-sm font-bold tabular-nums text-primary">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span
-                    className={
-                      dir.status === 'published'
-                        ? 'border border-primary/40 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-primary'
-                        : 'border border-border px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground'
-                    }
-                  >
-                    {dir.status === 'published' ? 'Published' : 'Ongoing'}
-                  </span>
-                  <span className="text-xs font-bold uppercase tracking-[0.12em] text-muted-foreground">
-                    {dir.period}
-                  </span>
+            return (
+              <article key={dir.slug} id={dir.slug} className="page-grid direction">
+                <div className="direction-head">
+                  <p className="direction-tags meta">
+                    <span className="ledger-index">{pad(i + 1)}</span>
+                    <span className={dir.status === 'published' ? 'status--published' : undefined}>
+                      {dir.status === 'published' ? 'Published' : 'Ongoing'}
+                    </span>
+                    <span>{dir.period}</span>
+                  </p>
+                  <h2 className="direction-title" data-rise>
+                    {dir.title}
+                  </h2>
                 </div>
 
-                <h2 className="mt-4 max-w-4xl text-3xl font-black uppercase leading-tight tracking-normal md:text-5xl">
-                  {dir.title}
-                </h2>
-
-                <div className="mt-10 grid gap-8 border-t border-dashed border-border pt-8 md:grid-cols-3">
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Problem</p>
-                    <p className="mt-2 text-sm leading-7 text-foreground/80">{dir.problem}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Approach</p>
-                    <p className="mt-2 text-sm leading-7 text-foreground/80">{dir.approach}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Result</p>
-                    <p className="mt-2 text-sm leading-7 text-foreground/80">{dir.result}</p>
-                  </div>
+                <div className="direction-body">
+                  <dl>
+                    <div className="argument" data-rise>
+                      <dt>Problem</dt>
+                      <dd>
+                        <Copy text={dir.problem} />
+                      </dd>
+                    </div>
+                    <div className="argument" data-rise>
+                      <dt>Approach</dt>
+                      <dd>
+                        <Copy text={dir.approach} />
+                      </dd>
+                    </div>
+                    <div className="argument" data-rise>
+                      <dt>Result</dt>
+                      <dd>
+                        <Copy text={dir.result} />
+                      </dd>
+                    </div>
+                  </dl>
+                  {(related.length > 0 || relatedProjects.length > 0) && (
+                    <ul className="direction-links">
+                      {related.map((pub) => (
+                        <li key={pub.slug}>
+                          <Link href={`/publications#${pub.slug}`} className="mono-link">
+                            {pub.venue.replace(/ \(.*\)$/, '')} {pub.year} <span aria-hidden="true">↗</span>
+                          </Link>
+                        </li>
+                      ))}
+                      {relatedProjects.map((project) => (
+                        <li key={project.slug}>
+                          <Link href={`/projects#${project.slug}`} className="mono-link mono-link--quiet">
+                            Project <span aria-hidden="true">↗</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-
-                {related.length > 0 && (
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    {related.map(
-                      (pub) =>
-                        pub && (
-                          <a
-                            key={pub.slug}
-                            href={`/publications#${pub.slug}`}
-                            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.12em] text-foreground/70 transition-colors hover:text-primary"
-                          >
-                            {pub.venue} ({pub.year})
-                            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
-                          </a>
-                        ),
-                    )}
-                  </div>
-                )}
               </article>
-            </StorySlide>
-          );
-        })}
-      </StorySlides>
+            );
+          })}
+        </section>
+      </EditorialMotion>
     </main>
   );
 }

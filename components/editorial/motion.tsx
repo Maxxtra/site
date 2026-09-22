@@ -8,7 +8,7 @@ import { useGSAP } from '@gsap/react';
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /**
- * All scroll-linked motion on the homepage, driven from data attributes so the
+ * All scroll-linked motion, on every page, driven from data attributes so the
  * markup stays server-rendered and readable:
  *
  *   [data-hero]            pinned hero; receives --hp (0..1) as it scrolls out
@@ -19,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  * Everything here is enhancement. With JS off, or prefers-reduced-motion set,
  * the page is a complete static layout: nothing starts hidden in CSS.
  */
-export function HomeMotion({ children }: { children: React.ReactNode }) {
+export function EditorialMotion({ children }: { children: React.ReactNode }) {
   const scope = useRef<HTMLDivElement>(null);
 
   useGSAP(

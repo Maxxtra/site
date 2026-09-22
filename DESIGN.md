@@ -1,8 +1,11 @@
 # Design system
 
 Primary source of truth for the site's visual language. Established on the
-homepage (branch `redesign/homepage-editorial`); inner pages still use the older
-dark card layout and are to be migrated onto this system.
+homepage and carried through every inner page. Shared primitives live in
+`app/editorial.css` (tokens, eyebrow, display, plates, ledgers, rows, and the
+inner-page compositions); `app/home.css` holds only the hero and the homepage
+sections. Shared components: `components/editorial/` (Plate, VideoPlate, Copy,
+EditorialMotion).
 
 ## Idea
 
@@ -154,3 +157,24 @@ be read through it or be sliced by a button. Wordmark top-left (hidden on the ho
 view), one filled control (CV), one outlined control (Menu) opening a full-screen
 index. The chrome takes its colour from the section under it: sections declare
 `data-nav-theme="light|dark"`; undeclared pages are dark.
+
+## Inner pages
+
+Every inner page opens the same way (`.page-head`): eyebrow, a display title
+with one italic word, a didone lede hanging from column 4, and a large didone
+count in the margin. Below that, each page has its own composition. Nothing is
+templated across pages; nothing is a card.
+
+| Page | Ground | Composition |
+|---|---|---|
+| Research | paper | one spread per direction; title one side, problem/approach/result the other; sides alternate |
+| Publications | ink | year as a didone numeral in the margin, papers of that year as rows beside it |
+| Experience | paper | ledger of roles: dates in the margin, organisation as display, title in italic, work under a hairline |
+| Teaching | paper → ink → paper | full-bleed team photo, four headline roles as chapters with their photographs, committee service as a dense ledger |
+| Projects | ink | alternating spreads; AlphaZ carries its trophy plate |
+| Awards | paper → ink → paper | featured honours as rows with the year large; the SCSS announcement videos on ink; the remaining groups as margin-labelled ledgers |
+| Media | paper | lead story as a spread with the team photo bleeding left; the rest a press ledger, every row one link |
+| About | paper | portrait and the Capri frame stacked like prints; biography in didone; graduation photo bleeding right; contact as a ruled list |
+
+Sections declare `data-nav-theme` so the chrome takes the right colour. Photos
+only where the repo already has them and they are the subject of the section.

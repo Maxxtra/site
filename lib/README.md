@@ -14,14 +14,15 @@ a new entry of an existing type.
 | `projects.ts` | `Project` | `/projects` |
 | `research.ts` | `ResearchDirection` | `/research` |
 | `media.ts` | `MediaItem` (press/public-activity mentions) | `/media` |
-| `photos.ts` | `Photo` | wherever a real photo is placed editorially |
+| `photos.ts` | `Photo` (with `width`/`height` for shift-free plates, `caption` + `detail` for the two-line caption) | wherever a real photo is placed editorially, via `components/editorial/plate.tsx` |
 | `site-config.ts` | contact links, canonical URL | layout, nav, footer |
 
 ## Adding a photo
 
 1. Add the optimized image to `public/media/<category>/` (`olympiads`, `robotics`,
    `university`, `research`, or `portraits` — add a new category folder if none fit).
-2. Add one `Photo` entry in `photos.ts` with a factual caption. Set `verified: false`
+2. Add one `Photo` entry in `photos.ts` with its pixel `width`/`height`, a factual
+   `caption` (what is happening) and `detail` (where/when). Set `verified: false`
    and a neutral caption if the event/date isn't independently confirmed.
 3. Reference `getPhoto('id')` from wherever it belongs editorially (a page component).
    Don't add a generic "gallery" page — place photos where they support a specific

@@ -1,54 +1,16 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-border: var(--border);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-paper: var(--paper);
-  --color-ink: var(--ink);
-  --color-bone: var(--bone);
   --font-sans: var(--ff-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--ff-serif), 'Didot', 'Bodoni 72', Georgia, serif;
   --font-mono: var(--ff-mono), ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 :root {
-  /* Editorial system (homepage, nav, footer). Inner pages keep the dark
-     tokens below until they are redesigned. */
   --paper: #f2f0ea;
   --ink: #0e0e0c;
   --bone: #ece8df;
-  --background: #0e0e0c;
-  --foreground: #f7f2e8;
-  --muted: #2b2b2b;
-  --muted-foreground: #a7a29a;
-  --border: #2c2a27;
   --primary: #fd5200;
-  --primary-foreground: #ffffff;
-  --secondary: #1b1b1b;
-  --secondary-foreground: #f7f2e8;
-  --accent: #242424;
-  --accent-foreground: #f7f2e8;
-  --destructive: #dc2626;
-  --destructive-foreground: #ffffff;
-  --input: #3a3732;
-  --ring: #fd5200;
-  --card: #101010;
-  --card-foreground: #f7f2e8;
 }
 
 html {
@@ -57,8 +19,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--ink);
+  color: var(--bone);
   font-family: var(--ff-grotesk), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -71,87 +33,6 @@ body {
 ::selection {
   background: #fd5200;
   color: #ffffff;
-}
-
-/* ---------------------------------------------------------------------------
-   Full-section slide storytelling (components/ui/story-slides.tsx).
-   Sticky panels: each slide holds the viewport while the next scrolls up and
-   covers it. Pure CSS, so native scrolling, anchors and back/forward all keep
-   working - no scroll hijacking.
---------------------------------------------------------------------------- */
-.story-slide {
-  position: sticky;
-  top: 0;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  background: var(--background);
-  border-top: 1px solid var(--border);
-  box-shadow: 0 -30px 70px rgba(0, 0, 0, 0.65);
-}
-
-.story-slide-inner {
-  width: 100%;
-  max-width: 64rem;
-  margin-inline: auto;
-  padding-block: clamp(5rem, 11vh, 8rem);
-}
-
-/* Full-bleed variant: edge-to-edge media, no inner gutter. */
-.story-slide--bleed .story-slide-inner {
-  max-width: none;
-  padding-block: 0;
-}
-
-/* The final slide must not stay pinned underneath the footer. */
-.story-slide:last-child {
-  position: relative;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .story-slide {
-    position: relative;
-    min-height: 0;
-    box-shadow: none;
-  }
-  .story-slide-inner {
-    padding-block: 4rem;
-  }
-}
-
-/* Section reveal: sections rise into place, echoing the homepage FlowArt
-   "slides moving upward" language. Applied by components/ui/scroll-reveal.tsx,
-   which only adds .reveal once JS is running, so content is never hidden
-   without a way to reveal it. */
-.reveal {
-  opacity: 0;
-  transform: translateY(36px);
-  will-change: opacity, transform;
-}
-
-.reveal-visible {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-visible {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-}
-
-.no-scrollbar {
-  scrollbar-width: none;
-}
-
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
 }
 
 /* ---------------------------------------------------------------------------
