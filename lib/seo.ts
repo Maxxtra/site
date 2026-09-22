@@ -22,7 +22,7 @@ type PageMeta = {
  */
 export function pageMetadata({ path, title, description, ogType = 'website' }: PageMeta): Metadata {
   const url = `${siteConfig.url}${path}`;
-  const social = title ? `${title} · ${siteConfig.name}` : `${siteConfig.name} · ${siteConfig.tagline}`;
+  const social = title ? `${title} · ${siteConfig.name}` : siteConfig.defaultTitle;
   const images = [
     {
       url: siteConfig.ogImage,

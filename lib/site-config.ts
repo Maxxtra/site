@@ -15,6 +15,13 @@ export const siteConfig = {
   ],
   tagline: 'AI & Distributed Systems Researcher / Engineer',
   /**
+   * Homepage <title>, og:title and twitter:title. Shorter than the tagline
+   * form so search results show the whole thing; the name leads, so the
+   * entity is never the part that gets truncated. Inner pages keep the
+   * "%s · name" template instead.
+   */
+  defaultTitle: 'Costin-Alexandru Deonise | AI Researcher & Engineer',
+  /**
    * Homepage meta description. Names the canonical form and the short form
    * once each, in one sentence, so a search engine resolving either string
    * lands on the same person. The rest is the current positioning.
