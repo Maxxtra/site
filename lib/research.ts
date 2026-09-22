@@ -1,6 +1,12 @@
+import { doctorate } from './doctorate';
+
 export type ResearchDirection = {
   slug: string;
   title: string;
+  /** Official document for the direction (a research proposal); the title links to it. */
+  proposalUrl?: string;
+  /** Further official documents. */
+  links?: { label: string; href: string }[];
   status: 'published' | 'ongoing';
   period: string;
   problem: string;
@@ -11,6 +17,21 @@ export type ResearchDirection = {
 };
 
 export const researchDirections: ResearchDirection[] = [
+  {
+    slug: 'secure-energy-efficient-scheduling-for-ai-workloads',
+    title: doctorate.research.title,
+    proposalUrl: doctorate.research.proposalUrl,
+    links: [{ label: 'Doctoral admission results', href: doctorate.admission.resultsUrl }],
+    status: 'ongoing',
+    period: `${doctorate.start} – ${doctorate.end}`,
+    problem:
+      'AI workloads increasingly run across heterogeneous CPU, GPU and quantum (QPU) resources, where scheduling decisions carry security, reliability and energy consequences that current runtimes do not account for together.',
+    approach:
+      'Designing a secure and energy-aware runtime for heterogeneous CPU/GPU/QPU AI workloads that integrates confidential computing, fault tolerance, continual learning, and explicit energy accountability.',
+    result:
+      `Doctoral research in progress since ${doctorate.start} at the ${doctorate.school}, ${doctorate.institution}, on a ${doctorate.admission.funding}. The full research proposal is linked below.`,
+    relatedPublications: [],
+  },
   {
     slug: 'scalable-high-order-automatic-differentiation',
     title: 'Scalable High-Order Automatic Differentiation',

@@ -4,6 +4,7 @@ import { Plate } from '@/components/editorial/plate';
 import { Copy } from '@/components/editorial/copy';
 import { siteConfig } from '@/lib/site-config';
 import { getPhoto } from '@/lib/photos';
+import { doctorate } from '@/lib/doctorate';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/about/' },
@@ -79,9 +80,29 @@ export default function AboutPage() {
               <p data-rise>
                 I&rsquo;m also an Associate Lecturer at the University POLITEHNICA of Bucharest, where I&rsquo;ve led
                 labs and seminars for 1000+ students since 2022. After my Master&rsquo;s in Parallel and Distributed
-                Computer Systems (2024&ndash;2026), I was admitted to the doctoral program there with a scholarship and a
-                10/10 admission average.
+                Computer Systems (2024&ndash;2026), I began a {doctorate.program} at the {doctorate.school} in{' '}
+                {doctorate.start.replace('Oct', 'October')}, on a {doctorate.admission.funding}: I was ranked{' '}
+                {doctorate.admission.rank}th in the {doctorate.admission.year} doctoral admission for{' '}
+                {doctorate.admission.field}, with an admission average of {doctorate.admission.average} and a{' '}
+                {doctorate.admission.committee} committee evaluation.
               </p>
+              <p data-rise>
+                My doctoral research, <em>{doctorate.research.title}</em>, is about {doctorate.research.summary.charAt(0).toLowerCase() + doctorate.research.summary.slice(1)}{' '}
+                I also coordinate research with Bachelor&rsquo;s students in AI and distributed systems; five papers from
+                that work were accepted at {doctorate.supervision.venue}.
+              </p>
+              <ul className="link-row">
+                <li>
+                  <a href={doctorate.research.proposalUrl} target="_blank" rel="noreferrer" className="mono-link">
+                    PhD research proposal <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={doctorate.admission.resultsUrl} target="_blank" rel="noreferrer" className="mono-link mono-link--quiet">
+                    Doctoral admission results <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              </ul>
               <p data-rise>
                 <Copy text="My research spans scalable automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding. That work spans roles at the Research Institute and Bitdefender, and is published across six papers. In 2025 I attended the Oxford Machine Learning School at the University of Oxford." />
               </p>

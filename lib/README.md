@@ -15,6 +15,7 @@ a new entry of an existing type.
 | `research.ts` | `ResearchDirection` | `/research` |
 | `media.ts` | `MediaItem` (press/public-activity mentions) | `/media` |
 | `photos.ts` | `Photo` (with `width`/`height` for shift-free plates, `caption` + `detail` for the two-line caption) | wherever a real photo is placed editorially, via `components/editorial/plate.tsx` |
+| `doctorate.ts` | doctoral studies: program, admission, research title and proposal, supervision | `/`, `/about`, `/research`, `/teaching` |
 | `site-config.ts` | contact links, canonical URL | layout, nav, footer |
 
 ## Adding a photo

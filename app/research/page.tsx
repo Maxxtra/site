@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/research/' },
   title: 'Research',
   description:
-    'Research directions pursued by Costin-Alexandru Deonise: scalable high-order automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding.',
+    'Research directions pursued by Costin-Alexandru Deonise: secure energy-efficient scheduling for AI workloads (doctoral research), scalable high-order automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding.',
 };
 
 /** Short link labels for related projects whose full title is a sentence. */
@@ -39,7 +39,7 @@ export default function ResearchPage() {
               Scalable differentiation, <em>private</em> inference, and structured language.
             </h1>
             <p className="page-lede" data-rise>
-              <Copy text="Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering at the Research Institute, and production ML at Bitdefender. Four directions, spanning published results and ongoing work." />
+              <Copy text="Doctoral research at POLITEHNICA Bucharest, applied AI engineering at the Research Institute, and production ML at Bitdefender. Five directions, spanning published results and ongoing work." />
             </p>
           </header>
 
@@ -62,7 +62,13 @@ export default function ResearchPage() {
                     <span>{dir.period}</span>
                   </p>
                   <h2 className="direction-title" data-rise>
-                    {dir.title}
+                    {dir.proposalUrl ? (
+                      <a href={dir.proposalUrl} target="_blank" rel="noreferrer">
+                        {dir.title}
+                      </a>
+                    ) : (
+                      dir.title
+                    )}
                   </h2>
                 </div>
 
@@ -87,8 +93,22 @@ export default function ResearchPage() {
                       </dd>
                     </div>
                   </dl>
-                  {(related.length > 0 || relatedProjects.length > 0) && (
+                  {(related.length > 0 || relatedProjects.length > 0 || dir.proposalUrl || dir.links) && (
                     <ul className="direction-links">
+                      {dir.proposalUrl && (
+                        <li>
+                          <a href={dir.proposalUrl} target="_blank" rel="noreferrer" className="mono-link">
+                            PhD research proposal <span aria-hidden="true">↗</span>
+                          </a>
+                        </li>
+                      )}
+                      {dir.links?.map((link) => (
+                        <li key={link.href}>
+                          <a href={link.href} target="_blank" rel="noreferrer" className="mono-link mono-link--quiet">
+                            {link.label} <span aria-hidden="true">↗</span>
+                          </a>
+                        </li>
+                      ))}
                       {related.map((pub) => (
                         <li key={pub.slug}>
                           <Link href={`/publications#${pub.slug}`} className="mono-link">

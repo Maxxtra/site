@@ -68,7 +68,7 @@ export default function TeachingPage() {
               Education, mentorship, and technical <em>leadership.</em>
             </h1>
             <p className="page-lede" data-rise>
-              <Copy text="Labs and seminars for 1000+ students at POLITEHNICA Bucharest, and national-level leadership through Romania's AI Olympiad program, from leading and coaching the IOAI delegation to designing competition tasks." />
+              <Copy text="Labs and seminars for 1000+ students at POLITEHNICA Bucharest, research supervision for Bachelor's students, and national-level leadership through Romania's AI Olympiad program, from leading and coaching the IOAI delegation to designing competition tasks." />
             </p>
             <p className="page-count">
               <b>{pad(teaching.length)}</b> roles
@@ -130,7 +130,7 @@ export default function TeachingPage() {
         <section className="page-section service" data-nav-theme="light">
           <div className="page-grid">
             <h2 className="display" data-rise>
-              Committee &amp; review <em>service</em>
+              Supervision, committee &amp; review <em>service</em>
             </h2>
             <ol className="service-list">
               {committees.map((role) => (

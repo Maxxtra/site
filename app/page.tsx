@@ -19,6 +19,7 @@ import { teaching } from '@/lib/teaching';
 import { projects } from '@/lib/projects';
 import { mediaItems } from '@/lib/media';
 import { getPhoto } from '@/lib/photos';
+import { doctorate } from '@/lib/doctorate';
 import './home.css';
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 
 const highlights = [
   { title: 'Chief Technology Officer', description: 'Leading AI system delivery for enterprise clients at Qflex Technologies.' },
-  { title: 'Doctoral Researcher', description: 'Parallel & Distributed Computer Systems, POLITEHNICA Bucharest.' },
+  { title: doctorate.role, description: `${doctorate.program}, ${doctorate.institutionShort}, on secure, energy-efficient scheduling for AI workloads.` },
   { title: 'Deputy Leader & Coach, IOAI', description: "Led Romania's AI Olympiad delegation to a 4th-place worldwide finish in 2026." },
   { title: '6 Publications', description: 'On scalable differentiation, privacy-preserving ML, and LLM systems.' },
   { title: 'Associate Lecturer', description: 'Labs and seminars for 1000+ students at POLITEHNICA Bucharest since 2022.' },
@@ -44,7 +45,7 @@ const awardCount =
   featuredAwards.length + scssPlacements.length + internationalPrograms.length + competitionResults.length + roboticsAwards.length;
 
 const index = [
-  { href: '/research', label: 'Research', count: researchDirections.length, description: 'Scalable differentiation, privacy-preserving ML, and LLM systems.' },
+  { href: '/research', label: 'Research', count: researchDirections.length, description: 'Secure, energy-efficient scheduling for AI workloads; scalable differentiation, privacy-preserving ML, and LLM systems.' },
   { href: '/publications', label: 'Publications', count: publications.length, description: 'Six papers across journals, conferences, and a student scientific session.' },
   { href: '/experience', label: 'Experience', count: experience.length, description: 'From a software engineering internship to Chief Technology Officer.' },
   { href: '/teaching', label: 'Teaching', count: teaching.length, description: "Lecturing at POLITEHNICA and coaching Team Romania's AI Olympiad squad." },
@@ -106,9 +107,9 @@ export default function Home() {
                 <i>01</i> Current
               </span>
               <p>
-                Doctoral Researcher{' '}
+                {doctorate.role}{' '}
                 <br />
-                <span className="module-dim">POLITEHNICA Bucharest</span>
+                <span className="module-dim">{doctorate.institutionShort}</span>
               </p>
               {current.map((role) => (
                 <p key={role.slug}>
@@ -275,7 +276,7 @@ export default function Home() {
               Systems <em>that</em> scale
             </h3>
             <p className="chapter-text" data-rise>
-              <Copy text="From distributed high-order differentiation on multi-GPU clusters to privacy-preserving inference: published research, not slideware." />
+              <Copy text="From distributed high-order differentiation on multi-GPU clusters to privacy-preserving inference, and now doctoral research on secure, energy-efficient scheduling for AI workloads: published research, not slideware." />
             </p>
             <Plate photo={getPhoto('conference-session')} className="plate--a" drift={6} sizes="(min-width: 900px) 34vw, 80vw" />
           </article>

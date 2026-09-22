@@ -680,6 +680,17 @@
   text-wrap: balance;
 }
 
+.direction-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.direction-title a:hover,
+.direction-title a:focus-visible {
+  color: var(--accent);
+}
+
 .direction-tags {
   display: flex;
   flex-wrap: wrap;

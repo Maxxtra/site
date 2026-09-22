@@ -54,6 +54,14 @@ export const teaching: TeachingEntry[] = [
     photoId: 'alphaz-trophy',
   },
   {
+    slug: 'bachelor-research-supervision',
+    role: "Research Supervision, Bachelor's Students",
+    org: 'University POLITEHNICA of Bucharest',
+    period: '2026',
+    description:
+      "Coordinating research with Bachelor's students in AI and distributed systems. Five research papers from this work were accepted at RoEduNet 2026.",
+  },
+  {
     slug: 'onia-scientific-committee',
     role: 'Central Committee Member',
     org: 'National Artificial Intelligence Olympiad (ONIA), national stage',
