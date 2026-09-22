@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Copy, pad } from '@/components/editorial/copy';
@@ -6,12 +7,13 @@ import { researchDirections } from '@/lib/research';
 import { publications } from '@/lib/publications';
 import { projects } from '@/lib/projects';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/research/' },
+export const metadata: Metadata = pageMetadata({
+  path: '/research/',
   title: 'Research',
   description:
     'Research directions pursued by Costin-Alexandru Deonise: secure energy-efficient scheduling for AI workloads (doctoral research), scalable high-order automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding.',
-};
+  ogType: 'website',
+});
 
 /** Short link labels for related projects whose full title is a sentence. */
 const projectLabel: Record<string, string> = { 'stde-multi-gpu-jax': 'Multi-GPU STDE' };

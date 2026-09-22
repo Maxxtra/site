@@ -5,6 +5,7 @@ import { Plate } from '@/components/editorial/plate';
 import { Copy, Lines, pad, splitTitle } from '@/components/editorial/copy';
 import { Lattice } from '@/components/home/lattice';
 import { siteConfig } from '@/lib/site-config';
+import { pageMetadata } from '@/lib/seo';
 import { publications } from '@/lib/publications';
 import {
   featuredAwards,
@@ -22,9 +23,11 @@ import { getPhoto } from '@/lib/photos';
 import { doctorate } from '@/lib/doctorate';
 import './home.css';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/' },
-};
+export const metadata: Metadata = pageMetadata({
+  path: '/',
+  description: siteConfig.identityDescription,
+  ogType: 'profile',
+});
 
 const highlights = [
   { title: 'Chief Technology Officer', description: 'Leading AI system delivery for enterprise clients at Qflex Technologies.' },
@@ -146,21 +149,21 @@ export default function Home() {
           <div className="lines" aria-hidden="true">
             <div className="contours statement-contours" />
           </div>
-          {/* Decorative: the same words are the real <h2> of the Trajectory section. */}
+          {/* Purely decorative. The words are drawn by CSS `content` (see
+              app/home.css), so the repetition exists for the eye only: it is
+              not DOM text, not extractable copy and not in the accessibility
+              tree. The one meaningful copy of the phrase is the <h2> that
+              opens the Trajectory section below. */}
           <div className="marquee" aria-hidden="true">
-            <span className="marquee-row marquee-row--serif" data-marquee="-1">
-              Researcher, engineer, Researcher, engineer, Researcher, engineer, Researcher, engineer,
-            </span>
-            <span className="marquee-row" data-marquee="1">
-              teacher, coach. teacher, coach. teacher, coach. teacher, coach. teacher, coach.
-            </span>
+            <span className="marquee-row marquee-row--serif" data-marquee="-1" />
+            <span className="marquee-row marquee-row--grotesk" data-marquee="1" />
             {/* Narrow screens: the whole phrase, set as a block. A scrubbed
                 marquee only ever shows a word and a half at 390px. */}
             <p className="marquee-stack">
-              <span className="marquee-stack-serif">Researcher,</span>
-              <span>engineer,</span>
-              <span className="marquee-stack-serif">teacher,</span>
-              <span>coach.</span>
+              <span className="marquee-stack-serif" />
+              <span />
+              <span className="marquee-stack-serif" />
+              <span />
             </p>
           </div>
 

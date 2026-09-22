@@ -328,6 +328,22 @@
   user-select: none;
 }
 
+/* The marquee's words live in CSS, not in the DOM: decorative repetition that
+   text extraction and the accessibility tree never see. Editing the phrase
+   means editing these four rules and the Trajectory <h2> together. */
+.marquee-row--serif::before {
+  content: 'Researcher, engineer, Researcher, engineer, Researcher, engineer, Researcher, engineer,';
+}
+
+.marquee-row--grotesk::before {
+  content: 'teacher, coach. teacher, coach. teacher, coach. teacher, coach. teacher, coach.';
+}
+
+.marquee-stack span:nth-child(1)::before { content: 'Researcher,'; }
+.marquee-stack span:nth-child(2)::before { content: 'engineer,'; }
+.marquee-stack span:nth-child(3)::before { content: 'teacher,'; }
+.marquee-stack span:nth-child(4)::before { content: 'coach.'; }
+
 .marquee-row {
   display: block;
   width: max-content;

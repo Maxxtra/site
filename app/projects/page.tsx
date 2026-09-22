@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Plate } from '@/components/editorial/plate';
@@ -6,12 +7,13 @@ import { Copy, Lines, pad, splitTitle } from '@/components/editorial/copy';
 import { projects } from '@/lib/projects';
 import { getPhoto } from '@/lib/photos';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/projects/' },
+export const metadata: Metadata = pageMetadata({
+  path: '/projects/',
   title: 'Projects',
   description:
     'Selected projects by Costin-Alexandru Deonise: AlgoTrack, AtlasRAG, a multi-GPU JAX implementation of STDE, AlphaZ FRC robotics, and anti-money-laundering detection.',
-};
+  ogType: 'website',
+});
 
 /*
  * Composition: an ink page. Each project is a spread with the title and a

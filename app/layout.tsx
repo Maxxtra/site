@@ -106,7 +106,9 @@ const person = {
   givenName: 'Costin-Alexandru',
   familyName: 'Deonise',
   url: `${siteConfig.url}/`,
-  mainEntityOfPage: { '@id': WEBSITE_ID },
+  // No mainEntityOfPage here: the page that describes this person is the
+  // ProfilePage on /about/, and that page points at this entity instead
+  // (ProfilePage.mainEntity -> #person), which is the cleaner direction.
   image: `${siteConfig.url}${siteConfig.portrait}`,
   description: siteConfig.positioning,
   email: `mailto:${siteConfig.email}`,

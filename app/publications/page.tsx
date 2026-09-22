@@ -1,15 +1,17 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Copy, Lines, pad } from '@/components/editorial/copy';
 import { publications } from '@/lib/publications';
 import { siteConfig } from '@/lib/site-config';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/publications/' },
+export const metadata: Metadata = pageMetadata({
+  path: '/publications/',
   title: 'Publications',
   description:
     'Publications by Costin-Alexandru Deonise on scalable automatic differentiation, privacy-preserving machine learning, LLM systems, and speech processing.',
-};
+  ogType: 'website',
+});
 
 const sorted = [...publications].sort((a, b) => b.year - a.year);
 const years = [...new Set(sorted.map((p) => p.year))];

@@ -13,7 +13,9 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
  *
  *   [data-hero]            pinned hero; receives --hp (0..1) as it scrolls out
  *   [data-marquee="±n"]    horizontal drift, scrubbed to scroll
- *   [data-rise]            lines/blocks that rise into place once
+ *   [data-rise]            lines/blocks that rise into place once (transform
+ *                          only: text is never faded or hidden, so a crawler
+ *                          or a reader whose trigger never fires still sees it)
  *   [data-drift="n"]       photos that travel n% slower than the page
  *
  * Everything here is enhancement. With JS off, or prefers-reduced-motion set,
@@ -55,16 +57,26 @@ export function EditorialMotion({ children }: { children: React.ReactNode }) {
           );
         });
 
+        // Transform only. autoAlpha (opacity + visibility) used to leave
+        // semantic text invisible until a ScrollTrigger fired — and on the
+        // homepage, whose hero is sized in svh, those triggers sit below even
+        // a very tall render viewport, so the copy stayed hidden for crawlers.
+        // The rise reads the same; nothing is ever unreadable.
         gsap.utils.toArray<HTMLElement>('[data-rise]').forEach((el) => {
           gsap.from(el, {
-            yPercent: 0,
             y: 44,
-            autoAlpha: 0,
             duration: 1.1,
             ease: 'expo.out',
-            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+            scrollTrigger: { trigger: el, start: 'top 95%', once: true },
           });
         });
+
+        // Anything already in view settles on the first refresh; re-measure
+        // once the webfonts have changed the layout under us.
+        ScrollTrigger.refresh();
+        if (document.fonts?.status !== 'loaded') {
+          document.fonts?.ready.then(() => ScrollTrigger.refresh()).catch(() => {});
+        }
 
         gsap.utils.toArray<HTMLElement>('[data-drift]').forEach((el) => {
           const amount = Number(el.dataset.drift) || 8;

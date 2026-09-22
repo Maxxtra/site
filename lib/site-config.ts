@@ -14,6 +14,13 @@ export const siteConfig = {
     'Deonise Costin Alexandru',
   ],
   tagline: 'AI & Distributed Systems Researcher / Engineer',
+  /**
+   * Homepage meta description. Names the canonical form and the short form
+   * once each, in one sentence, so a search engine resolving either string
+   * lands on the same person. The rest is the current positioning.
+   */
+  identityDescription:
+    'Costin-Alexandru Deonise, also known as Alex Deonise — Doctoral Researcher at POLITEHNICA Bucharest, CTO at Qflex Technologies, and coach of Romania’s AI Olympiad team.',
   positioning:
     'Doctoral Researcher at POLITEHNICA Bucharest, CTO building production AI systems, and Deputy Leader & National Team Coach for Romania’s AI Olympiad (IOAI) delegation.',
   url: 'https://costinalexandru.deonise.ro',

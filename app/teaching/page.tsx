@@ -1,16 +1,18 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Plate } from '@/components/editorial/plate';
 import { Copy, pad } from '@/components/editorial/copy';
 import { teaching } from '@/lib/teaching';
 import { getPhoto } from '@/lib/photos';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/teaching/' },
+export const metadata: Metadata = pageMetadata({
+  path: '/teaching/',
   title: 'Teaching & Olympiads',
   description:
     "Costin-Alexandru Deonise's teaching and mentorship work: Associate Lecturer at POLITEHNICA Bucharest, Deputy Leader and National Team Coach for Romania's IOAI delegation, and Olympiad committee service.",
-};
+  ogType: 'website',
+});
 
 const highlighted = teaching.filter((t) => t.highlight);
 const committees = teaching.filter((t) => !t.highlight);

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Plate } from '@/components/editorial/plate';
 import { VideoPlate } from '@/components/editorial/video-plate';
@@ -13,12 +14,13 @@ import {
 } from '@/lib/awards';
 import { getPhoto } from '@/lib/photos';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/awards/' },
+export const metadata: Metadata = pageMetadata({
+  path: '/awards/',
   title: 'Awards',
   description:
     'Scholarships, research paper awards, and competition results for Costin-Alexandru Deonise, including the Adobe Systems Romania Scholarship and Best Scientific Paper Award at POLITEHNICA Bucharest.',
-};
+  ogType: 'website',
+});
 
 /** "Title · Qualifier" in the data renders as title plus a lighter qualifier. */
 function Split({ title }: { title: string }) {

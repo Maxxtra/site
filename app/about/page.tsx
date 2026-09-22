@@ -1,17 +1,20 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Plate } from '@/components/editorial/plate';
 import { Copy } from '@/components/editorial/copy';
 import { siteConfig } from '@/lib/site-config';
 import { getPhoto } from '@/lib/photos';
+import { siteConfig as site } from '@/lib/site-config';
 import { doctorate } from '@/lib/doctorate';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/about/' },
+export const metadata: Metadata = pageMetadata({
+  path: '/about/',
   title: 'About',
   description:
     'About Costin-Alexandru Deonise: background, education, and contact details, with a downloadable CV.',
-};
+  ogType: 'profile',
+});
 
 const contacts = [
   { label: 'Download CV', href: '/Costin-Alexandru-Deonise-CV.pdf', note: 'PDF' },
@@ -29,6 +32,21 @@ const contacts = [
  * them. The biography opens with one large didone paragraph and continues as
  * running text. The graduation photograph bleeds right; contact closes.
  */
+/**
+ * This page is the person's profile page, so it says so. The Person entity
+ * itself stays defined once, in the root layout, under the site-wide
+ * `#person` id; this only points at it.
+ */
+const profilePage = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  '@id': `${site.url}/about/#profile`,
+  url: `${site.url}/about/`,
+  name: `About ${site.name}`,
+  isPartOf: { '@id': `${site.url}/#website` },
+  mainEntity: { '@id': `${site.url}/#person` },
+};
+
 export default function AboutPage() {
   const portrait = getPhoto('costin-portrait');
   const capri = getPhoto('costin-capri');
@@ -36,6 +54,10 @@ export default function AboutPage() {
 
   return (
     <main className="editorial page about">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePage) }}
+      />
       <EditorialMotion>
         <section className="page-section" data-nav-theme="light">
           <div className="lines" aria-hidden="true">

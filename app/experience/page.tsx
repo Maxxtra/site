@@ -1,14 +1,16 @@
 import type { Metadata } from 'next';
+import { pageMetadata } from '@/lib/seo';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Copy, pad } from '@/components/editorial/copy';
 import { experience } from '@/lib/experience';
 
-export const metadata: Metadata = {
-  alternates: { canonical: '/experience/' },
+export const metadata: Metadata = pageMetadata({
+  path: '/experience/',
   title: 'Experience',
   description:
     "Costin-Alexandru Deonise's work history: Chief Technology Officer at Qflex Technologies, AI engineering at the Research Institute and Bitdefender, and teaching at POLITEHNICA Bucharest.",
-};
+  ogType: 'website',
+});
 
 /*
  * Composition: a ledger of roles, newest first. Dates and place sit in the
