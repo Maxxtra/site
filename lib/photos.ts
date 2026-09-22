@@ -4,10 +4,18 @@ export type Photo = {
   id: string;
   src: string;
   alt: string;
+  /** What is happening. One line. */
   caption: string;
+  /** Where / when, shown as a second caption line where the layout has room. */
+  detail?: string;
   date?: string;
   category: PhotoCategory;
   orientation: 'landscape' | 'portrait' | 'square';
+  /** Intrinsic pixel size of the file. Lets layouts reserve space (no layout shift). */
+  width?: number;
+  height?: number;
+  /** Transparent-background version, built by scripts/make-portrait-cutout.py. */
+  cutoutSrc?: string;
   featured?: boolean;
   /** false = context is not independently confirmed; caption is intentionally neutral. */
   verified: boolean;
@@ -19,8 +27,11 @@ export const photos: Photo[] = [
   {
     id: 'ioai-astana-2026-team',
     src: '/media/olympiads/ioai-astana-2026-team.jpg',
+    width: 1900,
+    height: 1425,
     alt: "Team Romania at IOAI Astana 2026, holding the Romanian flag, wearing medals",
-    caption: 'Team Romania, International Olympiad in AI · Astana, 2026',
+    caption: 'Team Romania, 8/8 medals',
+    detail: 'International Olympiad in AI, Astana, 2026',
     date: '2026',
     category: 'olympiads',
     orientation: 'landscape',
@@ -30,31 +41,40 @@ export const photos: Photo[] = [
   {
     id: 'onia-national-camp-timisoara-1',
     src: '/media/olympiads/onia-national-camp-timisoara-1.jpg',
+    width: 1900,
+    height: 1425,
     alt: 'Presenting "Contemporary Methods in Artificial Intelligence Systems" at the National Team Camp',
-    caption: 'National Team Camp, Timișoara · 2026',
+    caption: 'Presenting “Contemporary Methods in AI Systems”',
+    detail: 'National Team Camp, Timișoara, 2026',
     date: '2026',
     category: 'olympiads',
-    orientation: 'portrait',
+    orientation: 'landscape',
     featured: true,
     verified: true,
   },
   {
     id: 'onia-national-camp-timisoara-2',
     src: '/media/olympiads/onia-national-camp-timisoara-2.jpg',
+    width: 1900,
+    height: 1425,
     alt: 'Presenting "NLP Fundamentals" at the National Team Camp',
-    caption: 'National Team Camp, Timișoara · 2026',
+    caption: 'Presenting “NLP Fundamentals”',
+    detail: 'National Team Camp, Timișoara, 2026',
     date: '2026',
     category: 'olympiads',
-    orientation: 'portrait',
+    orientation: 'landscape',
     verified: true,
   },
   {
     id: 'alphaz-trophy',
     src: '/media/robotics/alphaz-trophy.jpg',
+    width: 1068,
+    height: 1900,
     // Ankara Regional per the account holder; award independently verified via the
     // official FIRST Inspires results page (frc-events.firstinspires.org/2026/tuak/awards).
     alt: 'Holding the Rookie All-Star award and trophy behind Team AlphaZ robot #11141, draped in the Romanian flag',
-    caption: 'Team AlphaZ · Ankara Regional, FIRST Robotics Competition, 2026 (Rookie All-Star Award)',
+    caption: 'Team AlphaZ, Rookie All-Star Award',
+    detail: 'Ankara Regional, FIRST Robotics Competition, 2026',
     date: '2026',
     category: 'robotics',
     orientation: 'portrait',
@@ -64,8 +84,11 @@ export const photos: Photo[] = [
   {
     id: 'graduation-diploma',
     src: '/media/university/graduation-diploma.jpg',
+    width: 1800,
+    height: 1199,
     alt: 'Receiving a diploma on stage, wearing a Faculty of Automatic Control and Computers graduation sash',
-    caption: 'Graduation, Faculty of Automatic Control and Computers · Class of 2024',
+    caption: 'Receiving the diploma',
+    detail: 'Faculty of Automatic Control and Computers, POLITEHNICA Bucharest, 2024',
     date: '2024',
     category: 'university',
     orientation: 'landscape',
@@ -75,6 +98,8 @@ export const photos: Photo[] = [
   {
     id: 'graduation-ceremony-crowd',
     src: '/media/university/graduation-ceremony-crowd.jpg',
+    width: 1800,
+    height: 1199,
     alt: 'Graduating class in caps and gowns at the POLITEHNICA Bucharest graduation ceremony',
     caption: 'Graduation ceremony, Faculty of Automatic Control and Computers, POLITEHNICA Bucharest',
     date: '2024',
@@ -85,18 +110,25 @@ export const photos: Photo[] = [
   {
     id: 'conference-session',
     src: '/media/research/conference-session.jpg',
-    // Specific event/venue not confirmed by the account holder · kept intentionally
-    // neutral. Update this one field once the event is identified; nothing else
-    // needs to change.
-    alt: 'Speaking with a microphone during a technical session',
-    caption: 'Speaking at a technical session',
+    width: 1600,
+    height: 868,
+    // Event and year confirmed by the account holder (Sept 2026).
+    alt: 'Speaking with a microphone from the audience at the Oxford Machine Learning Summer School, 2025',
+    caption: 'Oxford Machine Learning Summer School',
+    detail: 'University of Oxford, 2025',
+    date: '2025',
     category: 'research',
     orientation: 'landscape',
-    verified: false,
+    verified: true,
   },
   {
     id: 'costin-portrait',
     src: '/media/portraits/costin-portrait.jpg',
+    width: 1200,
+    height: 1200,
+    // Graded derivative (scripts/grade-portrait.py). The ungraded matte stays in
+    // the repo as costin-portrait-cutout.webp; point this back at it to revert.
+    cutoutSrc: '/media/portraits/costin-portrait-cutout-graded.webp',
     alt: 'Portrait of Costin-Alexandru Deonise',
     caption: 'Costin-Alexandru Deonise',
     category: 'portraits',
@@ -106,6 +138,8 @@ export const photos: Photo[] = [
   {
     id: 'costin-capri',
     src: '/media/portraits/costin-capri.jpg',
+    width: 1400,
+    height: 1400,
     alt: 'Walking along the harbor in Capri, Italy',
     caption: 'Capri, Italy',
     category: 'portraits',
@@ -115,6 +149,8 @@ export const photos: Photo[] = [
   {
     id: 'ioai-2026-observer-certificate',
     src: '/media/olympiads/ioai-2026-observer-certificate.jpg',
+    width: 1400,
+    height: 989,
     alt: 'IOAI Astana 2026 Certificate of Participation, listing Costin-Alexandru Deonise as an Observer for Romania',
     caption: 'Certificate of Participation · IOAI 2026, Astana, Kazakhstan',
     date: '2026',
@@ -125,6 +161,8 @@ export const photos: Photo[] = [
   {
     id: 'onia-2026-committee-diploma',
     src: '/media/olympiads/onia-2026-committee-diploma.jpg',
+    width: 1400,
+    height: 989,
     alt: 'ONIA diploma recognizing committee contribution to the national stage, 17–20 April 2026',
     caption: 'National AI Olympiad (ONIA) · Central Committee, national stage, 17–20 April 2026',
     date: '2026',
@@ -135,6 +173,8 @@ export const photos: Photo[] = [
   {
     id: 'onia-timisoara-camp-diploma',
     src: '/media/olympiads/onia-timisoara-camp-diploma.jpg',
+    width: 1400,
+    height: 989,
     alt: 'ONIA diploma recognizing committee contribution to the extended national-team camp in Timișoara, 21–25 May 2026',
     caption: 'National AI Olympiad (ONIA) · extended team selection & training camp, Timișoara, 21–25 May 2026',
     date: '2026',
@@ -145,6 +185,8 @@ export const photos: Photo[] = [
   {
     id: 'infoed-2026-committee-diploma',
     src: '/media/olympiads/infoed-2026-committee-diploma.jpg',
+    width: 1400,
+    height: 989,
     alt: 'Diploma recognizing Central Committee membership at the Digital Innovation and Creation Olympiad national stage, Focșani, 28–31 July 2026',
     caption: 'Digital Innovation and Creation Olympiad (InfoEd) · Central Committee, national stage, Focșani, 28–31 July 2026',
     date: '2026',
@@ -155,6 +197,8 @@ export const photos: Photo[] = [
   {
     id: 'onia-problem-276',
     src: '/media/olympiads/onia-problem-276-arhiva-contradictiilor.jpg',
+    width: 1400,
+    height: 760,
     alt: 'ONIA competition platform page for problem 276, "Arhiva contradicțiilor," authored by Costin-Alexandru Deonise',
     caption: 'Authored competition problem · National AI Olympiad platform',
     category: 'olympiads',
@@ -162,8 +206,23 @@ export const photos: Photo[] = [
     verified: true,
   },
   {
+    id: 'scss-2025-impact-prize',
+    src: '/media/awards/scss-2025-impact-prize.jpg',
+    width: 1400,
+    height: 989,
+    alt: 'Diploma for the Most Impactful Scientific Paper Award, Engineering Domain, SCSS 2025, POLITEHNICA Bucharest',
+    caption: 'Most Impactful Scientific Paper Award',
+    detail: 'Engineering Domain, POLITEHNICA Bucharest, 2025',
+    date: '2025',
+    category: 'awards',
+    orientation: 'landscape',
+    verified: true,
+  },
+  {
     id: 'neurips-2023-certificate',
     src: '/media/research/neurips-2023-certificate.jpg',
+    width: 1400,
+    height: 1082,
     alt: 'NeurIPS 2023 Certificate of Attendance for Costin-Alexandru Deonise, New Orleans',
     caption: 'Certificate of Attendance · NeurIPS 2023, New Orleans',
     date: '2023',

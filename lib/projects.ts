@@ -76,7 +76,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'aml-detection',
-    title: 'Anti Money Laundering Detection',
+    title: 'Anti-Money Laundering Detection',
     period: 'Mar 2024',
     summary:
       'A production-oriented anomaly-detection system for transaction monitoring, trained on 32M+ transactions.',

@@ -1,11 +1,42 @@
 import type { Metadata } from 'next';
+import { Archivo, Bodoni_Moda, Geist_Mono } from 'next/font/google';
 import { SiteFooter } from '@/components/site-footer';
-import { SiteLoader } from '@/components/site-loader';
 import { SiteNav } from '@/components/site-nav';
 import { siteConfig, sameAsProfiles } from '@/lib/site-config';
 import { featuredAwards } from '@/lib/awards';
 import { researchDirections } from '@/lib/research';
 import './globals.css';
+import './editorial.css';
+
+// Self-hosted at build time by next/font: no runtime request to Google, no
+// layout shift (size-adjusted fallbacks), and every family named in
+// globals.css is one that is actually loaded.
+//
+// `subsets` only controls what is *preloaded*. The latin-ext faces (ș, ț, ă…)
+// still ship and load on demand via unicode-range, so preloading stays at the
+// three files the first screen needs and the portrait keeps its bandwidth.
+const grotesk = Archivo({
+  subsets: ['latin'],
+  axes: ['wdth'],
+  display: 'swap',
+  variable: '--ff-grotesk',
+});
+
+const serif = Bodoni_Moda({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  axes: ['opsz'],
+  display: 'swap',
+  variable: '--ff-serif',
+});
+
+const mono = Geist_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+  preload: false,
+  variable: '--ff-mono',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -79,7 +110,7 @@ const person = {
   image: `${siteConfig.url}${siteConfig.portrait}`,
   description: siteConfig.positioning,
   email: `mailto:${siteConfig.email}`,
-  jobTitle: ['Chief Technology Officer', 'Associate Lecturer', 'AI & Distributed Systems Researcher'],
+  jobTitle: ['Doctoral Researcher', 'Chief Technology Officer', 'Associate Lecturer', 'AI & Distributed Systems Researcher'],
   worksFor: [
     { '@type': 'Organization', name: 'Qflex Technologies' },
     { ...upb },
@@ -128,7 +159,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${grotesk.variable} ${serif.variable} ${mono.variable}`}>
       <head>
         {/* Emitted into the static HTML at build time, so crawlers see it
             without executing JavaScript. */}
@@ -138,7 +169,6 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <SiteLoader />
         <SiteNav />
         {children}
         <SiteFooter />

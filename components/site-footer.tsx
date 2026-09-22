@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { siteConfig } from '@/lib/site-config';
 
 const contactLinks = [
@@ -7,34 +8,72 @@ const contactLinks = [
   { label: 'Google Scholar', href: siteConfig.scholar },
 ];
 
+const pages = [
+  { label: 'Research', href: '/research' },
+  { label: 'Publications', href: '/publications' },
+  { label: 'Experience', href: '/experience' },
+  { label: 'Teaching', href: '/teaching' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Awards', href: '/awards' },
+  { label: 'Media', href: '/media' },
+  { label: 'About', href: '/about' },
+];
+
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-black px-6 pt-16 pb-32 text-white md:px-10 md:pb-40 lg:px-16">
-      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1fr_1.2fr] md:items-end">
+    <footer className="footer" data-nav-theme="dark">
+      <div className="footer-contours" aria-hidden="true" />
+
+      <div className="footer-lead">
+        <p className="footer-key">Get in touch</p>
+        <h2 className="footer-title">
+          Let&rsquo;s <em>talk.</em>
+        </h2>
+        <p className="footer-text">
+          Open to research collaboration, technical advising, and speaking on AI systems, distributed computing, and
+          Olympiad-level AI education.
+        </p>
+        <a href={`mailto:${siteConfig.email}`} className="footer-cta">
+          {siteConfig.email}{' '}
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <div className="footer-columns">
+        <nav aria-label="Footer pages">
+          <p className="footer-key">Pages</p>
+          <ul>
+            {pages.map((page) => (
+              <li key={page.href}>
+                <Link href={page.href}>{page.label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <div>
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.22em] text-primary">Get in touch</p>
-          <h2 className="text-4xl font-black uppercase tracking-normal md:text-5xl">Let&rsquo;s talk.</h2>
-          <p className="mt-4 max-w-md leading-7 text-white/60">
-            Open to research collaboration, technical advising, and speaking on AI systems, distributed
-            computing, and Olympiad-level AI education.
-          </p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {contactLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.href.startsWith('http') ? '_blank' : undefined}
-              rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
-              className="border border-white/20 px-4 py-4 text-sm font-bold uppercase tracking-[0.14em] text-white/75 transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
-            >
-              {link.label}
-            </a>
-          ))}
+          <p className="footer-key">Elsewhere</p>
+          <ul>
+            {contactLinks.map((link) => (
+              <li key={link.label}>
+                <a
+                  href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
+                  rel={link.href.startsWith('http') ? 'noreferrer' : undefined}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href="/Costin-Alexandru-Deonise-CV.pdf">CV</a>
+            </li>
+          </ul>
         </div>
       </div>
-      <p className="mx-auto mt-16 max-w-7xl text-xs uppercase tracking-[0.18em] text-white/30">
-        © {new Date().getFullYear()} {siteConfig.name}
+
+      <p className="footer-legal">
+        © {new Date().getFullYear()} {siteConfig.name}{' '}
+        <span>Bucharest, RO</span>
       </p>
     </footer>
   );
