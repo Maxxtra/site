@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 const highlights = [
   { title: 'Chief Technology Officer', description: 'Leading AI system delivery for enterprise clients at Qflex Technologies.' },
-  { title: 'PhD-track Researcher', description: 'Parallel & Distributed Computer Systems, POLITEHNICA Bucharest.' },
+  { title: 'Doctoral Researcher', description: 'Parallel & Distributed Computer Systems, POLITEHNICA Bucharest.' },
   { title: 'Deputy Leader & Coach, IOAI', description: "Led Romania's AI Olympiad delegation to a 4th-place worldwide finish in 2026." },
   { title: '6 Publications', description: 'On scalable differentiation, privacy-preserving ML, and LLM systems.' },
   { title: 'Associate Lecturer', description: 'Labs and seminars for 1000+ students at POLITEHNICA Bucharest since 2022.' },
@@ -46,7 +46,7 @@ const awardCount =
 const index = [
   { href: '/research', label: 'Research', count: researchDirections.length, description: 'Scalable differentiation, privacy-preserving ML, and LLM systems.' },
   { href: '/publications', label: 'Publications', count: publications.length, description: 'Six papers across journals, conferences, and a student scientific session.' },
-  { href: '/experience', label: 'Experience', count: experience.length, description: 'From ML internships to Chief Technology Officer.' },
+  { href: '/experience', label: 'Experience', count: experience.length, description: 'From a software engineering internship to Chief Technology Officer.' },
   { href: '/teaching', label: 'Teaching', count: teaching.length, description: "Lecturing at POLITEHNICA and coaching Team Romania's AI Olympiad squad." },
   { href: '/projects', label: 'Projects', count: projects.length, description: 'AlgoTrack, AtlasRAG, distributed STDE, and AlphaZ robotics.' },
   { href: '/awards', label: 'Awards', count: awardCount, description: 'Scholarships, paper awards, and competition results.' },
@@ -106,7 +106,7 @@ export default function Home() {
                 <i>01</i> Current
               </span>
               <p>
-                PhD-track Researcher{' '}
+                Doctoral Researcher{' '}
                 <br />
                 <span className="module-dim">POLITEHNICA Bucharest</span>
               </p>
@@ -290,7 +290,7 @@ export default function Home() {
               <p data-rise>
                 <Copy text="Built production RAG, knowledge-graph extraction, and speech pipelines at the Research Institute and Bitdefender." />
               </p>
-              <p data-rise>Built AlgoTrack end to end, a tutoring platform deployed and in daily use.</p>
+              <p data-rise>Built AlgoTrack end to end, a tutoring platform deployed and actively used in production.</p>
             </div>
           </article>
 

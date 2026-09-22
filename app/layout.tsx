@@ -110,7 +110,7 @@ const person = {
   image: `${siteConfig.url}${siteConfig.portrait}`,
   description: siteConfig.positioning,
   email: `mailto:${siteConfig.email}`,
-  jobTitle: ['Chief Technology Officer', 'Associate Lecturer', 'AI & Distributed Systems Researcher'],
+  jobTitle: ['Doctoral Researcher', 'Chief Technology Officer', 'Associate Lecturer', 'AI & Distributed Systems Researcher'],
   worksFor: [
     { '@type': 'Organization', name: 'Qflex Technologies' },
     { ...upb },

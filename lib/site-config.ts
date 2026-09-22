@@ -15,7 +15,7 @@ export const siteConfig = {
   ],
   tagline: 'AI & Distributed Systems Researcher / Engineer',
   positioning:
-    'PhD-track researcher at POLITEHNICA Bucharest, CTO building production AI systems, and Deputy Leader & National Team Coach for Romania’s AI Olympiad (IOAI) delegation.',
+    'Doctoral Researcher at POLITEHNICA Bucharest, CTO building production AI systems, and Deputy Leader & National Team Coach for Romania’s AI Olympiad (IOAI) delegation.',
   url: 'https://costinalexandru.deonise.ro',
   email: 'deonisealex@gmail.com',
 

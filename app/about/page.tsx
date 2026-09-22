@@ -47,7 +47,7 @@ export default function AboutPage() {
               Costin-Alexandru <em>Deonise</em>
             </h1>
             <p className="page-lede" data-rise>
-              PhD-track researcher at POLITEHNICA Bucharest, CTO at Qflex Technologies, and Deputy Leader and National
+              Doctoral Researcher at POLITEHNICA Bucharest, CTO at Qflex Technologies, and Deputy Leader and National
               Team Coach of Romania&rsquo;s AI Olympiad delegation.
             </p>
 
@@ -79,8 +79,8 @@ export default function AboutPage() {
               <p data-rise>
                 I&rsquo;m also an Associate Lecturer at the University POLITEHNICA of Bucharest, where I&rsquo;ve led
                 labs and seminars for 1000+ students since 2022. After my Master&rsquo;s in Parallel and Distributed
-                Computer Systems (2024&ndash;2026), I was admitted to the PhD program there with a scholarship, with an
-                admission average of 10/10, the fifth-highest among the candidates admitted with a scholarship.
+                Computer Systems (2024&ndash;2026), I was admitted to the doctoral program there with a scholarship and a
+                10/10 admission average.
               </p>
               <p data-rise>
                 <Copy text="My research spans scalable automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding. That work spans roles at the Research Institute and Bitdefender, and is published across six papers. In 2025 I attended the Oxford Machine Learning School at the University of Oxford." />
