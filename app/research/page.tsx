@@ -13,6 +13,9 @@ export const metadata: Metadata = {
     'Research directions pursued by Costin-Alexandru Deonise: scalable high-order automatic differentiation, privacy-preserving machine learning, and LLM systems for structured language understanding.',
 };
 
+/** Short link labels for related projects whose full title is a sentence. */
+const projectLabel: Record<string, string> = { 'stde-multi-gpu-jax': 'Multi-GPU STDE' };
+
 /*
  * Composition: an opening statement, then one spread per direction. The title
  * and its status sit on one side, the argument (problem, approach, result)
@@ -27,17 +30,16 @@ export default function ResearchPage() {
           <div className="lines" aria-hidden="true">
             <div className="contours" />
           </div>
-          <header className="page-head">
+          <header className="page-head page-head--index">
             <p className="eyebrow">Research</p>
+            <p className="page-tally">
+              {pad(researchDirections.length)} directions
+            </p>
             <h1 className="display" data-rise>
               Scalable differentiation, <em>private</em> inference, and structured language.
             </h1>
             <p className="page-lede" data-rise>
               <Copy text="Parallel and Distributed Computer Systems research at POLITEHNICA Bucharest, applied AI engineering at the Research Institute, and production ML at Bitdefender. Four directions, spanning published results and ongoing work." />
-            </p>
-            <p className="page-count">
-              <b>{pad(researchDirections.length)}</b>
-              directions
             </p>
           </header>
 
@@ -53,10 +55,10 @@ export default function ResearchPage() {
               <article key={dir.slug} id={dir.slug} className="page-grid direction">
                 <div className="direction-head">
                   <p className="direction-tags meta">
-                    <span className="ledger-index">{pad(i + 1)}</span>
+                    <span className="ledger-index">{pad(i + 1)}</span>{' '}
                     <span className={dir.status === 'published' ? 'status--published' : undefined}>
                       {dir.status === 'published' ? 'Published' : 'Ongoing'}
-                    </span>
+                    </span>{' '}
                     <span>{dir.period}</span>
                   </p>
                   <h2 className="direction-title" data-rise>
@@ -90,14 +92,15 @@ export default function ResearchPage() {
                       {related.map((pub) => (
                         <li key={pub.slug}>
                           <Link href={`/publications#${pub.slug}`} className="mono-link">
-                            {pub.venue.replace(/ \(.*\)$/, '')} {pub.year} <span aria-hidden="true">↗</span>
+                            {pub.venue.includes(String(pub.year)) ? pub.venue : `${pub.venue} ${pub.year}`}{' '}
+                            <span aria-hidden="true">↗</span>
                           </Link>
                         </li>
                       ))}
                       {relatedProjects.map((project) => (
                         <li key={project.slug}>
                           <Link href={`/projects#${project.slug}`} className="mono-link mono-link--quiet">
-                            Project <span aria-hidden="true">↗</span>
+                            {projectLabel[project.slug] ?? project.title} <span aria-hidden="true">↗</span>
                           </Link>
                         </li>
                       ))}

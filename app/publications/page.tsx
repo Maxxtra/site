@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { EditorialMotion } from '@/components/editorial/motion';
-import { Copy, pad } from '@/components/editorial/copy';
+import { Copy, Lines, pad } from '@/components/editorial/copy';
 import { publications } from '@/lib/publications';
 import { siteConfig } from '@/lib/site-config';
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/publications/' },
   title: 'Publications',
   description:
-    'Peer-reviewed publications by Costin-Alexandru Deonise on scalable automatic differentiation, privacy-preserving machine learning, LLM systems, and speech processing.',
+    'Publications by Costin-Alexandru Deonise on scalable automatic differentiation, privacy-preserving machine learning, LLM systems, and speech processing.',
 };
 
 const sorted = [...publications].sort((a, b) => b.year - a.year);
@@ -44,17 +44,14 @@ export default function PublicationsPage() {
           <div className="lines" aria-hidden="true">
             <div className="contours" />
           </div>
-          <header className="page-head">
+          <header className="page-head page-head--index">
             <p className="eyebrow">Publications</p>
+            <p className="page-tally">{pad(publications.length)} papers</p>
             <h1 className="display" data-rise>
-              Peer-reviewed work on differentiation, privacy, and <em>language</em> systems.
+              Papers on differentiation, privacy, and <em>language</em> systems.
             </h1>
             <p className="page-lede" data-rise>
               <Copy text="Six publications spanning scalable automatic differentiation, privacy-preserving machine learning, LLM-based language systems, and speech processing, listed newest first." />
-            </p>
-            <p className="page-count">
-              <b>{pad(publications.length)}</b>
-              papers
             </p>
           </header>
 
@@ -79,13 +76,11 @@ export default function PublicationsPage() {
                               <p className="ledger-index">{pad(indexOf(pub.slug))}</p>
                               {pub.awards && pub.awards.length > 0 && (
                                 <p className="work-awards">
-                                  {pub.awards.map((award) => (
-                                    <span key={award}>{award}</span>
-                                  ))}
+                                  <Lines parts={pub.awards} />
                                 </p>
                               )}
                               <p className="meta">
-                                {pub.venue}
+                                {pub.venue}{' '}
                                 <br />
                                 {pub.date ?? pub.year}
                               </p>

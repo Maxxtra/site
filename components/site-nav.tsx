@@ -117,13 +117,13 @@ export function SiteNav() {
         aria-label={`${siteConfig.name}, home`}
         onClick={() => setOpen(false)}
       >
-        <span className="nav-wordmark-first">Costin-Alexandru</span>
+        <span className="nav-wordmark-first">Costin-Alexandru</span>{' '}
         <span className="nav-wordmark-last">Deonise</span>
       </Link>
 
       <div className="nav-actions">
         <a href={CV} className="nav-cv">
-          CV
+          CV{' '}
           <span aria-hidden="true">↓</span>
         </a>
         <button
@@ -185,7 +185,7 @@ export function SiteNav() {
                   aria-current={pathname === page.href ? 'page' : undefined}
                   onClick={() => setOpen(false)}
                 >
-                  <span className="menu-number">{String(i).padStart(2, '0')}</span>
+                  <span className="menu-number">{String(i).padStart(2, '0')}</span>{' '}
                   {page.label}
                 </Link>
               </li>

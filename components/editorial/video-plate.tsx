@@ -30,7 +30,7 @@ export function VideoPlate({ src, poster, width, height, caption, detail, classN
       )}
       <figcaption>
         {caption}
-        {detail && <span className="plate-detail">{detail}</span>}
+        {detail && <span className="plate-detail"> {detail}</span>}
       </figcaption>
     </figure>
   );

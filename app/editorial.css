@@ -543,6 +543,79 @@
   color: var(--bone);
 }
 
+/* Three heads, one system. All share the eyebrow, the display face, the
+   gutter and the contour ground; they differ in scale and in what else is
+   allowed into the first screen.
+
+   Statement (Experience, Teaching): the base rules above. A short title set
+   large, the lede hanging from column 4, the count in the margin.
+   Index (Research, Publications, Projects, Awards): a compact title, the lede
+   beside it, a small tally on the eyebrow row; the page's own content begins
+   inside the first viewport.
+   Image (Media, About): a photograph opens the page and the title is set
+   beside it. */
+
+.page-head--statement {
+  padding-bottom: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+
+.page-head--statement .display {
+  max-width: 21ch;
+}
+
+.page-tally {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.page-head--index {
+  row-gap: 1.25rem;
+  padding: clamp(7.5rem, 16svh, 9.5rem) var(--gutter) clamp(2.5rem, 4.5vw, 4.5rem);
+}
+
+.page-head--index .eyebrow {
+  grid-column: 1 / span 8;
+  grid-row: 1;
+}
+
+.page-head--index .page-tally {
+  grid-column: 9 / -1;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.page-head--index .display {
+  grid-column: 1 / span 8;
+  grid-row: 2;
+  max-width: 18ch;
+  font-size: clamp(2.4rem, 4.5vw, 5rem);
+  line-height: 0.92;
+}
+
+.page-head--index .page-lede {
+  grid-column: 9 / -1;
+  grid-row: 2;
+  align-self: end;
+  margin: 0;
+  font-size: clamp(1.125rem, 1.45vw, 1.45rem);
+  line-height: 1.28;
+}
+
+.page-head--image {
+  padding-top: clamp(6.5rem, 13svh, 8rem);
+}
+
+.page-head--image .display {
+  font-size: clamp(2.4rem, 4.2vw, 4.6rem);
+  line-height: 0.92;
+  max-width: none;
+}
+
 /* Section label sitting in the left margin beside a list. */
 .margin-label {
   grid-column: 1 / span 3;
@@ -1245,41 +1318,80 @@
 
 /* ------------------------------------------------------------------- MEDIA */
 
-.press-lead {
-  padding-block: 0 clamp(4rem, 8vw, 8rem);
-  align-items: end;
+.press-head {
+  align-items: start;
+  padding-bottom: clamp(3rem, 6vw, 6rem);
 }
 
-.press-lead .plate {
+.press-head .press-head-plate {
   grid-column: 1 / span 7;
+  grid-row: 1;
   margin-left: calc(-1 * var(--gutter));
 }
 
-.press-lead .plate img {
+.press-head .press-head-plate img {
   aspect-ratio: 4 / 3;
   object-position: 50% 45%;
 }
 
-.press-lead .plate figcaption {
+.press-head .press-head-plate figcaption {
   padding-left: var(--gutter);
 }
 
-.press-lead-text {
-  grid-column: 8 / span 5;
+.press-head-text {
+  grid-column: 8 / -1;
+  grid-row: 1;
   display: grid;
-  gap: 1.25rem;
-  padding-bottom: 2.5rem;
+  gap: 1.5rem;
+  align-content: start;
 }
 
-.press-lead-text h2 {
+.press-head-text .display {
+  grid-column: auto;
+}
+
+.press-lead-story {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.press-lead-story h2 {
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(1.9rem, 3.2vw, 3.4rem);
+  font-size: clamp(1.6rem, 2.3vw, 2.4rem);
   font-weight: 400;
   font-variation-settings: 'opsz' 14;
-  line-height: 1.04;
+  line-height: 1.06;
   letter-spacing: -0.02em;
   text-wrap: balance;
+}
+
+.press-lead-story .prose {
+  font-size: 1.0625rem;
+}
+
+.press-preface {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 0.75rem;
+  margin-bottom: clamp(1.5rem, 3vw, 3rem);
+}
+
+.press-preface .page-tally {
+  grid-column: 1 / span 3;
+  padding-top: 0.35rem;
+  color: var(--accent);
+  opacity: 1;
+}
+
+.press-preface .prose,
+.press-preface .meta {
+  grid-column: 4 / span 7;
 }
 
 .press-list {
@@ -1343,64 +1455,100 @@
   transform: translate3d(0.3rem, -0.3rem, 0);
 }
 
-.press-note {
-  grid-column: 4 / span 6;
-  margin: 0;
-}
-
 /* ------------------------------------------------------------------- ABOUT */
 
-.about-spread {
-  padding-block: 0 clamp(5rem, 10vw, 10rem);
+.about-head .eyebrow,
+.about-head .display,
+.about-head .page-lede {
+  grid-column: 7 / -1;
 }
 
-.about-portrait {
-  grid-column: 1 / span 5;
+.about-head .eyebrow { grid-row: 1; align-self: end; }
+.about-head .display { grid-row: 2; font-size: clamp(2.8rem, 5.4vw, 6rem); }
+.about-head .page-lede { grid-row: 3; margin-top: 0.5rem; font-size: clamp(1.3rem, 1.9vw, 1.95rem); }
+
+/* The two photographs as one composition: the graded cutout (the homepage's
+   own portrait) stands in front of the Capri print, overlapping its corner. */
+.about-prints {
+  grid-column: 1 / span 6;
+  grid-row: 1 / span 4;
+  position: relative;
   display: grid;
-  gap: var(--gutter);
-  align-content: start;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  align-items: start;
 }
 
-.about-portrait .plate--main img {
+.about-cutout {
+  grid-column: 1 / span 4;
+  grid-row: 1;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+.about-cutout img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Same treatment as the hero: the grade is in the asset; the shirt falls
+     away along a curve, and the square's hard bottom edge dissolves. */
+  filter: drop-shadow(0 1.4vw 1.8vw rgb(14 14 12 / 0.12));
+  -webkit-mask-image:
+    radial-gradient(ellipse 53% 74% at 50% 42%, #000 0, #000 70%, rgb(0 0 0 / 0.72) 80%, rgb(0 0 0 / 0.3) 91%, transparent 100%),
+    linear-gradient(to bottom, #000 72%, transparent 97%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    radial-gradient(ellipse 53% 74% at 50% 42%, #000 0, #000 70%, rgb(0 0 0 / 0.72) 80%, rgb(0 0 0 / 0.3) 91%, transparent 100%),
+    linear-gradient(to bottom, #000 72%, transparent 97%);
+  mask-composite: intersect;
+}
+
+.about-print {
+  grid-column: 4 / span 3;
+  grid-row: 1;
+  margin-top: 42%;
+}
+
+.about-print img {
   aspect-ratio: 4 / 5;
-  object-position: 50% 20%;
+  object-position: 50% 55%;
 }
 
-.about-portrait .plate--small {
-  width: 42%;
-  justify-self: end;
-  margin-top: calc(-1 * clamp(2rem, 5vw, 5rem));
-  margin-right: calc(-1 * var(--gutter));
+.about-bio {
+  padding-block: clamp(3rem, 6vw, 6rem) clamp(5rem, 10vw, 10rem);
+  row-gap: clamp(2.5rem, 5vw, 5rem);
 }
 
-.about-portrait .plate--small img {
-  aspect-ratio: 1;
-}
-
-.about-text {
-  grid-column: 7 / span 6;
-  display: grid;
-  gap: 1.5rem;
-}
-
-.about-text p {
+.about-bio-lead {
+  grid-column: 2 / span 9;
   margin: 0;
   font-family: var(--serif);
-  font-size: clamp(1.25rem, 1.75vw, 1.7rem);
+  font-size: clamp(1.7rem, 2.7vw, 2.8rem);
   font-variation-settings: 'opsz' 14;
-  line-height: 1.32;
-  letter-spacing: -0.01em;
+  line-height: 1.14;
+  letter-spacing: -0.015em;
   text-wrap: pretty;
 }
 
-.about-text p:first-child {
-  font-size: clamp(1.55rem, 2.3vw, 2.3rem);
-  line-height: 1.18;
+.about-bio-text {
+  grid-column: 6 / span 6;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.about-bio-text p {
+  margin: 0;
+  max-width: 62ch;
+  font-size: clamp(1.0625rem, 1.2vw, 1.1875rem);
+  line-height: 1.62;
+  opacity: 0.86;
+  text-wrap: pretty;
 }
 
 .about-figure {
   grid-column: 3 / -1;
-  margin-top: clamp(2rem, 5vw, 5rem);
+  margin-top: clamp(1rem, 3vw, 3rem);
   margin-right: calc(-1 * var(--gutter));
 }
 
@@ -1522,6 +1670,21 @@
   .page-head .display,
   .page-lede,
   .page-count,
+  .page-head--index .eyebrow,
+  .page-head--index .page-tally,
+  .page-head--index .display,
+  .page-head--index .page-lede,
+  .press-head .press-head-plate,
+  .press-head-text,
+  .press-preface .page-tally,
+  .press-preface .prose,
+  .press-preface .meta,
+  .about-head .eyebrow,
+  .about-head .display,
+  .about-head .page-lede,
+  .about-prints,
+  .about-bio-lead,
+  .about-bio-text,
   .margin-label,
   .direction-head,
   .direction-body,
@@ -1536,11 +1699,6 @@
   .award-band .display,
   .award-band .prose,
   .award-list,
-  .press-lead .plate,
-  .press-lead-text,
-  .press-note,
-  .about-portrait,
-  .about-text,
   .about-figure,
   .contact .display,
   .contact-list {
@@ -1550,6 +1708,50 @@
 
   .page-lede {
     margin-top: 0.5rem;
+  }
+
+  .page-head--index .page-tally {
+    justify-self: start;
+    grid-row: auto;
+  }
+
+  .page-head--index .page-lede {
+    align-self: start;
+  }
+
+  /* Image heads on a phone: eyebrow and title first, then the photograph,
+     then the rest, so the name is never pushed below a picture. */
+  .press-head-text {
+    display: contents;
+  }
+
+  .press-head > *,
+  .press-head-text > * {
+    grid-column: 1 / -1 !important;
+  }
+
+  .press-head .eyebrow { order: 1; }
+  .press-head .display { order: 2; margin-bottom: 0.5rem; }
+  .press-head .press-head-plate { order: 3; grid-row: auto; margin-inline: calc(-1 * var(--gutter)); }
+  .press-head .press-head-plate figcaption { padding-inline: var(--gutter); }
+  .press-lead-story { order: 4; }
+
+  .about-head .eyebrow { order: 1; }
+  .about-head .display { order: 2; }
+  .about-prints { order: 3; margin-top: 1rem; }
+  .about-head .page-lede { order: 4; }
+  .about-cutout { grid-column: 1 / span 5; }
+  .about-print { grid-column: 4 / -1; margin-top: 58%; }
+
+  /* Interactive and index text: a step up from the desktop micro sizes. */
+  .mono-link {
+    font-size: 0.8125rem;
+  }
+
+  .ledger-index,
+  .work-index,
+  .page-tally {
+    font-size: 0.75rem;
   }
 
   .page-count {
@@ -1657,14 +1859,6 @@
     grid-column: 1;
     grid-row: 2;
     margin-top: 0.8rem;
-  }
-
-  .about-portrait .plate--main {
-    margin-inline: calc(-1 * var(--gutter));
-  }
-
-  .about-portrait .plate--main img {
-    aspect-ratio: 4 / 5;
   }
 
   .about-figure {

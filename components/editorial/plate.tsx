@@ -37,7 +37,7 @@ export function Plate({ photo, className, drift, sizes, priority, caption, detai
       />
       <figcaption>
         {line}
-        {sub && <span className="plate-detail">{sub}</span>}
+        {sub && <span className="plate-detail"> {sub}</span>}
       </figcaption>
     </figure>
   );

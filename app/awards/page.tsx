@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Plate } from '@/components/editorial/plate';
 import { VideoPlate } from '@/components/editorial/video-plate';
-import { Copy, pad } from '@/components/editorial/copy';
+import { Copy, Lines, pad, splitTitle } from '@/components/editorial/copy';
 import {
   featuredAwards,
   scssPlacements,
@@ -19,9 +19,6 @@ export const metadata: Metadata = {
   description:
     'Scholarships, research paper awards, and competition results for Costin-Alexandru Deonise, including the Adobe Systems Romania Scholarship and Best Scientific Paper Award at POLITEHNICA Bucharest.',
 };
-
-const total =
-  featuredAwards.length + scssPlacements.length + internationalPrograms.length + competitionResults.length + roboticsAwards.length;
 
 /** "Title · Qualifier" in the data renders as title plus a lighter qualifier. */
 function Split({ title }: { title: string }) {
@@ -54,7 +51,7 @@ function AwardGroup({ label, note, items, quiet }: { label: string; note?: strin
     <section className={`award-group${quiet ? ' award-group--quiet' : ''}`} aria-label={label}>
       <h2 className="margin-label">
         {label}
-        {note && <small>{note}</small>}
+        {note && <small> {note}</small>}
       </h2>
       <ul className="award-list">
         {items.map((award) => (
@@ -96,17 +93,13 @@ export default function AwardsPage() {
           <div className="lines" aria-hidden="true">
             <div className="contours" />
           </div>
-          <header className="page-head">
+          <header className="page-head page-head--index">
             <p className="eyebrow">Awards</p>
             <h1 className="display" data-rise>
               Scholarships, paper <em>awards,</em> and competition results.
             </h1>
             <p className="page-lede" data-rise>
-              <Copy text="Two research scholarships and two paper prizes at POLITEHNICA Bucharest lead; behind them, four Student Scientific Communication Session placements, five international programs, three FIRST Robotics awards and nine earlier competition results." />
-            </p>
-            <p className="page-count">
-              <b>{pad(total)}</b>
-              entries
+              <Copy text="Two scholarships and two paper prizes at POLITEHNICA Bucharest lead; behind them, four Student Scientific Communication Session placements, five international programs, three FIRST Robotics awards and nine competition results." />
             </p>
           </header>
 
@@ -117,8 +110,7 @@ export default function AwardsPage() {
                   <article className="featured-award" data-rise>
                     <span className="ledger-index">{pad(i + 1)}</span>
                     <h2>
-                      <Copy text={award.title.split(' · ')[0]} />
-                      {award.title.includes(' · ') && <span>{award.title.split(' · ').slice(1).join(' · ')}</span>}
+                      <Lines parts={splitTitle(award.title)} />
                     </h2>
                     <div className="aside">
                       <p className="meta" style={{ opacity: 0.86 }}>
@@ -188,7 +180,7 @@ export default function AwardsPage() {
             <AwardGroup label="FIRST Robotics Competition" note="Team AlphaZ #11141, lead mentor" items={roboticsAwards} />
             <AwardGroup label="Student Scientific Communication Session" note="POLITEHNICA Bucharest" items={scssPlacements} />
             <AwardGroup label="Selected international programs" items={internationalPrograms} />
-            <AwardGroup label="Earlier competition results" note="2017 – 2026" items={competitionResults} quiet />
+            <AwardGroup label="Competition results" items={competitionResults} quiet />
           </div>
         </section>
       </EditorialMotion>

@@ -160,10 +160,26 @@ index. The chrome takes its colour from the section under it: sections declare
 
 ## Inner pages
 
-Every inner page opens the same way (`.page-head`): eyebrow, a display title
-with one italic word, a didone lede hanging from column 4, and a large didone
-count in the margin. Below that, each page has its own composition. Nothing is
-templated across pages; nothing is a card.
+Every inner page opens with one of three heads. They share the eyebrow, the
+display face, the gutter and the contour ground, and differ in scale and in
+what else the first screen holds:
+
+- **Statement** (`.page-head--statement`: Experience, Teaching). A short title
+  set large, the lede hanging from column 4, a large count in the margin.
+- **Index** (`.page-head--index`: Research, Publications, Projects, Awards).
+  A compact title with the lede beside it and a small mono tally on the
+  eyebrow row. The page's own content starts inside the first viewport.
+- **Image** (`.page-head--image`: Media, About). A photograph opens the page
+  and the title is set beside it.
+
+Long titles go in index heads, never in statement heads. Below the head each
+page has its own composition; nothing is templated across pages and nothing is
+a card.
+
+Text that the stylesheet splits across lines ("Title / Qualifier", a caption's
+two lines, a count and its label) keeps a real space in the markup. Use
+`Lines` from `components/editorial/copy.tsx`, or `{' '}` between siblings, so
+textContent, screen readers and copy/paste never run words together.
 
 | Page | Ground | Composition |
 |---|---|---|

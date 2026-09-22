@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Plate } from '@/components/editorial/plate';
-import { Copy, pad } from '@/components/editorial/copy';
+import { Copy, Lines, pad, splitTitle } from '@/components/editorial/copy';
 import { Lattice } from '@/components/home/lattice';
 import { siteConfig } from '@/lib/site-config';
 import { publications } from '@/lib/publications';
@@ -30,14 +30,14 @@ const highlights = [
   { title: 'PhD-track Researcher', description: 'Parallel & Distributed Computer Systems, POLITEHNICA Bucharest.' },
   { title: 'Deputy Leader & Coach, IOAI', description: "Led Romania's AI Olympiad delegation to a 4th-place worldwide finish in 2026." },
   { title: '6 Publications', description: 'On scalable differentiation, privacy-preserving ML, and LLM systems.' },
-  { title: 'Associate Lecturer', description: '1000+ students taught at POLITEHNICA Bucharest since 2022.' },
+  { title: 'Associate Lecturer', description: 'Labs and seminars for 1000+ students at POLITEHNICA Bucharest since 2022.' },
   { title: 'Robotics Mentor', description: 'Lead mentor for AlphaZ FRC #11141, a FIRST World Championship award winner.' },
 ];
 
 const principles = [
   { title: 'Rigor before scale', body: 'Correctness and reproducibility come first. Scaling a wrong result just gets there faster.' },
   { title: 'Publish, then apply', body: 'Research earns its keep when it ships: from PDE solvers to production RAG pipelines.' },
-  { title: 'Explain clearly', body: 'A concept isn’t understood until it survives being taught to 1000 students.' },
+  { title: 'Explain clearly', body: 'A concept isn’t understood until it survives labs and seminars with 1000+ students.' },
 ];
 
 const awardCount =
@@ -45,7 +45,7 @@ const awardCount =
 
 const index = [
   { href: '/research', label: 'Research', count: researchDirections.length, description: 'Scalable differentiation, privacy-preserving ML, and LLM systems.' },
-  { href: '/publications', label: 'Publications', count: publications.length, description: 'Six peer-reviewed papers across journals and conferences.' },
+  { href: '/publications', label: 'Publications', count: publications.length, description: 'Six papers across journals, conferences, and a student scientific session.' },
   { href: '/experience', label: 'Experience', count: experience.length, description: 'From ML internships to Chief Technology Officer.' },
   { href: '/teaching', label: 'Teaching', count: teaching.length, description: "Lecturing at POLITEHNICA and coaching Team Romania's AI Olympiad squad." },
   { href: '/projects', label: 'Projects', count: projects.length, description: 'AlgoTrack, AtlasRAG, distributed STDE, and AlphaZ robotics.' },
@@ -97,7 +97,7 @@ export default function Home() {
             />
 
             <p className="module module--tagline">
-              <span className="module-key">AI &amp; Distributed Systems</span>
+              <span className="module-key">AI &amp; Distributed Systems</span>{' '}
               Researcher / Engineer
             </p>
 
@@ -106,13 +106,13 @@ export default function Home() {
                 <i>01</i> Current
               </span>
               <p>
-                PhD-track Researcher
+                PhD-track Researcher{' '}
                 <br />
                 <span className="module-dim">POLITEHNICA Bucharest</span>
               </p>
               {current.map((role) => (
                 <p key={role.slug}>
-                  {role.role.split(',')[0]}
+                  {role.role.split(',')[0]}{' '}
                   <br />
                   <span className="module-dim">{role.org}</span>
                 </p>
@@ -124,11 +124,14 @@ export default function Home() {
                 <i>02</i> IOAI 2026
               </span>
               <p className="module-figure">
-                4<sup>th</sup>
+                {/* The space sits inside the superscript: at its small size it is
+                    the same width as the old margin, so the figure looks
+                    identical and copies as "4th worldwide". */}
+                4<sup>th </sup>
                 <span className="module-figure-label">worldwide</span>
               </p>
               <p>
-                8/8 medals, Astana
+                8/8 medals, Astana{' '}
                 <br />
                 <span className="module-dim">Deputy Leader &amp; National Team Coach</span>
               </p>
@@ -180,10 +183,10 @@ export default function Home() {
                 </ul>
               </div>
               <Link href={`/publications#${latest.slug}`} className="note note--latest" data-rise>
-                <span className="module-key">Latest</span>
-                <span className="module-title">{latest.title}</span>
+                <span className="module-key">Latest</span>{' '}
+                <span className="module-title">{latest.title}</span>{' '}
                 <span className="module-dim">
-                  {latest.venue}
+                  {latest.venue}{' '}
                   <br />
                   {latest.date ?? latest.year} ↗
                 </span>
@@ -220,19 +223,18 @@ export default function Home() {
             {featured.map((pub, i) => (
               <li key={pub.slug} data-rise>
                 <Link href={`/publications#${pub.slug}`} className="work-row">
-                  <span className="work-index">{pad(i + 1)}</span>
+                  <span className="work-index">{pad(i + 1)}</span>{' '}
                   <div className="work-title">
                     {pub.awards && pub.awards.length > 0 && (
                       <p className="work-awards">
-                        {pub.awards.map((award) => (
-                          <span key={award}>{award}</span>
-                        ))}
+                        <Lines parts={pub.awards} />
                       </p>
                     )}
                     <h3>
                       <Copy text={pub.title} />
                     </h3>
                   </div>
+                  {' '}
                   <span className="work-venue">
                     {pub.venue}, {pub.date ?? pub.year}
                   </span>
@@ -247,13 +249,9 @@ export default function Home() {
           <ul className="honours" aria-label="Featured awards">
             {featuredAwards.slice(0, 4).map((award) => (
               <li key={award.title} data-rise>
-                <span className="honours-year">{award.year}</span>
+                <span className="honours-year">{award.year}</span>{' '}
                 {/* "Title · Qualifier" in the data becomes two lines here. */}
-                {award.title.split(' · ').map((part, j) => (
-                  <span key={part} className={j ? 'honours-qualifier' : undefined}>
-                    <Copy text={part} />
-                  </span>
-                ))}
+                <Lines parts={splitTitle(award.title)} restClassName="honours-qualifier" />
               </li>
             ))}
           </ul>
@@ -277,7 +275,7 @@ export default function Home() {
               Systems <em>that</em> scale
             </h3>
             <p className="chapter-text" data-rise>
-              <Copy text="From distributed high-order differentiation on multi-GPU clusters to privacy-preserving inference: published, peer-reviewed research, not slideware." />
+              <Copy text="From distributed high-order differentiation on multi-GPU clusters to privacy-preserving inference: published research, not slideware." />
             </p>
             <Plate photo={getPhoto('conference-session')} className="plate--a" drift={6} sizes="(min-width: 900px) 34vw, 80vw" />
           </article>
@@ -299,7 +297,7 @@ export default function Home() {
           <article className="chapter chapter--teaching">
             <p className="chapter-key">03 / Teaching</p>
             <h3 className="chapter-title" data-rise>
-              1000+ <em>students</em> taught
+              Labs for 1000+ <em>students</em>
             </h3>
             <p className="chapter-text" data-rise>
               Associate Lecturer at POLITEHNICA Bucharest since 2022, across programming, parallel algorithms, and
@@ -354,12 +352,12 @@ export default function Home() {
             {index.map((page, i) => (
               <li key={page.href}>
                 <Link href={page.href} className="index-row">
-                  <span className="index-number">{pad(i + 1)}</span>
-                  <span className={i % 2 ? 'index-label index-label--serif' : 'index-label'}>{page.label}</span>
+                  <span className="index-number">{pad(i + 1)}</span>{' '}
+                  <span className={i % 2 ? 'index-label index-label--serif' : 'index-label'}>{page.label}</span>{' '}
                   <span className="index-meta">
                     <span className="index-desc">
                       <Copy text={page.description} />
-                    </span>
+                    </span>{' '}
                     {page.count !== undefined && <span className="index-count">{pad(page.count)}</span>}
                   </span>
                 </Link>

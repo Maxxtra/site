@@ -34,7 +34,7 @@ export function SiteFooter() {
           Olympiad-level AI education.
         </p>
         <a href={`mailto:${siteConfig.email}`} className="footer-cta">
-          {siteConfig.email}
+          {siteConfig.email}{' '}
           <span aria-hidden="true">↗</span>
         </a>
       </div>
@@ -72,7 +72,7 @@ export function SiteFooter() {
       </div>
 
       <p className="footer-legal">
-        © {new Date().getFullYear()} {siteConfig.name}
+        © {new Date().getFullYear()} {siteConfig.name}{' '}
         <span>Bucharest, RO</span>
       </p>
     </footer>

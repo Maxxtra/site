@@ -32,7 +32,7 @@ const titles: Record<string, React.ReactNode> = {
   ),
   'upb-associate-lecturer': (
     <>
-      1000+ <em>students</em> taught
+      Labs for 1000+ <em>students</em>
     </>
   ),
   'mlsp-trainer-organizer': (
@@ -42,7 +42,7 @@ const titles: Record<string, React.ReactNode> = {
   ),
   'alphaz-frc-mentor': (
     <>
-      Rookie <em>All-Star,</em> world stage
+      Rookie <em>All-Star,</em> Houston
     </>
   ),
 };
@@ -62,17 +62,16 @@ export default function TeachingPage() {
           <div className="lines" aria-hidden="true">
             <div className="contours" />
           </div>
-          <header className="page-head">
+          <header className="page-head page-head--statement">
             <p className="eyebrow">Teaching &amp; Olympiads</p>
             <h1 className="display" data-rise>
               Education, mentorship, and technical <em>leadership.</em>
             </h1>
             <p className="page-lede" data-rise>
-              <Copy text="1000+ students taught at POLITEHNICA Bucharest, and national-level leadership through Romania's AI Olympiad program, from leading and coaching the IOAI delegation to designing competition tasks." />
+              <Copy text="Labs and seminars for 1000+ students at POLITEHNICA Bucharest, and national-level leadership through Romania's AI Olympiad program, from leading and coaching the IOAI delegation to designing competition tasks." />
             </p>
             <p className="page-count">
-              <b>{pad(teaching.length)}</b>
-              roles
+              <b>{pad(teaching.length)}</b> roles
             </p>
           </header>
           <Plate photo={team} className="bleed" drift={3} sizes="100vw" priority />

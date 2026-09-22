@@ -24,17 +24,16 @@ export default function ExperiencePage() {
           <div className="lines" aria-hidden="true">
             <div className="contours" />
           </div>
-          <header className="page-head">
+          <header className="page-head page-head--statement">
             <p className="eyebrow">Experience</p>
             <h1 className="display" data-rise>
-              From speech ML <em>intern</em> to CTO.
+              From software <em>intern</em> to CTO.
             </h1>
             <p className="page-lede" data-rise>
               <Copy text="Seven roles across production AI, applied research and teaching: Qflex Technologies, the University POLITEHNICA of Bucharest, the Research Institute, Bitdefender and Orion Innovation." />
             </p>
             <p className="page-count">
-              <b>{pad(experience.length)}</b>
-              roles
+              <b>{pad(experience.length)}</b> roles
             </p>
           </header>
 

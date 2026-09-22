@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { EditorialMotion } from '@/components/editorial/motion';
 import { Plate } from '@/components/editorial/plate';
-import { Copy, pad } from '@/components/editorial/copy';
+import { Copy, Lines, pad, splitTitle } from '@/components/editorial/copy';
 import { projects } from '@/lib/projects';
 import { getPhoto } from '@/lib/photos';
 
@@ -27,17 +27,14 @@ export default function ProjectsPage() {
           <div className="lines" aria-hidden="true">
             <div className="contours" />
           </div>
-          <header className="page-head">
+          <header className="page-head page-head--index">
             <p className="eyebrow">Projects</p>
+            <p className="page-tally">{pad(projects.length)} projects</p>
             <h1 className="display" data-rise>
               Selected builds, from production <em>platforms</em> to competition robots.
             </h1>
             <p className="page-lede" data-rise>
-              <Copy text="A tutoring platform in daily use, a multi-GPU differentiation engine, a multimodal retrieval system, a World Championship robot, and a transaction-monitoring model trained on 32 million records." />
-            </p>
-            <p className="page-count">
-              <b>{pad(projects.length)}</b>
-              projects
+              <Copy text="A tutoring platform in production use, a multi-GPU JAX implementation of STDE, a multimodal retrieval system, a rookie FRC robot whose team received the Rookie All-Star Award at the FIRST World Championship, and a transaction-monitoring model trained on 32M+ transactions." />
             </p>
           </header>
 
@@ -56,8 +53,7 @@ export default function ProjectsPage() {
                     {/* "Name · Descriptor" in the data: the name is the title, the
                         descriptor a smaller line beneath it. */}
                     <h2 className="project-title" data-rise>
-                      {project.title.split(' · ')[0]}
-                      {project.title.includes(' · ') && <span>{project.title.split(' · ').slice(1).join(' · ')}</span>}
+                      <Lines parts={splitTitle(project.title)} />
                     </h2>
                     <p className="project-summary" data-rise>
                       <Copy text={project.summary} />
